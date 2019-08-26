@@ -3,4 +3,14 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+    <color name="colourBgAndSelected">#ff1b799e</color>
+    <color name="text_shadow">#7f000000</color>
+    <color name="text_shadow_white">#ffffffff</color>
+    <color name="button_default">#00ffffff</color>
+    <color name="bar_bg">#ffffffff</color>
+    <color name="button_pressed">#49606060</color>
+    <color name="button_focused">#49606060</color>
+    <color name="bg_color">#ffeeeeee</color>
+    <color name="white_color">#ffffffff</color>
+
 </resources>

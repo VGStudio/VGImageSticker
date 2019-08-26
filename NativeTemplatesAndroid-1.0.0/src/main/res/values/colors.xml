@@ -9,4 +9,5 @@
   <color name="gnt_blue">#5C84F0</color>
   <color name="gnt_ad_green">#3A6728</color>
   <color name="gnt_gray">#808080</color>
+  <color name="gnt_text_color">#ff1b799e</color>
 </resources>
