@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ViewFlipper;
 
+import com.app.vgs.vgimagesticker.utils.AdUtils;
 import com.app.vgs.vgimagesticker.utils.ScreenDimension;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
@@ -48,9 +49,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadNativeAd() {
-        String admobNativedId = "";
-        admobNativedId = "ca-app-pub-3940256099942544/2247696110";
-        //admobNativedId = getString(R.string.admob_natived_ads);
+        String admobNativedId = AdUtils.getAdmobNativeId(this);
 
         mTemplate.setVisibility(View.GONE);
         AdLoader.Builder builder = new AdLoader.Builder(
