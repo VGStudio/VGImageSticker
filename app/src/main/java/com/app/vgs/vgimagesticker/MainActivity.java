@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 mViewFlipper.showNext();
             }
         });
+        Log.d("","");
 
         AdLoader adLoader = builder.build();
         adLoader.loadAd(new AdRequest.Builder().build());
