@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">VGS Image Editor</string>
+    <string name="admob_app_id">ca-app-pub-3542627195566460~3365490249</string>
+    <string name="admob_natived_ads">ca-app-pub-3542627195566460/2177251833</string>
+    <string name="admob_interstitial_ads">ca-app-pub-3542627195566460/9864170166</string>
+    <string name="admob_banner_ads">ca-app-pub-3542627195566460/5597622094</string>
 </resources>

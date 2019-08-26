@@ -26,7 +26,7 @@
                 android:background="@color/gnt_white"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="H,1:0.6"
+                app:layout_constraintDimensionRatio="H,1:0.55"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">

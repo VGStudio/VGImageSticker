@@ -224,6 +224,8 @@ public class TemplateView extends FrameLayout {
       secondaryView.setLines(3);
     }
 
+    //tertiaryParentView.setVisibility(GONE);
+
     primaryView.setText(headline);
     tertiaryView.setText(tertiaryText);
     callToActionView.setText(cta);
