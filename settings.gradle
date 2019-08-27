@@ -1,1 +1,1 @@
-include ':app', ':NativeTemplatesAndroid-1.0.0'
+include ':app', ':NativeTemplatesAndroid-1.0.0', ':cropper27'
