@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         mViewFlipper.getLayoutParams().height = (int) (screenWidth*0.55);
 
         loadNativeAd();
-        ReadJsonFile();
+        readMoreAppJsonFile();
     }
 
     private void loadNativeAd() {
@@ -129,13 +129,13 @@ public class MainActivity extends AppCompatActivity {
         adLoader.loadAd(new AdRequest.Builder().build());
     }
 
+
     // Đọc dữ liệu file json
-    private void ReadJsonFile(){
+    private void readMoreAppJsonFile(){
         String json = "imagemain.json";
         StringBuilder stringBuilder = new StringBuilder("");
         BufferedReader reader = null;
         String rtn = "";
-//        listMain = new ArrayList<>();
         try {
             reader = new BufferedReader(new InputStreamReader(getAssets().open(json)));
             String mLine;
@@ -153,7 +153,9 @@ public class MainActivity extends AppCompatActivity {
                     link   = jsonObject.getString("link");
                     index   = jsonObject.getInt("index");
 
+
                     mCardView = (CardView) mGrid.getChildAt(i);
+                    mCardView.setTag(link);
                     // Đọc hình ảnh từ trên mạng
                     URL url = new URL(hinhanh);
                     HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
@@ -161,62 +163,114 @@ public class MainActivity extends AppCompatActivity {
                     InputStream in = httpConn.getInputStream();
                     Bitmap bitmap = BitmapFactory.decodeStream(in);
                     //
-                    if(i ==0){
-                        mTxtTest1.setText(tittle);
-                        this.mImg1.setImageBitmap(bitmap);
-                        mCardView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Intent intent = new Intent();
-                                intent.setAction(Intent.ACTION_VIEW);
-                                intent.setData(Uri.parse(link));
-                                startActivity(intent);
+                        if (i == 0 ) {
+                                mTxtTest1.setText(tittle);
+                                this.mImg1.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                                if(!mTxtTest1.equals("")){
+                                    mCardView.setVisibility(View.VISIBLE);
+                                }
+
+                        } else if (i == 1 ) {
+                                mTxtTest2.setText(tittle);
+                                this.mImg2.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest2.equals("")){
+                                mCardView.setVisibility(View.VISIBLE);
                             }
-                        });
-                    } else if(i == 1){
-                        mTxtTest2.setText(tittle);
-                        this.mImg2.setImageBitmap(bitmap);
-                    } else if(i == 2){
-                        mTxtTest3.setText(tittle);
-                        this.mImg3.setImageBitmap(bitmap);
-                    }else if(i == 3){
-                        mTxtTest4.setText(tittle);
-                        this.mImg4.setImageBitmap(bitmap);
-                    }else if(i == 4){
-                        mTxtTest5.setText(tittle);
-                        this.mImg5.setImageBitmap(bitmap);
-                    }else if(i == 5){
-                        mTxtTest6.setText(tittle);
-                        this.mImg6.setImageBitmap(bitmap);
-                    }else if(i == 6){
-                        mTxtTest7.setText(tittle);
-                        this.mImg7.setImageBitmap(bitmap);
-                    }else if(i == 7){
-                        mTxtTest8.setText(tittle);
-                        this.mImg8.setImageBitmap(bitmap);
-                    }else if(i == 8){
-                        mTxtTest9.setText(tittle);
-                        this.mImg9.setImageBitmap(bitmap);
-                    }else if(i == 9){
-                        mTxtTest10.setText(tittle);
-                        this.mImg10.setImageBitmap(bitmap);
-                    }else if(i == 10){
-                        mTxtTest11.setText(tittle);
-                        this.mImg11.setImageBitmap(bitmap);
-                    }else if(i == 11){
-                        mTxtTest12.setText(tittle);
-                        this.mImg12.setImageBitmap(bitmap);
-                    }else if(i == 12){
-                        mTxtTest13.setText(tittle);
-                        this.mImg13.setImageBitmap(bitmap);
-                    }else if(i == 13){
-                        mTxtTest14.setText(tittle);
-                        this.mImg14.setImageBitmap(bitmap);
-                    }else if(i == 14){
-                        mTxtTest15.setText(tittle);
-                        this.mImg15.setImageBitmap(bitmap);
-                    }
-//                    listMain.add(new MainClass(hinhanh,tittle,link,index));
+                        } else if (i == 2  ) {
+                           // if(!hinhanh.equals("") && !tittle.equals("") && !link.equals("")) {
+                                mTxtTest3.setText(tittle);
+                                this.mImg3.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest3.equals("") ){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 3 ) {
+                                mTxtTest4.setText(tittle);
+                                this.mImg4.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest4.equals("") ){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 4) {
+                            mTxtTest5.setText(tittle);
+                            this.mImg5.setImageBitmap(bitmap);
+                            clickCardViewMoreApp();
+                            if(!mTxtTest5.equals("")){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 5) {
+                                mTxtTest6.setText(tittle);
+                                this.mImg6.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest6.equals("")){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 6) {
+                                mTxtTest7.setText(tittle);
+                                this.mImg7.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest7.equals("") ){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 7 ) {
+                                mTxtTest8.setText(tittle);
+                                this.mImg8.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest8.equals("")){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 8) {
+                                mTxtTest9.setText(tittle);
+                                this.mImg9.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest9.equals("")){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 9) {
+                                mTxtTest10.setText(tittle);
+                                this.mImg10.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest10.equals("")){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 10) {
+                                mTxtTest11.setText(tittle);
+                                this.mImg11.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest11.equals("")){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 11) {
+                                mTxtTest12.setText(tittle);
+                                this.mImg12.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest12.equals("")){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 12) {
+                                mTxtTest13.setText(tittle);
+                                this.mImg13.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest13.equals("")){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 13) {
+                                mTxtTest14.setText(tittle);
+                                this.mImg14.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest14.equals("")){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        } else if (i == 14) {
+                                mTxtTest15.setText(tittle);
+                                this.mImg15.setImageBitmap(bitmap);
+                                clickCardViewMoreApp();
+                            if(!mTxtTest15.equals("")){
+                                mCardView.setVisibility(View.VISIBLE);
+                            }
+                        }
                 }
 
             } catch (JSONException e) {
@@ -229,4 +283,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    private void clickCardViewMoreApp(){
+        mCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                String linkStore = view.getTag().toString();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(linkStore));
+                startActivity(intent);
+            }
+        });
+    }
+
+
 }
