@@ -1,10 +1,16 @@
 package com.app.vgs.vgimagesticker;
 
-import android.graphics.drawable.Drawable;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
@@ -25,13 +31,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
 
     String tittle = "";
     String hinhanh = "";
     String   link = "";
+    int index = 0;
+    GridLayout mGrid;
+    CardView mCardView;
     TemplateView mTemplate;
     ViewFlipper mViewFlipper;
     TextView mTxtTest1,mTxtTest2,mTxtTest3,mTxtTest4,mTxtTest5,mTxtTest6,mTxtTest7,mTxtTest8,mTxtTest9,mTxtTest10,mTxtTest11,mTxtTest12,mTxtTest13,mTxtTest14,mTxtTest15;
@@ -40,17 +50,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        StrictMode.ThreadPolicy policy = new   StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         initView();
         initData();
-
-
     }
+
 
     private void initView() {
         mViewFlipper = findViewById(R.id.viewFlipper);
         mTemplate = findViewById(R.id.my_template);
+        mGrid = findViewById(R.id.gridMain);
         mTxtTest1 = findViewById(R.id.txtTest1);
         mTxtTest2 = findViewById(R.id.txtTest2);
         mTxtTest3 = findViewById(R.id.txtTest3);
@@ -118,11 +129,13 @@ public class MainActivity extends AppCompatActivity {
         adLoader.loadAd(new AdRequest.Builder().build());
     }
 
+    // Đọc dữ liệu file json
     private void ReadJsonFile(){
         String json = "imagemain.json";
         StringBuilder stringBuilder = new StringBuilder("");
         BufferedReader reader = null;
         String rtn = "";
+//        listMain = new ArrayList<>();
         try {
             reader = new BufferedReader(new InputStreamReader(getAssets().open(json)));
             String mLine;
@@ -138,6 +151,72 @@ public class MainActivity extends AppCompatActivity {
                     hinhanh = jsonObject.getString("icon");
                     tittle  = jsonObject.getString("app_name");
                     link   = jsonObject.getString("link");
+                    index   = jsonObject.getInt("index");
+
+                    mCardView = (CardView) mGrid.getChildAt(i);
+                    // Đọc hình ảnh từ trên mạng
+                    URL url = new URL(hinhanh);
+                    HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
+                    httpConn.connect();
+                    InputStream in = httpConn.getInputStream();
+                    Bitmap bitmap = BitmapFactory.decodeStream(in);
+                    //
+                    if(i ==0){
+                        mTxtTest1.setText(tittle);
+                        this.mImg1.setImageBitmap(bitmap);
+                        mCardView.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent intent = new Intent();
+                                intent.setAction(Intent.ACTION_VIEW);
+                                intent.setData(Uri.parse(link));
+                                startActivity(intent);
+                            }
+                        });
+                    } else if(i == 1){
+                        mTxtTest2.setText(tittle);
+                        this.mImg2.setImageBitmap(bitmap);
+                    } else if(i == 2){
+                        mTxtTest3.setText(tittle);
+                        this.mImg3.setImageBitmap(bitmap);
+                    }else if(i == 3){
+                        mTxtTest4.setText(tittle);
+                        this.mImg4.setImageBitmap(bitmap);
+                    }else if(i == 4){
+                        mTxtTest5.setText(tittle);
+                        this.mImg5.setImageBitmap(bitmap);
+                    }else if(i == 5){
+                        mTxtTest6.setText(tittle);
+                        this.mImg6.setImageBitmap(bitmap);
+                    }else if(i == 6){
+                        mTxtTest7.setText(tittle);
+                        this.mImg7.setImageBitmap(bitmap);
+                    }else if(i == 7){
+                        mTxtTest8.setText(tittle);
+                        this.mImg8.setImageBitmap(bitmap);
+                    }else if(i == 8){
+                        mTxtTest9.setText(tittle);
+                        this.mImg9.setImageBitmap(bitmap);
+                    }else if(i == 9){
+                        mTxtTest10.setText(tittle);
+                        this.mImg10.setImageBitmap(bitmap);
+                    }else if(i == 10){
+                        mTxtTest11.setText(tittle);
+                        this.mImg11.setImageBitmap(bitmap);
+                    }else if(i == 11){
+                        mTxtTest12.setText(tittle);
+                        this.mImg12.setImageBitmap(bitmap);
+                    }else if(i == 12){
+                        mTxtTest13.setText(tittle);
+                        this.mImg13.setImageBitmap(bitmap);
+                    }else if(i == 13){
+                        mTxtTest14.setText(tittle);
+                        this.mImg14.setImageBitmap(bitmap);
+                    }else if(i == 14){
+                        mTxtTest15.setText(tittle);
+                        this.mImg15.setImageBitmap(bitmap);
+                    }
+//                    listMain.add(new MainClass(hinhanh,tittle,link,index));
                 }
 
             } catch (JSONException e) {
