@@ -129,7 +129,7 @@
                     android:layout_weight="1.0">
 
                     <ImageButton
-                        android:id="@+id/camera"
+                        android:id="@+id/imgCamera"
                         android:layout_width="fill_parent"
                         android:layout_height="65.0dip"
                         android:background="#00ffffff"
@@ -156,7 +156,7 @@
                     android:layout_weight="1.0">
 
                     <ImageButton
-                        android:id="@+id/gallery"
+                        android:id="@+id/imgGallery"
                         android:layout_width="fill_parent"
                         android:layout_height="65.0dip"
                         android:background="#00ffffff"
@@ -265,6 +265,14 @@
                     android:textColor="@color/colourBgAndSelected"
                     android:textSize="18.0sp" />
             </RelativeLayout>
+            <pl.droidsonroids.gif.GifImageView
+                android:visibility="gone"
+                android:id="@+id/gifMoreApp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/load_gif_1"
+                android:background="#beede9ea"
+                />
            <GridLayout
                 android:id="@+id/gridMain"
                android:columnCount="3"
@@ -275,7 +283,6 @@
                 android:layout_weight="8"
                 android:layout_width="match_parent"
                 android:layout_height="650dp">
-
 
                 <android.support.v7.widget.CardView
                     android:visibility="gone"
