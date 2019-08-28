@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/button_pressed"
     android:orientation="vertical"
     tools:context=".CropImageActivity">
 
@@ -16,19 +17,21 @@
         android:weightSum="4.0">
 
         <Button
-            android:id="@+id/match_parent"
+            android:id="@+id/freeSizeBtn"
             style="@style/button_text"
             android:layout_width="0.0dip"
             android:layout_height="match_parent"
             android:layout_weight="1.0"
+            android:onClick="freeSizeRationClick"
             android:text="@string/free_size" />
 
         <Button
-            android:id="@+id/square"
+            android:id="@+id/squareBtn"
             style="@style/button_text"
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1.0"
+            android:onClick="squareRationClick"
             android:text="@string/square" />
 
         <Button
@@ -37,6 +40,7 @@
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1.0"
+            android:onClick="rotationClick"
             android:text="@string/rotate" />
 
         <Button
@@ -45,6 +49,7 @@
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
             android:layout_weight="1.0"
+            android:onClick="doneClick"
             android:text="@string/done" />
     </LinearLayout>
 

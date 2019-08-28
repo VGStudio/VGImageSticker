@@ -15,6 +15,7 @@ public class BaseActivity extends AppCompatActivity {
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
     protected static final int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION = 102;
 
+
     private AlertDialog mAlertDialog;
 
     /**
@@ -37,14 +38,14 @@ public class BaseActivity extends AppCompatActivity {
 
     protected void requestPermission(final String permission, String rationale, final int requestCode) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
-//            showAlertDialog(getString(R.string.permission_title_rationale), rationale,
-//                    new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            ActivityCompat.requestPermissions(BaseActivity.this,
-//                                    new String[]{permission}, requestCode);
-//                        }
-//                    }, getString(R.string.label_ok), null, getString(R.string.label_cancel));
+            showAlertDialog(getString(R.string.permission_title_rationale), rationale,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(BaseActivity.this,
+                                    new String[]{permission}, requestCode);
+                        }
+                    }, getString(R.string.label_ok), null, getString(R.string.label_cancel));
         } else {
             ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
         }

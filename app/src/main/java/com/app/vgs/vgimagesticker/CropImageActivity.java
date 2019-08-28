@@ -3,87 +3,112 @@ package com.app.vgs.vgimagesticker;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
+import android.widget.Button;
 
+import com.app.vgs.vgimagesticker.utils.FileUtils;
+import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 
 public class CropImageActivity extends BaseActivity {
     public static final int REQUEST_IMAGE_FROM_GALLERY = 10001;
+    public static final String IMAGE_SELECTED_URI = "IMAGE_SELECTED_URI";
+
+
+    private CropImageView mCropImageView;
+    private Button mFreeSizeBtn;
+    private Button mSquareBtn;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_image);
+        initView();
+        initData();
     }
 
-    public void clickGallery(View view){
-        pickGallery();
+    private void initData() {
+        Bundle extra = getIntent().getExtras();
+        Uri imgUri = Uri.parse(extra.getString(IMAGE_SELECTED_URI));
+        mCropImageView.setImageUriAsync(imgUri);
+        mCropImageView.setFixedAspectRatio(false);
     }
 
-    public void pickGallery() {
+
+    private void initView(){
+        mCropImageView = findViewById(R.id.cropImageView);
+        mFreeSizeBtn = findViewById(R.id.freeSizeBtn);
+        mSquareBtn = findViewById(R.id.squareBtn);
+
+        mFreeSizeBtn.setBackgroundColor(getResources().getColor(R.color.button_pressed));
+        mSquareBtn.setBackgroundColor(getResources().getColor(R.color.button_default));
+    }
+
+
+
+
+
+
+
+
+    public void squareRationClick(View view) {
+        mCropImageView.setFixedAspectRatio(true);
+        mFreeSizeBtn.setBackgroundColor(getResources().getColor(R.color.button_default));
+        mSquareBtn.setBackgroundColor(getResources().getColor(R.color.button_pressed));
+    }
+    public void freeSizeRationClick(View view){
+        mCropImageView.setFixedAspectRatio(false);
+        mFreeSizeBtn.setBackgroundColor(getResources().getColor(R.color.button_pressed));
+        mSquareBtn.setBackgroundColor(getResources().getColor(R.color.button_default));
+    }
+
+    public void rotationClick(View view){
+        mCropImageView.rotateImage(90);
+        String str = String.format("%s_%d.png", new Object[] { "img_sticker", System.currentTimeMillis() }).toString();
+        LogUtils.d(str);
+
+    }
+
+    public void doneClick(View view){
+
+        saveImageCroped();
+
+
+    }
+
+    private void saveImageCroped(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
-                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
-            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
-                    "",
-                    REQUEST_STORAGE_READ_ACCESS_PERMISSION);
+            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    getString(R.string.permission_write_storage_rationale),
+                    REQUEST_STORAGE_WRITE_ACCESS_PERMISSION);
         } else {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT)
-                    .setType("image/*")
-                    .addCategory(Intent.CATEGORY_OPENABLE);
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                String[] mimeTypes = {"image/jpeg", "image/png"};
-                intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
-            }
-
-            startActivityForResult(Intent.createChooser(intent, "Select picture"), REQUEST_IMAGE_FROM_GALLERY);
+            Bitmap bitmap = mCropImageView.getCroppedImage();
+            FileUtils.saveBitmap(bitmap, this);
         }
     }
 
-
-
-    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         switch (requestCode) {
-            case REQUEST_STORAGE_READ_ACCESS_PERMISSION:
+            case REQUEST_STORAGE_WRITE_ACCESS_PERMISSION:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    pickGallery();
+                    saveImageCroped();
                 }
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
-    }
-
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_IMAGE_FROM_GALLERY) {
-                final Uri selectedUri = data.getData();
-                if (selectedUri != null) {
-                    startCrop(selectedUri);
-                } else {
-                    //Toast.makeText(this, R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-
-    }
-
-    private void startCrop(@NonNull Uri uri) {
-        String destinationFileName = "img_crop_temp";
-        destinationFileName += ".png";
-        CropImage.activity(uri)
-                .start(this);
-
-
     }
 }
