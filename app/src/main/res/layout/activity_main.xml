@@ -265,12 +265,21 @@
                     android:textColor="@color/colourBgAndSelected"
                     android:textSize="18.0sp" />
             </RelativeLayout>
+            <!--
             <pl.droidsonroids.gif.GifImageView
                 android:visibility="gone"
                 android:id="@+id/gifMoreApp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@drawable/load_gif_1"
+                android:background="#beede9ea"
+                />
+                -->
+            <pl.droidsonroids.gif.GifImageView
+                android:visibility="gone"
+                android:id="@+id/gifMoreApp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:background="#beede9ea"
                 />
            <GridLayout
