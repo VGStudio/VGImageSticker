@@ -1,5 +1,6 @@
 package com.app.vgs.vgimagesticker;
 
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.vo.StickerGroup;
+import com.app.vgs.vgimagesticker.vo.StickerSubGroup;
 
 import org.json.JSONArray;
 
@@ -19,6 +21,7 @@ import java.util.List;
 
 public class StickerActivity extends AppCompatActivity {
     LinearLayout mSubButton;
+    List<StickerGroup> mLstStickerGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,7 @@ public class StickerActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        List<StickerGroup> lstStickerGroup = JsonUtils.getStickerGroupFromJsonData(this, "sticker/data.json");
-        LogUtils.d(lstStickerGroup.size() + "'");
+        mLstStickerGroup = JsonUtils.getStickerGroupFromJsonData(this, "sticker/data.json");
     }
 
     private void initView() {
@@ -43,19 +45,35 @@ public class StickerActivity extends AppCompatActivity {
     }
 
     private void addView(){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.layout_sub_button, mSubButton, false);
-        for(int i =0 ; i< 5; i++){
-            view = layoutInflater.inflate(R.layout.layout_sub_button, mSubButton, false);
-            ImageButton imgButton = view.findViewById(R.id.eye_ball);
-            TextView textView = view.findViewById(R.id.eye_ball_text);
-            if(i%2==0){
-                imgButton.setImageDrawable(getResources().getDrawable(R.drawable.eye_lens));
-                textView.setText("Hair style");
-            }else{
+        try {
+            LayoutInflater layoutInflater = getLayoutInflater();
+            View view = layoutInflater.inflate(R.layout.layout_sub_button, mSubButton, false);
+            StickerGroup stickerGroup = null;
+
+            for(StickerGroup stkGroup : mLstStickerGroup){
+                if(stkGroup.getId().equals("hairstyle")){
+                    stickerGroup = stkGroup;
+                }
             }
-            mSubButton.addView(view);
+
+
+            for (StickerSubGroup subGroup : stickerGroup.getLstSubGroup()){
+
+                view = layoutInflater.inflate(R.layout.layout_sub_button, mSubButton, false);
+                ImageButton imgButton = view.findViewById(R.id.eye_ball);
+                TextView textView = view.findViewById(R.id.eye_ball_text);
+                Drawable drawable = Drawable.createFromStream(getAssets().open(subGroup.getIcon()), null);
+                imgButton.setImageDrawable(drawable);
+                textView.setText(subGroup.getTitle());
+                mSubButton.addView(view);
+            }
+
+        }catch (Exception exp){
+            LogUtils.e(exp);
         }
+
+
+
 
 
     }
