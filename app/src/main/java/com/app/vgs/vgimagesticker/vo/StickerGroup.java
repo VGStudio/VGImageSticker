@@ -3,14 +3,25 @@ package com.app.vgs.vgimagesticker.vo;
 import java.util.List;
 
 public class StickerGroup {
+    String id;
     String title;
     String icon;
-    List<String> images;
 
-    public StickerGroup(String title, String icon, List<String> images) {
+    List<StickerSubGroup> lstSubGroup;
+
+    public StickerGroup(String id, String title, String icon, List<StickerSubGroup> lstSubGroup) {
+        this.id = id;
         this.title = title;
         this.icon = icon;
-        this.images = images;
+        this.lstSubGroup = lstSubGroup;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -29,11 +40,11 @@ public class StickerGroup {
         this.icon = icon;
     }
 
-    public List<String> getImages() {
-        return images;
+    public List<StickerSubGroup> getLstSubGroup() {
+        return lstSubGroup;
     }
 
-    public void setImages(List<String> images) {
-        this.images = images;
+    public void setLstSubGroup(List<StickerSubGroup> lstSubGroup) {
+        this.lstSubGroup = lstSubGroup;
     }
 }

@@ -9,8 +9,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.app.vgs.vgimagesticker.utils.JsonUtils;
+import com.app.vgs.vgimagesticker.utils.LogUtils;
+import com.app.vgs.vgimagesticker.vo.StickerGroup;
 
 import org.json.JSONArray;
+
+import java.util.List;
 
 public class StickerActivity extends AppCompatActivity {
     LinearLayout mSubButton;
@@ -21,8 +26,14 @@ public class StickerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sticker);
 
         initView();
+        initData();
 
         addView();
+    }
+
+    private void initData() {
+        List<StickerGroup> lstStickerGroup = JsonUtils.getStickerGroupFromJsonData(this, "sticker/data.json");
+        LogUtils.d(lstStickerGroup.size() + "'");
     }
 
     private void initView() {

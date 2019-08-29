@@ -1,84 +1,82 @@
-{
-  "data": [
-    {
-      "id": "hairstyle",
-      "title": "Hair Style",
-      "icon": "hair_style.webp",
-      "group": [
-        {
-          "title": "Hair Style",
-          "icon": "hair.webp",
-          "folder": "sticker/hairstyle",
-          "id": "hairstyle"
-        },
-        {
-          "id": "beard",
-          "title": "Beard",
-          "icon": "beard.webp",
-          "folder": "sticker/beard"
-        },
-        {
-          "id": "mustache",
-          "title": "Mustache",
-          "icon": "mustache.webp",
-          "folder": "sticker/mustache"
-        },
-        {
-          "id": "eyebrow",
-          "title": "Eye Browse",
-          "icon": "eye_browse.webp",
-          "folder": "sticker/eyebrow"
-        },
-        {
-          "id": "eyelen",
-          "title": "Eye Len",
-          "icon": "sticker/eye_lens.webp",
-          "folder": "sticker/eye"
-        }
-      ]
-    },
-    {
-      "id": "accesories",
-      "title": "Accesories",
-      "icon": "accessories.webp",
-      "group": [
-        {
-          "title": "Sunglass",
-          "icon": "sunglass.webp",
-          "folder": "sticker/sunglasses",
-          "id": "sunglasses"
-        },
-        {
-          "id": "cap",
-          "title": "Cap",
-          "icon": "cap.webp",
-          "folder": "sticker/caps"
-        },
-        {
-          "id": "stoles",
-          "title": "Stoles",
-          "icon": "stole.webp",
-          "folder": "sticker/stole"
-        },
-        {
-          "id": "tie",
-          "title": "Tie",
-          "icon": "tie.webp",
-          "folder": "sticker/tie"
-        },
-        {
-          "id": "chain",
-          "title": "Chain",
-          "icon": "chain.webp",
-          "folder": "sticker/chain"
-        },
-        {
-          "id": "earrings",
-          "title": "Ear Rings",
-          "icon": "earrings.webp",
-          "folder": "sticker/earring"
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": "hairstyle",
+    "title": "Hair Style",
+    "icon": "hair_style.webp",
+    "group": [
+      {
+        "title": "Hair Style",
+        "icon": "sticker/hairstyle/icon_hair.webp",
+        "folder": "sticker/hairstyle",
+        "id": "hairstyle"
+      },
+      {
+        "id": "beard",
+        "title": "Beard",
+        "icon": "sticker/beard/icon_beard.webp",
+        "folder": "sticker/beard"
+      },
+      {
+        "id": "mustache",
+        "title": "Mustache",
+        "icon": "sticker/beard/icon_mustache.webp",
+        "folder": "sticker/mustache"
+      },
+      {
+        "id": "eyebrow",
+        "title": "Eye Browse",
+        "icon": "sticker/eyebrow/icon_eye_browse.webp",
+        "folder": "sticker/eyebrow"
+      },
+      {
+        "id": "eyelen",
+        "title": "Eye Len",
+        "icon": "sticker/eye/icon_eye_lens.webp",
+        "folder": "sticker/eye"
+      }
+    ]
+  },
+  {
+    "id": "accesories",
+    "title": "Accesories",
+    "icon": "accessories.webp",
+    "group": [
+      {
+        "title": "Sunglass",
+        "icon": "sticker/sunglasses/icon_sunglass.webp",
+        "folder": "sticker/sunglasses",
+        "id": "sunglasses"
+      },
+      {
+        "id": "cap",
+        "title": "Cap",
+        "icon": "sticker/caps/icon_cap.webp",
+        "folder": "sticker/caps"
+      },
+      {
+        "id": "stoles",
+        "title": "Stoles",
+        "icon": "sticker/stole/icon_stole.webp",
+        "folder": "sticker/stole"
+      },
+      {
+        "id": "tie",
+        "title": "Tie",
+        "icon": "sticker/tie/icon_tie.webp",
+        "folder": "sticker/tie"
+      },
+      {
+        "id": "chain",
+        "title": "Chain",
+        "icon": "sticker/chain/icon_chain.webp",
+        "folder": "sticker/chain"
+      },
+      {
+        "id": "earrings",
+        "title": "Ear Rings",
+        "icon": "sticker/earring/icon_earrings.webp",
+        "folder": "sticker/earring"
+      }
+    ]
+  }
+]
