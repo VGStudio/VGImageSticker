@@ -27,6 +27,7 @@ import android.widget.ViewFlipper;
 
 import com.app.vgs.vgimagesticker.Classes.ConnectionDetector;
 import com.app.vgs.vgimagesticker.utils.AdUtils;
+import com.app.vgs.vgimagesticker.utils.JsonUtils;
 import com.app.vgs.vgimagesticker.utils.ScreenDimension;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
@@ -120,6 +121,8 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initData() {
+        JsonUtils.loadJsonFromAsset(this);
+
         ScreenDimension.getScreenSize(this);
         MobileAds.initialize(this, getString(R.string.admob_app_id));
 
