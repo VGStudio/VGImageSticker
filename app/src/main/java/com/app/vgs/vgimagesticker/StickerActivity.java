@@ -8,6 +8,10 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.JsonArrayRequest;
+
+import org.json.JSONArray;
+
 public class StickerActivity extends AppCompatActivity {
     LinearLayout mSubButton;
 
@@ -38,7 +42,6 @@ public class StickerActivity extends AppCompatActivity {
                 imgButton.setImageDrawable(getResources().getDrawable(R.drawable.eye_lens));
                 textView.setText("Hair style");
             }else{
-
             }
             mSubButton.addView(view);
         }
