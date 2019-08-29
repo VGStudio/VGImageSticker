@@ -1,4 +1,4 @@
-package com.app.vgs.vgimagesticker.utils;
+package com.app.vgs.vgimagesticker.ads;
 
 import android.content.Context;
 

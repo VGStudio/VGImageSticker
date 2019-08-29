@@ -14,4 +14,17 @@
     <string name="permission_read_storage_rationale">Storage read permission is needed to pick files.</string>
     <string name="permission_write_storage_rationale" translatable="false">Storage write permission is needed to save the image.</string>
     <string name="toast_cannot_retrieve_selected_image">Cannot retrieve selected image</string>
+    <string name="confirm_exit">Do you want to exit ?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="lable_categories">Categories</string>
+    <string name="label_man_styles">Man Styles</string>
+    <string name="accessories">Accessories</string>
+    <string name="makeover">Makeover</string>
+    <string name="bg_eraser">Bg Eraser</string>
+    <string name="label_effects">Effects</string>
+    <string name="label_blur">Blur</string>
+    <string name="label_frames">Frames</string>
+    <string name="label_new_frames">New Frames</string>
+    <string name="label_edit_image">Edit Image</string>
 </resources>

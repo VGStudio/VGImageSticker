@@ -13,11 +13,9 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,8 +24,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.app.vgs.vgimagesticker.Classes.ConnectionDetector;
-import com.app.vgs.vgimagesticker.utils.AdUtils;
-import com.app.vgs.vgimagesticker.utils.JsonUtils;
+import com.app.vgs.vgimagesticker.ads.AdUtils;
 import com.app.vgs.vgimagesticker.utils.ScreenDimension;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
@@ -121,7 +118,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initData() {
-        JsonUtils.loadJsonFromAsset(this);
 
         ScreenDimension.getScreenSize(this);
         MobileAds.initialize(this, getString(R.string.admob_app_id));
@@ -408,5 +404,14 @@ public class MainActivity extends BaseActivity {
 
             startActivityForResult(Intent.createChooser(intent, "Select picture"), REQUEST_IMAGE_FROM_GALLERY);
         }
+    }
+
+    @Override
+    public void setShowInterstitial() {
+        mShowInterstitial = false;
+    }
+
+    @Override
+    public void closeInterstitial() {
     }
 }

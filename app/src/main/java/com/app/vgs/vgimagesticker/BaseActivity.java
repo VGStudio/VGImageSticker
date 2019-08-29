@@ -1,22 +1,52 @@
 package com.app.vgs.vgimagesticker;
 
 import android.content.DialogInterface;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
+import com.app.vgs.vgimagesticker.ads.AdmobUtils;
+
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
     protected static final int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION = 102;
 
+    public boolean mShowInterstitial = true;
+    public AdmobUtils mAdmobUtils;
 
     private AlertDialog mAlertDialog;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setShowInterstitial();
+    }
+
+    public boolean showInterstitial(){
+        if(mAdmobUtils != null){
+            return mAdmobUtils.showInterstitial();
+        }
+        return false;
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if(mShowInterstitial){
+            mAdmobUtils = new AdmobUtils(this);
+        }
+    }
 
     /**
      * Hide alert dialog if any.
@@ -74,5 +104,8 @@ public class BaseActivity extends AppCompatActivity {
         builder.setNegativeButton(negativeText, onNegativeButtonClickListener);
         mAlertDialog = builder.show();
     }
+
+    public abstract void setShowInterstitial();
+    public abstract void closeInterstitial();
 
 }

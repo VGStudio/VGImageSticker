@@ -1,9 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/editOption_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActionActivity">
+    android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_height"
+        android:layout_alignParentTop="true">
+
+
+        <ImageButton
+            android:id="@+id/back"
+            style="@style/button_header"
+            android:layout_alignParentLeft="true"
+            android:onClick="backClick"
+            android:src="@drawable/back_edit" />
+
+
+        <TextView
+            android:id="@+id/categories"
+            style="@style/text_header"
+            android:layout_centerInParent="true"
+            android:layout_toLeftOf="@id/save"
+            android:layout_toRightOf="@id/back"
+            android:text="@string/label_edit_image" />
+
+
+        <ImageButton
+            android:id="@+id/save"
+            style="@style/button_header"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/save" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/top"
+        android:orientation="vertical"
+        android:weightSum="18.0">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="0.0dip"
+            android:src="@drawable/gai_xinh3"
+            android:layout_weight="8.1"
+            android:scaleType="centerInside" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="3.3"
+            android:weightSum="3.0">
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginTop="10.0dip"
+                android:layout_marginRight="5.0dip"
+                android:layout_marginBottom="5.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/category_border">
+
+                <ImageButton
+                    android:id="@+id/man_styles"
+                    style="@style/button_edit_action"
+                    android:onClick="onClickCategories"
+                    android:src="@drawable/hair_style" />
+
+                <TextView
+                    android:id="@+id/man_styles_text"
+                    style="@style/text_edit_action"
+                    android:text="@string/label_man_styles" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginTop="10.0dip"
+                android:layout_marginRight="5.0dip"
+                android:layout_marginBottom="5.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/category_border">
+
+                <ImageButton
+                    android:id="@+id/accessories"
+                    style="@style/button_edit_action"
+                    android:onClick="onClickCategories"
+                    android:src="@drawable/accessories" />
+
+                <TextView
+                    android:id="@+id/accessories_text"
+                    style="@style/text_edit_action"
+                    android:text="@string/accessories" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginTop="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_marginBottom="5.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/category_border">
+
+                <ImageButton
+                    android:id="@+id/makeover"
+                    style="@style/button_edit_action"
+                    android:onClick="onClickCategories"
+                    android:src="@drawable/makeover" />
+
+                <TextView
+                    android:id="@+id/makeover_text"
+                    style="@style/text_edit_action"
+                    android:text="@string/makeover" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="3.3"
+            android:weightSum="3.0">
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:layout_marginBottom="5.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/category_border">
+
+                <ImageButton
+                    android:id="@+id/suits"
+                    style="@style/button_edit_action"
+                    android:onClick="onClickCategories"
+                    android:src="@drawable/suit_dress" />
+
+                <TextView
+                    android:id="@+id/suits_text"
+                    style="@style/text_edit_action"
+                    android:text="Dresses" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:layout_marginBottom="5.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/category_border">
+
+                <ImageButton
+                    android:id="@+id/background_changer"
+                    style="@style/button_edit_action"
+                    android:onClick="onClickCategories"
+                    android:src="@drawable/bg_eraser" />
+
+                <TextView
+                    android:id="@+id/background_changer_text"
+                    style="@style/text_edit_action"
+                    android:text="@string/bg_eraser" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_marginBottom="5.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/category_border">
+
+                <ImageButton
+                    android:id="@+id/effects"
+                    style="@style/button_edit_action"
+                    android:onClick="onClickCategories"
+                    android:src="@drawable/effect" />
+
+                <TextView
+                    android:id="@+id/effects_text"
+                    style="@style/text_edit_action"
+                    android:text="@string/label_effects" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="0.0dip"
+            android:layout_weight="3.3"
+            android:weightSum="3.0">
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:layout_marginBottom="10.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/category_border">
+
+                <ImageButton
+                    android:id="@+id/blur_activity"
+                    style="@style/button_edit_action"
+                    android:onClick="onClickCategories"
+                    android:src="@drawable/blur" />
+
+                <TextView
+                    android:id="@+id/blur_text"
+                    style="@style/text_edit_action"
+                    android:text="@string/label_blur" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginRight="5.0dip"
+                android:layout_marginBottom="10.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/category_border">
+
+                <ImageButton
+                    android:id="@+id/frames"
+                    style="@style/button_edit_action"
+                    android:onClick="onClickCategories"
+                    android:src="@drawable/frame" />
+
+                <TextView
+                    android:id="@+id/frames_text"
+                    style="@style/text_edit_action"
+                    android:text="@string/label_frames" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5.0dip"
+                android:layout_marginTop="5.0dip"
+                android:layout_marginRight="10.0dip"
+                android:layout_marginBottom="10.0dip"
+                android:layout_weight="1.0"
+                android:background="@drawable/category_border">
+
+                <ImageButton
+                    android:id="@+id/fabric"
+                    style="@style/button_edit_action"
+                    android:onClick="onClickCategories"
+                    android:src="@drawable/new_frame" />
+
+                <TextView
+                    android:id="@+id/fabric_text"
+                    style="@style/text_edit_action"
+                    android:text="@string/label_new_frames"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+    <include layout="@layout/layout_confirm_exit" />
+
+
+</RelativeLayout>

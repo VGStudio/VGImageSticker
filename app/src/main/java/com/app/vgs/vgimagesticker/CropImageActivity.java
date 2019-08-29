@@ -111,4 +111,11 @@ public class CropImageActivity extends BaseActivity {
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
+
+    @Override
+    public void setShowInterstitial() {
+        mShowInterstitial = false;
+    }
+    public void closeInterstitial() {
+    }
 }
