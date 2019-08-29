@@ -1,5 +1,6 @@
 package com.app.vgs.vgimagesticker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -8,8 +9,11 @@ import com.google.android.gms.ads.AdView;
 
 public class MainActionActivity extends BaseActivity {
 
+    public static final int STICKER_ACTIVITY_CODE = 1001;
+
     View mExitPopUp;
     private AdView mBannerAdView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,16 @@ public class MainActionActivity extends BaseActivity {
         initAds();
 
     }
+
+    public void stickerClick(View view){
+        openStickerActivity();
+    }
+
+    private void openStickerActivity(){
+        Intent intent = new Intent(this, StickerActivity.class);
+        startActivityForResult(intent, STICKER_ACTIVITY_CODE);
+    }
+
 
     @Override
     public void setShowInterstitial() {

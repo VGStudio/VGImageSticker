@@ -73,7 +73,7 @@
                 <ImageButton
                     android:id="@+id/man_styles"
                     style="@style/button_edit_action"
-                    android:onClick="onClickCategories"
+                    android:onClick="stickerClick"
                     android:src="@drawable/hair_style" />
 
                 <TextView

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0.0dip"
+    android:layout_height="match_parent"
+    android:layout_alignParentRight="true"
+    android:layout_weight="1.0">
+
+    <ImageButton
+        android:id="@+id/eye_ball"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:background="#00ffffff"
+        android:scaleType="centerInside"
+        android:src="@drawable/hair" />
+
+    <TextView
+        android:id="@+id/eye_ball_text"
+        android:layout_width="fill_parent"
+        android:layout_height="20.0dip"
+        android:layout_alignParentBottom="true"
+        android:fontFamily="@font/my_font"
+        android:gravity="center"
+        android:text="Eye Ball"
+        android:textColor="@color/colourBgAndSelected"
+        android:textSize="12.0sp" />
+
+</RelativeLayout>
