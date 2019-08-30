@@ -1,17 +1,13 @@
 package com.app.vgs.vgimagesticker;
 
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ScaleDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -22,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.app.vgs.vgimagesticker.adapter.StickerAdapter;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
@@ -34,7 +29,6 @@ import com.xiaopo.flying.sticker.DeleteIconEvent;
 import com.xiaopo.flying.sticker.DrawableSticker;
 import com.xiaopo.flying.sticker.FlipHorizontallyEvent;
 import com.xiaopo.flying.sticker.Sticker;
-import com.xiaopo.flying.sticker.StickerIconEvent;
 import com.xiaopo.flying.sticker.StickerView;
 import com.xiaopo.flying.sticker.ZoomIconEvent;
 
@@ -57,6 +51,20 @@ public class StickerActivity extends AppCompatActivity {
     SeekBar mFakeBar;
     HorizontalScrollView mColorListFilterView;
 
+    View.OnClickListener onColorFilterClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Sticker selectedSticker = mStickerView.getHandlingSticker();
+            if (selectedSticker != null) {
+                String colorCode = view.getTag().toString();
+                Drawable d = selectedSticker.getDrawable();
+                d.setColorFilter(Color.parseColor(colorCode), PorterDuff.Mode.MULTIPLY);
+                mStickerView.invalidate();
+                LogUtils.d(colorCode);
+            }
+        }
+    };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +74,7 @@ public class StickerActivity extends AppCompatActivity {
         initView();
         initData();
 
-        addView();
+        addStickerGroupIconView();
     }
 
     private void initData() {
@@ -92,8 +100,7 @@ public class StickerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 LogUtils.d("Image click");
                 hideEditSticker();
-                mStickerView.setHandlingSticker(null);
-                mStickerView.invalidate();
+
             }
         });
 
@@ -101,11 +108,11 @@ public class StickerActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 Sticker currentSelectedSticker = mStickerView.getHandlingSticker();
-                if(currentSelectedSticker != null){
+                if (currentSelectedSticker != null) {
                     currentSelectedSticker.setAlpha(progress + 100);
                 }
                 mStickerView.invalidate();
-                LogUtils.d((progress + 100)+"");
+                LogUtils.d((progress + 100) + "");
             }
 
             @Override
@@ -122,7 +129,7 @@ public class StickerActivity extends AppCompatActivity {
         initStickerView();
     }
 
-    private void initColorFilterView(){
+    private void initColorFilterView() {
         try {
             mStickerId = getIntent().getStringExtra(KEY_GROUP_STICKER_ID);
             int size = getResources().getDimensionPixelSize(R.dimen.size_50dip);
@@ -133,26 +140,26 @@ public class StickerActivity extends AppCompatActivity {
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size, size);
             linearLayout.setLayoutParams(layoutParams);
 
-            for(String str: mColorListForFilter){
+            for (String str : mColorListForFilter) {
                 Drawable d = Drawable.createFromStream(getAssets().open("color/icon_color.webp"), null);
                 ImageButton imageButton = new ImageButton(this);
                 imageButton.setLayoutParams(layoutParams);
-                imageButton.setPadding(4,4,4,4);
-                imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                imageButton.setPadding(4, 4, 4, 4);
+                imageButton.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 imageButton.setBackgroundColor(getResources().getColor(R.color.bar_bg));
                 imageButton.setImageDrawable(d);
-                //imageButton.setBackground(d);
+                imageButton.setTag(str);
                 imageButton.setColorFilter(Color.parseColor(str), PorterDuff.Mode.MULTIPLY);
+                imageButton.setOnClickListener(onColorFilterClick);
                 linearLayout.addView(imageButton);
             }
             mColorListFilterView.addView(linearLayout);
 
 
-        }catch (Exception exp){
+        } catch (Exception exp) {
             LogUtils.e(exp);
         }
     }
-
 
 
     private void initStickerView() {
@@ -226,7 +233,7 @@ public class StickerActivity extends AppCompatActivity {
 
     }
 
-    private void addView() {
+    private void addStickerGroupIconView() {
         try {
             LayoutInflater layoutInflater = getLayoutInflater();
             StickerGroup stickerGroup = null;
@@ -241,7 +248,7 @@ public class StickerActivity extends AppCompatActivity {
 
 
             for (StickerSubGroup subGroup : stickerGroup.getLstSubGroup()) {
-                View view = layoutInflater.inflate(R.layout.layout_sub_button, mLLStickerGroup, false);
+                final View view = layoutInflater.inflate(R.layout.layout_sub_button, mLLStickerGroup, false);
                 ImageButton imgButton = view.findViewById(R.id.ibIcon);
                 TextView textView = view.findViewById(R.id.tvDes);
                 Drawable drawable = Drawable.createFromStream(getAssets().open(subGroup.getIcon()), null);
@@ -251,8 +258,10 @@ public class StickerActivity extends AppCompatActivity {
 
                 imgButton.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
-                        openStickerSubGroupView(view);
+                    public void onClick(View v) {
+                        openStickerSubGroupView(v);
+                        unSelecteStickerGroupButtonState();
+                        view.setBackgroundColor(getResources().getColor(R.color.button_pressed));
                     }
                 });
                 mLLStickerGroup.addView(view);
@@ -263,12 +272,23 @@ public class StickerActivity extends AppCompatActivity {
         }
     }
 
-    private void showEditSticker(){
+    private void unSelecteStickerGroupButtonState(){
+        try {
+            for(int i=0; i< mLLStickerGroup.getChildCount(); i++){
+                View childView = mLLStickerGroup.getChildAt(i);
+                childView.setBackgroundColor(getResources().getColor(R.color.button_default));
+            }
+        }catch (Exception exp){
+            LogUtils.e(exp);
+        }
+    }
+
+    private void showEditSticker() {
         mLlEditSticker.setVisibility(View.VISIBLE);
         Sticker selectedSticker = mStickerView.getHandlingSticker();
-        if(selectedSticker!=null){
-            BitmapDrawable bitmapD = (BitmapDrawable)selectedSticker.getDrawable();
-            if(bitmapD != null){
+        if (selectedSticker != null) {
+            BitmapDrawable bitmapD = (BitmapDrawable) selectedSticker.getDrawable();
+            if (bitmapD != null) {
                 int alpha = bitmapD.getPaint().getAlpha();
                 mFakeBar.setProgress(alpha - 100);
             }
@@ -276,8 +296,12 @@ public class StickerActivity extends AppCompatActivity {
         }
 
     }
-    private void hideEditSticker(){
+
+    private void hideEditSticker() {
+        mStickerView.setHandlingSticker(null);
+        mStickerView.invalidate();
         mLlEditSticker.setVisibility(View.GONE);
+        hideColorFilter();
     }
 
     public void openStickerSubGroupView(View view) {
@@ -289,6 +313,29 @@ public class StickerActivity extends AppCompatActivity {
 
     public void hideGroupSticker() {
         mGridViewSticker.setVisibility(View.GONE);
+    }
+
+    public void showColorFilter() {
+        mColorListFilterView.setVisibility(View.VISIBLE);
+    }
+
+    public void hideColorFilter() {
+        mColorListFilterView.setVisibility(View.GONE);
+    }
+
+    public void colorFilterClick(View v) {
+        if (mColorListFilterView.getVisibility() == View.VISIBLE) {
+            View parentView = (View) v.getParent();
+            parentView.setBackgroundColor(getResources().getColor(R.color.button_default));
+            hideColorFilter();
+        } else {
+            showColorFilter();
+            View parentView = (View) v.getParent();
+            parentView.setBackgroundColor(getResources().getColor(R.color.button_pressed));
+        }
+    }
+    public void closeEditStickerClick(View view){
+        hideEditSticker();
     }
 
 
@@ -303,7 +350,6 @@ public class StickerActivity extends AppCompatActivity {
             mGridViewSticker.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
                     try {
                         String path = lstStickerPath.get(i);
                         hideGroupSticker();
@@ -311,6 +357,8 @@ public class StickerActivity extends AppCompatActivity {
                         DrawableSticker sticker = new DrawableSticker(d);
 
                         mStickerView.addSticker(sticker);
+                        mRlHeader.setVisibility(View.VISIBLE);
+                        unSelecteStickerGroupButtonState();
                         LogUtils.d(path);
                     } catch (Exception exp) {
                         LogUtils.e(exp);
@@ -332,7 +380,6 @@ public class StickerActivity extends AppCompatActivity {
         }
         super.onBackPressed();
     }
-
 
 
 }
