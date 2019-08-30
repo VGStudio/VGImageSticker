@@ -248,6 +248,14 @@ public class StickerView extends FrameLayout {
     }
   }
 
+  public void setHandlingSticker(Sticker sticker){
+    handlingSticker = sticker;
+  }
+
+  public Sticker getHandlingSticker(){
+    return handlingSticker;
+  }
+
   protected void configIconMatrix(@NonNull BitmapStickerIcon icon, float x, float y,
       float rotation) {
     icon.setX(x);

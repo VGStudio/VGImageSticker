@@ -1,17 +1,23 @@
 package com.app.vgs.vgimagesticker;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.ScaleDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +48,9 @@ public class StickerActivity extends AppCompatActivity {
     GridView mGridViewSticker;
     RelativeLayout mRlHeader;
     StickerView mStickerView;
+    LinearLayout mLlEditSticker;
+    ImageView mIvImage;
+    SeekBar mFakeBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,9 +73,48 @@ public class StickerActivity extends AppCompatActivity {
         mGridViewSticker = findViewById(R.id.gridViewSticker);
         mRlHeader = findViewById(R.id.rlHeader);
         mStickerView = findViewById(R.id.sticker_view);
+        mLlEditSticker = findViewById(R.id.llEditSticker);
+        mFakeBar = findViewById(R.id.fade_seek);
+
+
+        mIvImage = findViewById(R.id.ivImage);
+
+        mIvImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                LogUtils.d("Image click");
+                hideEditSticker();
+                mStickerView.setHandlingSticker(null);
+                mStickerView.invalidate();
+            }
+        });
+
+        mFakeBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                Sticker currentSelectedSticker = mStickerView.getHandlingSticker();
+                if(currentSelectedSticker != null){
+                    currentSelectedSticker.setAlpha(progress + 100);
+                }
+                mStickerView.invalidate();
+                LogUtils.d((progress + 100)+"");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
 
         initStickerView();
     }
+
+
 
     private void initStickerView() {
         try {
@@ -94,17 +142,17 @@ public class StickerActivity extends AppCompatActivity {
             mStickerView.setOnStickerOperationListener(new StickerView.OnStickerOperationListener() {
                 @Override
                 public void onStickerAdded(@NonNull Sticker sticker) {
-
+                    showEditSticker();
                 }
 
                 @Override
                 public void onStickerClicked(@NonNull Sticker sticker) {
-                    LogUtils.d("Sticker click");
+
                 }
 
                 @Override
                 public void onStickerDeleted(@NonNull Sticker sticker) {
-
+                    hideEditSticker();
                 }
 
                 @Override
@@ -114,7 +162,7 @@ public class StickerActivity extends AppCompatActivity {
 
                 @Override
                 public void onStickerTouchedDown(@NonNull Sticker sticker) {
-                    LogUtils.d("Sticker TouchedDown");
+                    showEditSticker();
                 }
 
                 @Override
@@ -176,6 +224,23 @@ public class StickerActivity extends AppCompatActivity {
         }
     }
 
+    private void showEditSticker(){
+        mLlEditSticker.setVisibility(View.VISIBLE);
+        Sticker selectedSticker = mStickerView.getHandlingSticker();
+        if(selectedSticker!=null){
+            BitmapDrawable bitmapD = (BitmapDrawable)selectedSticker.getDrawable();
+            if(bitmapD != null){
+                int alpha = bitmapD.getPaint().getAlpha();
+                mFakeBar.setProgress(alpha - 100);
+            }
+
+        }
+
+    }
+    private void hideEditSticker(){
+        mLlEditSticker.setVisibility(View.GONE);
+    }
+
     public void openStickerSubGroupView(View view) {
         String folderPath = view.getTag().toString();
         String dataPath = folderPath + "/data.json";
@@ -205,6 +270,7 @@ public class StickerActivity extends AppCompatActivity {
                         hideGroupSticker();
                         Drawable d = Drawable.createFromStream(getResources().getAssets().open(path), null);
                         DrawableSticker sticker = new DrawableSticker(d);
+
                         mStickerView.addSticker(sticker);
                         LogUtils.d(path);
                     } catch (Exception exp) {
