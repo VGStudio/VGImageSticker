@@ -14,18 +14,18 @@
         android:scrollbarThumbVertical="@color/colourBgAndSelected">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="40.0dip">
 
                 <TextView
                     android:id="@+id/appname"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:gravity="center|left"
                     android:paddingLeft="10.0dip"
                     android:shadowColor="@color/text_shadow"
@@ -97,19 +97,19 @@
             </ViewFlipper>
 
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="80.0dip"
                 android:orientation="horizontal"
                 android:weightSum="4.0">
 
                 <RelativeLayout
                     android:layout_width="0.0dip"
-                    android:layout_height="fill_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1.0">
 
                     <ImageButton
                         android:id="@+id/imgCamera"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="65.0dip"
                         android:background="#00ffffff"
                         android:onClick="openApps"
@@ -117,7 +117,7 @@
                         android:src="@drawable/camera" />
 
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="30.0dip"
                         android:layout_alignParentBottom="true"
                         android:fontFamily="@font/my_font"
@@ -131,14 +131,14 @@
 
                 <RelativeLayout
                     android:layout_width="0.0dip"
-                    android:layout_height="fill_parent"
+                    android:layout_height="match_parent"
                     android:background="@drawable/button_background"
                     android:onClick="openGallery"
                     android:layout_weight="1.0">
 
                     <ImageButton
                         android:id="@+id/imgGallery"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="65.0dip"
                         android:background="#00ffffff"
                         android:scaleType="centerInside"
@@ -146,7 +146,7 @@
                         android:src="@drawable/button_gallery" />
 
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="30.0dip"
                         android:layout_alignParentBottom="true"
                         android:fontFamily="@font/my_font"
@@ -160,12 +160,12 @@
 
                 <RelativeLayout
                     android:layout_width="0.0dip"
-                    android:layout_height="fill_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1.0">
 
                     <ImageButton
                         android:id="@+id/cricket_icon"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="65.0dip"
                         android:background="#00ffffff"
                         android:onClick="openApps"
@@ -173,7 +173,7 @@
                         android:src="@drawable/cricket" />
 
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="30.0dip"
                         android:layout_alignParentBottom="true"
                         android:fontFamily="@font/my_font"
@@ -187,12 +187,12 @@
 
                 <RelativeLayout
                     android:layout_width="0.0dip"
-                    android:layout_height="fill_parent"
+                    android:layout_height="match_parent"
                     android:layout_weight="1.0">
 
                     <ImageButton
                         android:id="@+id/tips"
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="65.0dip"
                         android:background="#00ffffff"
                         android:onClick="openApps"
@@ -200,7 +200,7 @@
                         android:src="@drawable/tips" />
 
                     <TextView
-                        android:layout_width="fill_parent"
+                        android:layout_width="match_parent"
                         android:layout_height="30.0dip"
                         android:layout_alignParentBottom="true"
                         android:fontFamily="@font/my_font"
@@ -214,12 +214,12 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="40.0dip">
 
                 <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:fontFamily="@font/my_font"
                     android:gravity="center|left"
                     android:paddingLeft="10.0dip"

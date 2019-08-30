@@ -49,9 +49,9 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="0.0dip"
-            android:src="@drawable/gai_xinh3"
             android:layout_weight="8.1"
-            android:scaleType="centerInside" />
+            android:scaleType="centerInside"
+            android:src="@drawable/gai_xinh3" />
 
 
         <LinearLayout
@@ -62,7 +62,7 @@
 
             <RelativeLayout
                 android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10.0dip"
                 android:layout_marginTop="10.0dip"
                 android:layout_marginRight="5.0dip"
@@ -71,20 +71,18 @@
                 android:background="@drawable/category_border">
 
                 <ImageButton
-                    android:id="@+id/man_styles"
+                    android:id="@+id/ibStickerGroup1"
                     style="@style/button_edit_action"
-                    android:onClick="stickerClick"
-                    android:src="@drawable/hair_style" />
+                    android:onClick="stickerGroup1Click" />
 
                 <TextView
-                    android:id="@+id/man_styles_text"
-                    style="@style/text_edit_action"
-                    android:text="@string/label_man_styles" />
+                    android:id="@+id/tvStickerGroup1"
+                    style="@style/text_edit_action" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginTop="10.0dip"
                 android:layout_marginRight="5.0dip"
@@ -93,20 +91,18 @@
                 android:background="@drawable/category_border">
 
                 <ImageButton
-                    android:id="@+id/accessories"
+                    android:id="@+id/ibStickerGroup2"
                     style="@style/button_edit_action"
-                    android:onClick="onClickCategories"
-                    android:src="@drawable/accessories" />
+                    android:onClick="stickerGroup2Click" />
 
                 <TextView
-                    android:id="@+id/accessories_text"
-                    style="@style/text_edit_action"
-                    android:text="@string/accessories" />
+                    android:id="@+id/tvStickerGroup2"
+                    style="@style/text_edit_action" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginTop="10.0dip"
                 android:layout_marginRight="10.0dip"
@@ -128,14 +124,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="0.0dip"
             android:layout_weight="3.3"
             android:weightSum="3.0">
 
             <RelativeLayout
                 android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10.0dip"
                 android:layout_marginTop="5.0dip"
                 android:layout_marginRight="5.0dip"
@@ -157,7 +153,7 @@
 
             <RelativeLayout
                 android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginTop="5.0dip"
                 android:layout_marginRight="5.0dip"
@@ -179,7 +175,7 @@
 
             <RelativeLayout
                 android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginTop="5.0dip"
                 android:layout_marginRight="10.0dip"
@@ -201,14 +197,14 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="0.0dip"
             android:layout_weight="3.3"
             android:weightSum="3.0">
 
             <RelativeLayout
                 android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="10.0dip"
                 android:layout_marginTop="5.0dip"
                 android:layout_marginRight="5.0dip"
@@ -230,7 +226,7 @@
 
             <RelativeLayout
                 android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginTop="5.0dip"
                 android:layout_marginRight="5.0dip"
@@ -252,7 +248,7 @@
 
             <RelativeLayout
                 android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="5.0dip"
                 android:layout_marginTop="5.0dip"
                 android:layout_marginRight="10.0dip"
@@ -269,12 +265,10 @@
                 <TextView
                     android:id="@+id/fabric_text"
                     style="@style/text_edit_action"
-                    android:text="@string/label_new_frames"/>
+                    android:text="@string/label_new_frames" />
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
-
-
 
 
     <include layout="@layout/layout_confirm_exit" />

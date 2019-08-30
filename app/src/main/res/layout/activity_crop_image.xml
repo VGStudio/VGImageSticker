@@ -29,7 +29,7 @@
             android:id="@+id/squareBtn"
             style="@style/button_text"
             android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:onClick="squareRationClick"
             android:text="@string/square" />
@@ -38,7 +38,7 @@
             android:id="@+id/rotate"
             style="@style/button_text"
             android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:onClick="rotationClick"
             android:text="@string/rotate" />
@@ -47,7 +47,7 @@
             android:id="@+id/done"
             style="@style/button_text"
             android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1.0"
             android:onClick="doneClick"
             android:text="@string/done" />

@@ -2,7 +2,7 @@
   {
     "id": "hairstyle",
     "title": "Hair Style",
-    "icon": "hair_style.webp",
+    "icon": "sticker/icon_hair_style.webp",
     "group": [
       {
         "title": "Hair Style",
@@ -39,7 +39,7 @@
   {
     "id": "accesories",
     "title": "Accesories",
-    "icon": "accessories.webp",
+    "icon": "sticker/icon_accessories.webp",
     "group": [
       {
         "title": "Sunglass",

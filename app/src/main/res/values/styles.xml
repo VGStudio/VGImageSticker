@@ -20,6 +20,7 @@
         <item name="android:textColor">@color/colourBgAndSelected</item>
         <item name="android:background">@drawable/button_background</item>
     </style>
+
     <style name="button_exit">
         <item name="android:layout_width">80.0dip</item>
         <item name="android:layout_height">40.0dip</item>
@@ -45,10 +46,33 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
-   <style name="text_header" parent="text">
-       <item name="android:textSize">20.0sp</item>
-       <item name="android:textStyle">bold</item>
-   </style>
+
+    <style name="text_header" parent="text">
+        <item name="android:textSize">20.0sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="text_header_sticker" parent="text">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+
+    <style name="text_bottom_sticker" parent="text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">20.0dip</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:textSize">12.0sp</item>
+    </style>
+
+    <style name="bottom_image_sticker">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/bottom_image_height</item>
+        <item name="android:background">#00ffffff</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+
     <style name="text_edit_action" parent="text">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_alignParentBottom">true</item>

@@ -9,19 +9,19 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.vo.StickerGroup;
 import com.app.vgs.vgimagesticker.vo.StickerSubGroup;
 
-import org.json.JSONArray;
-
 import java.util.List;
 
 public class StickerActivity extends AppCompatActivity {
-    LinearLayout mSubButton;
+    LinearLayout mLLStickerGroup;
     List<StickerGroup> mLstStickerGroup;
+    public static String KEY_GROUP_STICKER_ID = "KEY_GROUP_STICKER_ID";
+
+    private String mStickerId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +36,11 @@ public class StickerActivity extends AppCompatActivity {
 
     private void initData() {
         mLstStickerGroup = JsonUtils.getStickerGroupFromJsonData(this, "sticker/data.json");
+        mStickerId = getIntent().getStringExtra(KEY_GROUP_STICKER_ID);
     }
 
     private void initView() {
-        mSubButton = findViewById(R.id.bottom_buttons);
+        mLLStickerGroup = findViewById(R.id.llStickerGroup);
 
 
     }
@@ -47,25 +48,25 @@ public class StickerActivity extends AppCompatActivity {
     private void addView(){
         try {
             LayoutInflater layoutInflater = getLayoutInflater();
-            View view = layoutInflater.inflate(R.layout.layout_sub_button, mSubButton, false);
             StickerGroup stickerGroup = null;
 
             for(StickerGroup stkGroup : mLstStickerGroup){
-                if(stkGroup.getId().equals("hairstyle")){
+                if(stkGroup.getId().equals(mStickerId)){
                     stickerGroup = stkGroup;
                 }
             }
 
+            mLLStickerGroup.setWeightSum(stickerGroup.getLstSubGroup().size());
+
 
             for (StickerSubGroup subGroup : stickerGroup.getLstSubGroup()){
-
-                view = layoutInflater.inflate(R.layout.layout_sub_button, mSubButton, false);
-                ImageButton imgButton = view.findViewById(R.id.eye_ball);
-                TextView textView = view.findViewById(R.id.eye_ball_text);
+                View view = layoutInflater.inflate(R.layout.layout_sub_button, mLLStickerGroup, false);
+                ImageButton imgButton = view.findViewById(R.id.ibIcon);
+                TextView textView = view.findViewById(R.id.tvDes);
                 Drawable drawable = Drawable.createFromStream(getAssets().open(subGroup.getIcon()), null);
                 imgButton.setImageDrawable(drawable);
                 textView.setText(subGroup.getTitle());
-                mSubButton.addView(view);
+                mLLStickerGroup.addView(view);
             }
 
         }catch (Exception exp){
