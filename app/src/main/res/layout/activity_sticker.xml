@@ -11,19 +11,29 @@
         android:layout_above="@id/llStickerGroup"
         android:layout_below="@id/rlHeader">
 
+
+
         <RelativeLayout
             android:id="@+id/root_relaytive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true">
 
-            <ImageView
-                android:id="@+id/imgageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="centerInside"
+            <com.xiaopo.flying.sticker.StickerView
+                android:id="@+id/sticker_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                app:showBorder="true"
+                app:showIcons="true"
+                android:layout_gravity="center">
+                <!-- custom, maybe you will like to put an ImageView-->
+                <ImageView
+                    android:src="@drawable/gai_xinh3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </com.xiaopo.flying.sticker.StickerView>
 
-                android:src="@drawable/gai_xinh3" />
         </RelativeLayout>
     </RelativeLayout>
 

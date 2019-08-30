@@ -22,6 +22,7 @@ android {
 
 dependencies {
     implementation project(':NativeTemplatesAndroid-1.0.0')
+    implementation project(':sticker')
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
