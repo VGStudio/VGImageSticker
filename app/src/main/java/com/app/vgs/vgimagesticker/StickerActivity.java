@@ -382,4 +382,12 @@ public class StickerActivity extends AppCompatActivity {
     }
 
 
+    public void resetClick(View view) {
+        try {
+            hideEditSticker();
+            mStickerView.removeAllStickers();;
+        }catch (Exception exp){
+
+        }
+    }
 }

@@ -81,6 +81,7 @@
                 android:layout_height="@dimen/header_image_height"
                 android:background="#00ffffff"
                 android:scaleType="centerInside"
+                android:onClick="resetClick"
                 android:src="@drawable/reset" />
 
             <TextView
