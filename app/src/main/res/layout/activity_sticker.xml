@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/llStickerGroup"
-        android:layout_below="@id/Header_buttons_layout">
+        android:layout_below="@id/rlHeader">
 
         <RelativeLayout
             android:id="@+id/root_relaytive"
@@ -27,26 +27,20 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/rlSticker"
+    <GridView
+        android:id="@+id/gridViewSticker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/llStickerGroup"
-        android:layout_below="@id/Header_buttons_layout"
-        android:visibility="gone">
+        android:layout_below="@id/rlHeader"
+        android:layout_gravity="center"
+        android:background="@color/bg_color"
+        android:numColumns="4"
+        android:visibility="gone"/>
 
-        <GridView
-            android:id="@+id/gridView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:layout_gravity="center"
-            android:background="@color/bg_color"
-            android:numColumns="4" />
-    </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/Header_buttons_layout"
+        android:id="@+id/rlHeader"
         android:layout_width="match_parent"
         android:layout_height="@dimen/header_height"
         android:background="@color/bar_bg"

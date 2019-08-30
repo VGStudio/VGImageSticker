@@ -23,10 +23,6 @@ public class JsonUtils {
             is.read(buffer);
             is.close();
             json = new String(buffer, "UTF-8");
-
-
-
-            LogUtils.d(json);
         } catch (Exception ex) {
             LogUtils.e(ex);
         }

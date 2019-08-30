@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/ivSticker"
+        android:layout_width="80.0dip"
+        android:layout_height="80.0dip"
+        android:layout_margin="2.0dip"
+        android:background="#00ffffff"
+        android:padding="4.0dip"
+        android:scaleType="centerCrop" />
+
+</LinearLayout>
