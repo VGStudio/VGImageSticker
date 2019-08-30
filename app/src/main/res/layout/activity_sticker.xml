@@ -12,7 +12,6 @@
         android:layout_below="@id/rlHeader">
 
 
-
         <RelativeLayout
             android:id="@+id/root_relaytive"
             android:layout_width="wrap_content"
@@ -24,15 +23,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 app:showBorder="true"
-                app:showIcons="true"
-                android:layout_gravity="center">
+                app:showIcons="true">
                 <!-- custom, maybe you will like to put an ImageView-->
                 <ImageView
                     android:id="@+id/ivImage"
-                    android:src="@drawable/gai_xinh3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:src="@drawable/gai_xinh3" />
             </com.xiaopo.flying.sticker.StickerView>
 
         </RelativeLayout>
@@ -47,7 +46,7 @@
         android:layout_gravity="center"
         android:background="@color/bg_color"
         android:numColumns="4"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 
     <RelativeLayout
@@ -118,8 +117,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/bar_bg"
         android:orientation="horizontal"
-        android:visibility="visible"
-        >
+        android:visibility="visible">
 
     </LinearLayout>
 
@@ -130,7 +128,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/bar_bg"
         android:orientation="horizontal"
-        android:visibility="gone"
+        android:visibility="visible"
         android:weightSum="20.0">
 
         <RelativeLayout
@@ -168,7 +166,6 @@
         </RelativeLayout>
 
 
-
         <RelativeLayout
             android:layout_width="0.0dip"
             android:layout_height="match_parent"
@@ -178,16 +175,15 @@
                 android:id="@+id/fade_seek"
                 android:layout_width="match_parent"
                 android:layout_height="30.0dip"
+                android:layout_centerInParent="true"
                 android:max="155"
-                android:progress="155"
-                android:layout_centerInParent="true" />
+                android:progress="155" />
 
             <TextView
                 android:id="@+id/fade_text"
                 style="@style/text_bottom_sticker"
                 android:text="@string/label_fade" />
         </RelativeLayout>
-
 
 
         <RelativeLayout
@@ -208,7 +204,19 @@
         </RelativeLayout>
     </LinearLayout>
 
+    <HorizontalScrollView
+        android:id="@+id/colorListFilterView"
+        android:layout_width="match_parent"
+        android:layout_height="55.0dip"
+        android:layout_above="@id/llEditSticker"
+        android:background="@color/bar_bg"
+        android:visibility="visible">
 
+
+
+
+
+    </HorizontalScrollView>
 
 
 </RelativeLayout>

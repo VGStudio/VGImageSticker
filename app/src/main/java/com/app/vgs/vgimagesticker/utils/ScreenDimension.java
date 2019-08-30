@@ -17,4 +17,6 @@ public class ScreenDimension {
         mHeight = size.y;
     }
 
+
+
 }

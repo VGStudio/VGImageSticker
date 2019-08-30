@@ -108,4 +108,18 @@ public class JsonUtils {
         }
         return lstRtn;
     }
+
+    public static List<String> getColorListFromJson(Context context){
+        List<String> lstRtn = new ArrayList<>();
+        try {
+            String jsonData = loadJsonFromAsset(context, "color/data.json");
+            JSONArray jsonArray = new JSONArray(jsonData);
+            for(int i=0; i< jsonArray.length(); i++){
+                lstRtn.add(jsonArray.get(i).toString());
+            }
+        }catch (Exception exp){
+            LogUtils.e(exp);
+        }
+        return lstRtn;
+    }
 }

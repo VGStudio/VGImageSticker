@@ -1,6 +1,8 @@
 package com.app.vgs.vgimagesticker;
 
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ScaleDrawable;
@@ -13,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,6 +47,7 @@ public class StickerActivity extends AppCompatActivity {
     public static String KEY_GROUP_STICKER_ID = "KEY_GROUP_STICKER_ID";
 
     private String mStickerId = "";
+    private List<String> mColorListForFilter;
 
     GridView mGridViewSticker;
     RelativeLayout mRlHeader;
@@ -51,6 +55,8 @@ public class StickerActivity extends AppCompatActivity {
     LinearLayout mLlEditSticker;
     ImageView mIvImage;
     SeekBar mFakeBar;
+    HorizontalScrollView mColorListFilterView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +71,8 @@ public class StickerActivity extends AppCompatActivity {
 
     private void initData() {
         mLstStickerGroup = JsonUtils.getStickerGroupFromJsonData(this, "sticker/data.json");
-        mStickerId = getIntent().getStringExtra(KEY_GROUP_STICKER_ID);
+        mColorListForFilter = JsonUtils.getColorListFromJson(this);
+        initColorFilterView();
     }
 
     private void initView() {
@@ -75,6 +82,7 @@ public class StickerActivity extends AppCompatActivity {
         mStickerView = findViewById(R.id.sticker_view);
         mLlEditSticker = findViewById(R.id.llEditSticker);
         mFakeBar = findViewById(R.id.fade_seek);
+        mColorListFilterView = findViewById(R.id.colorListFilterView);
 
 
         mIvImage = findViewById(R.id.ivImage);
@@ -112,6 +120,37 @@ public class StickerActivity extends AppCompatActivity {
         });
 
         initStickerView();
+    }
+
+    private void initColorFilterView(){
+        try {
+            mStickerId = getIntent().getStringExtra(KEY_GROUP_STICKER_ID);
+            int size = getResources().getDimensionPixelSize(R.dimen.size_50dip);
+            int padding = getResources().getDimensionPixelSize(R.dimen.size_4dip);
+            LogUtils.d("size:" + size + "   padding:" + padding);
+            LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size, size);
+            linearLayout.setLayoutParams(layoutParams);
+
+            for(String str: mColorListForFilter){
+                Drawable d = Drawable.createFromStream(getAssets().open("color/icon_color.webp"), null);
+                ImageButton imageButton = new ImageButton(this);
+                imageButton.setLayoutParams(layoutParams);
+                imageButton.setPadding(4,4,4,4);
+                imageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                imageButton.setBackgroundColor(getResources().getColor(R.color.bar_bg));
+                imageButton.setImageDrawable(d);
+                //imageButton.setBackground(d);
+                imageButton.setColorFilter(Color.parseColor(str), PorterDuff.Mode.MULTIPLY);
+                linearLayout.addView(imageButton);
+            }
+            mColorListFilterView.addView(linearLayout);
+
+
+        }catch (Exception exp){
+            LogUtils.e(exp);
+        }
     }
 
 
