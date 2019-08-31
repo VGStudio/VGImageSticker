@@ -30,12 +30,16 @@ public class MainActionActivity extends BaseActivity {
     private TextView mTvStickerGroup1;
     private ImageButton mIbStickerGroup2;
     private TextView mTvStickerGroup2;
+    private ImageButton mIbStickerGroup3;
+    private TextView mTvStickerGroup3;
     private ImageView mIvPreview;
 
 
     List<StickerGroup> mLstStickerGroup;
     StickerGroup mStickerGroup1;
     StickerGroup mStickerGroup2;
+    StickerGroup mStickerGroup3;
+
 
     private String mImagePath = "";
 
@@ -48,9 +52,7 @@ public class MainActionActivity extends BaseActivity {
         initView();
         initData();
 
-        //mIvPreview.setImageResource(R.drawable.gai_xinh3);
-        Drawable d = getResources().getDrawable(R.drawable.gai_xinh3);
-        mIvPreview.setImageDrawable(d);
+
     }
 
     @Override
@@ -69,6 +71,8 @@ public class MainActionActivity extends BaseActivity {
         mTvStickerGroup1 = findViewById(R.id.tvStickerGroup1);
         mIbStickerGroup2 = findViewById(R.id.ibStickerGroup2);
         mTvStickerGroup2 = findViewById(R.id.tvStickerGroup2);
+        mIbStickerGroup3 = findViewById(R.id.ibStickerGroup3);
+        mTvStickerGroup3 = findViewById(R.id.tvStickerGroup3);
         mIvPreview = findViewById(R.id.ivPreview);
 
 
@@ -93,14 +97,18 @@ public class MainActionActivity extends BaseActivity {
             mLstStickerGroup = JsonUtils.getStickerGroupFromJsonData(this, Const.STICKER_DATA_FILE_PATH);
             mStickerGroup1 = mLstStickerGroup.get(0);
             mStickerGroup2 = mLstStickerGroup.get(1);
+            mStickerGroup3 = mLstStickerGroup.get(2);
 
             mTvStickerGroup1.setText(mStickerGroup1.getTitle());
             mTvStickerGroup2.setText(mStickerGroup2.getTitle());
+            mTvStickerGroup3.setText(mStickerGroup3.getTitle());
 
             Drawable d1 = Drawable.createFromStream(getResources().getAssets().open(mStickerGroup1.getIcon()), null);
             Drawable d2 = Drawable.createFromStream(getResources().getAssets().open(mStickerGroup2.getIcon()), null);
+            Drawable d3 = Drawable.createFromStream(getResources().getAssets().open(mStickerGroup3.getIcon()), null);
             mIbStickerGroup1.setImageDrawable(d1);
             mIbStickerGroup2.setImageDrawable(d2);
+            mIbStickerGroup3.setImageDrawable(d3);
         }catch (Exception exp){
             LogUtils.e(exp);
         }
@@ -112,6 +120,9 @@ public class MainActionActivity extends BaseActivity {
     }
     public void stickerGroup2Click(View view){
         openStickerActivity(mStickerGroup2.getId());
+    }
+    public void stickerGroup3Click(View view){
+        openStickerActivity(mStickerGroup3.getId());
     }
 
     private void openStickerActivity(String groupId){

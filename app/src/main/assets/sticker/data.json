@@ -78,5 +78,36 @@
         "folder": "sticker/earring"
       }
     ]
+  },
+  {
+    "id": "makeover",
+    "title": "Make Overs",
+    "icon": "sticker/icon_makeover.webp",
+    "group": [
+      {
+        "title": "Six Pack",
+        "icon": "sticker/sixpacks/icon_six_pack.webp",
+        "folder": "sticker/sixpacks",
+        "id": "sixpacks"
+      },
+      {
+        "id": "eightpacks",
+        "title": "Eight Pack",
+        "icon": "sticker/eightpacks/icon_eight_pack.png",
+        "folder": "sticker/eightpacks"
+      },
+      {
+        "id": "chest",
+        "title": "Chest",
+        "icon": "sticker/chest/icon_chest.webp",
+        "folder": "sticker/chest"
+      },
+      {
+        "id": "tattoo",
+        "title": "Tatoos",
+        "icon": "sticker/tattoo/icon_tattoo.webp",
+        "folder": "sticker/tattoo"
+      }
+    ]
   }
 ]
