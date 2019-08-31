@@ -1,10 +1,13 @@
 package com.app.vgs.vgimagesticker;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.vgs.vgimagesticker.utils.Const;
@@ -18,7 +21,8 @@ import java.util.List;
 
 public class MainActionActivity extends BaseActivity {
 
-    public static final int STICKER_ACTIVITY_CODE = 1001;
+    public static final String KEY_IMAGE_PATH_UPDATE = "KEY_IMAGE_PATH_UPDATE";
+    public static final int EDIT_IMAGE_CODE = 1001;
 
     View mExitPopUp;
     private AdView mBannerAdView;
@@ -26,11 +30,15 @@ public class MainActionActivity extends BaseActivity {
     private TextView mTvStickerGroup1;
     private ImageButton mIbStickerGroup2;
     private TextView mTvStickerGroup2;
+    private ImageView mIvPreview;
 
 
     List<StickerGroup> mLstStickerGroup;
     StickerGroup mStickerGroup1;
     StickerGroup mStickerGroup2;
+
+    private String mImagePath = "";
+
 
 
     @Override
@@ -39,6 +47,19 @@ public class MainActionActivity extends BaseActivity {
         setContentView(R.layout.activity_main_action);
         initView();
         initData();
+
+        //mIvPreview.setImageResource(R.drawable.gai_xinh3);
+        Drawable d = getResources().getDrawable(R.drawable.gai_xinh3);
+        mIvPreview.setImageDrawable(d);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode == EDIT_IMAGE_CODE && resultCode == Activity.RESULT_OK){
+            mImagePath = data.getStringExtra(KEY_IMAGE_PATH_UPDATE);
+            Drawable dPreview = Drawable.createFromPath(mImagePath);
+            mIvPreview.setImageDrawable(dPreview);
+        }
     }
 
     private void initView() {
@@ -48,6 +69,7 @@ public class MainActionActivity extends BaseActivity {
         mTvStickerGroup1 = findViewById(R.id.tvStickerGroup1);
         mIbStickerGroup2 = findViewById(R.id.ibStickerGroup2);
         mTvStickerGroup2 = findViewById(R.id.tvStickerGroup2);
+        mIvPreview = findViewById(R.id.ivPreview);
 
 
 
@@ -95,7 +117,7 @@ public class MainActionActivity extends BaseActivity {
     private void openStickerActivity(String groupId){
         Intent intent = new Intent(this, StickerActivity.class);
         intent.putExtra(StickerActivity.KEY_GROUP_STICKER_ID, groupId);
-        startActivityForResult(intent, STICKER_ACTIVITY_CODE);
+        startActivityForResult(intent, EDIT_IMAGE_CODE);
     }
 
 

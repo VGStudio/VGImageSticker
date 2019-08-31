@@ -66,6 +66,6 @@
             android:layout_marginRight="5dip"
             android:layout_marginTop="10dip"
             android:layout_marginBottom="10dip"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" />
+            ads:adUnitId="@string/admob_banner_ads" />
     </LinearLayout>
 </RelativeLayout>

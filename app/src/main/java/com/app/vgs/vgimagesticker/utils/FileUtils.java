@@ -14,6 +14,7 @@ import java.util.Random;
 
 public class FileUtils {
     public static final String FOLDER = "/app_sticker";
+    public static final String FOLDER_STICKER_TEMP = FOLDER + "/sticker_temp";
     public static final String IMAGE_FILE_PATTERN = "sticker";
 
     public Uri saveBitmapShare(Bitmap bitmap, Context context) {
@@ -99,13 +100,41 @@ public class FileUtils {
                 contentValues.put("_data", imgFile.getAbsolutePath());
                 rtnValue = Uri.fromFile(imgFile.getAbsoluteFile());
                 context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues);
-                LogUtils.d(imgFile.getAbsolutePath());
             }
         } catch (IOException exp) {
             LogUtils.e(exp);
             return null;
         }
 
+        return rtnValue;
+    }
+
+    public static File createEmptyFile(Context context) {
+        File rtnValue = null;
+        try {
+            StringBuilder strBuilder = new StringBuilder();
+            strBuilder.append(Environment.getExternalStorageDirectory());
+            strBuilder.append(FOLDER_STICKER_TEMP);
+            File folder = new File(strBuilder.toString());
+            if (folder.isDirectory()) {
+                String[] arrayOfString = folder.list();
+                //delete all file in temp folder
+                for (int i = 0; i < arrayOfString.length; i++) {
+                    (new File(folder, arrayOfString[i])).delete();
+                }
+            }
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            rtnValue = new File(folder, String.format("%s_%d.png", new Object[]{"temp_sticker", System.currentTimeMillis()}));
+            if (rtnValue.exists()) {
+                rtnValue.delete();
+            }
+            //rtnValue.createNewFile();
+
+        } catch (Exception exp) {
+            LogUtils.e(exp);
+        }
         return rtnValue;
     }
 }

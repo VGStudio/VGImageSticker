@@ -6,35 +6,32 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@id/llStickerGroup"
         android:layout_below="@id/rlHeader">
 
 
-        <RelativeLayout
-            android:id="@+id/root_relaytive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true">
+
 
             <com.xiaopo.flying.sticker.StickerView
                 android:id="@+id/sticker_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 app:showBorder="true"
                 app:showIcons="true">
                 <!-- custom, maybe you will like to put an ImageView-->
                 <ImageView
-                    android:id="@+id/ivImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:id="@+id/ivPreview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
                     android:src="@drawable/gai_xinh3" />
             </com.xiaopo.flying.sticker.StickerView>
 
-        </RelativeLayout>
+
     </RelativeLayout>
 
     <GridView
@@ -61,15 +58,7 @@
             android:layout_centerInParent="true"
             android:text="@string/label_add_sticker" />
 
-        <ImageButton
-            android:id="@+id/native_ad_new"
-            android:layout_width="@dimen/header_image_width"
-            android:layout_height="@dimen/header_image_height"
-            android:layout_marginLeft="60.0dip"
-            android:background="#00ffffff"
-            android:padding="10.0dip"
-            android:scaleType="centerInside"
-            android:src="@drawable/ad" />
+
 
         <RelativeLayout
             android:layout_width="@dimen/header_image_width"
@@ -100,6 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/header_image_height"
                 android:background="#00ffffff"
+                android:onClick="saveImageClick"
                 android:scaleType="centerInside"
                 android:src="@drawable/done" />
 
@@ -207,6 +197,8 @@
 
 
     </HorizontalScrollView>
+
+    <include  android:visibility="gone" layout="@layout/layout_confirm_exit" />
 
 
 </RelativeLayout>

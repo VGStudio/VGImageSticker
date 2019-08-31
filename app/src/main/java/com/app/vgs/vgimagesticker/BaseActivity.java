@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import com.app.vgs.vgimagesticker.ads.AdmobUtils;
+import com.app.vgs.vgimagesticker.utils.NetworkUtils;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
@@ -33,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public boolean showInterstitial(){
-        if(mAdmobUtils != null){
+        if(mAdmobUtils != null && NetworkUtils.isInternetConnected(this)){
             return mAdmobUtils.showInterstitial();
         }
         return false;

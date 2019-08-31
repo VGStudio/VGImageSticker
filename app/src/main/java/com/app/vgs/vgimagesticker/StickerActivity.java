@@ -1,9 +1,14 @@
 package com.app.vgs.vgimagesticker;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,10 +25,14 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.app.vgs.vgimagesticker.adapter.StickerAdapter;
+import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
+import com.app.vgs.vgimagesticker.utils.NetworkUtils;
 import com.app.vgs.vgimagesticker.vo.StickerGroup;
 import com.app.vgs.vgimagesticker.vo.StickerSubGroup;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.xiaopo.flying.sticker.BitmapStickerIcon;
 import com.xiaopo.flying.sticker.DeleteIconEvent;
 import com.xiaopo.flying.sticker.DrawableSticker;
@@ -32,24 +41,29 @@ import com.xiaopo.flying.sticker.Sticker;
 import com.xiaopo.flying.sticker.StickerView;
 import com.xiaopo.flying.sticker.ZoomIconEvent;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
-public class StickerActivity extends AppCompatActivity {
+public class StickerActivity extends BaseActivity {
     LinearLayout mLLStickerGroup;
     List<StickerGroup> mLstStickerGroup;
     public static String KEY_GROUP_STICKER_ID = "KEY_GROUP_STICKER_ID";
 
     private String mStickerId = "";
     private List<String> mColorListForFilter;
+    private String mFileSavedpath = null;
 
     GridView mGridViewSticker;
     RelativeLayout mRlHeader;
     StickerView mStickerView;
     LinearLayout mLlEditSticker;
-    ImageView mIvImage;
+    ImageView mIvPreview;
     SeekBar mFakeBar;
     HorizontalScrollView mColorListFilterView;
+    View mExitPopUp;
+    AdView mBannerAdView;
+    View mRlColorFilter;
 
     View.OnClickListener onColorFilterClick = new View.OnClickListener() {
         @Override
@@ -77,10 +91,28 @@ public class StickerActivity extends AppCompatActivity {
         addStickerGroupIconView();
     }
 
+    @Override
+    public void setShowInterstitial() {
+        mShowInterstitial = true;
+    }
+
+    @Override
+    public void closeInterstitial() {
+        goBackMainActionCategory();
+    }
+
     private void initData() {
+        initAds();
         mLstStickerGroup = JsonUtils.getStickerGroupFromJsonData(this, "sticker/data.json");
         mColorListForFilter = JsonUtils.getColorListFromJson(this);
         initColorFilterView();
+    }
+
+    private void initAds(){
+        if(NetworkUtils.isInternetConnected(this)){
+            AdRequest adRequest = new AdRequest.Builder().build();
+            mBannerAdView.loadAd(adRequest);
+        }
     }
 
     private void initView() {
@@ -91,11 +123,14 @@ public class StickerActivity extends AppCompatActivity {
         mLlEditSticker = findViewById(R.id.llEditSticker);
         mFakeBar = findViewById(R.id.fade_seek);
         mColorListFilterView = findViewById(R.id.colorListFilterView);
+        mExitPopUp = findViewById(R.id.exitPopUp);
+        mBannerAdView = findViewById(R.id.bannerAdView);
+        mIvPreview = findViewById(R.id.ivPreview);
+        mRlColorFilter = findViewById(R.id.rlColorFilter);
 
 
-        mIvImage = findViewById(R.id.ivImage);
 
-        mIvImage.setOnClickListener(new View.OnClickListener() {
+        mIvPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LogUtils.d("Image click");
@@ -110,6 +145,7 @@ public class StickerActivity extends AppCompatActivity {
                 Sticker currentSelectedSticker = mStickerView.getHandlingSticker();
                 if (currentSelectedSticker != null) {
                     currentSelectedSticker.setAlpha(progress + 100);
+                    hideColorFilter();
                 }
                 mStickerView.invalidate();
                 LogUtils.d((progress + 100) + "");
@@ -133,8 +169,6 @@ public class StickerActivity extends AppCompatActivity {
         try {
             mStickerId = getIntent().getStringExtra(KEY_GROUP_STICKER_ID);
             int size = getResources().getDimensionPixelSize(R.dimen.size_50dip);
-            int padding = getResources().getDimensionPixelSize(R.dimen.size_4dip);
-            LogUtils.d("size:" + size + "   padding:" + padding);
             LinearLayout linearLayout = new LinearLayout(this);
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(size, size);
@@ -159,6 +193,17 @@ public class StickerActivity extends AppCompatActivity {
         } catch (Exception exp) {
             LogUtils.e(exp);
         }
+    }
+
+    private void goBackMainActionCategory(){
+        Intent intent = new Intent();
+        if(mFileSavedpath != null){
+            intent.putExtra(MainActionActivity.KEY_IMAGE_PATH_UPDATE, mFileSavedpath);
+            setResult(Activity.RESULT_OK, intent);
+        }else{
+            setResult(Activity.RESULT_CANCELED, intent);
+        }
+        finish();
     }
 
 
@@ -313,25 +358,33 @@ public class StickerActivity extends AppCompatActivity {
 
     public void hideGroupSticker() {
         mGridViewSticker.setVisibility(View.GONE);
+        unSelecteStickerGroupButtonState();
+        mRlHeader.setVisibility(View.VISIBLE);
     }
 
     public void showColorFilter() {
         mColorListFilterView.setVisibility(View.VISIBLE);
+        mRlColorFilter.setBackgroundColor(getResources().getColor(R.color.button_pressed));
     }
 
     public void hideColorFilter() {
+        mRlColorFilter.setBackgroundColor(getResources().getColor(R.color.button_default));
         mColorListFilterView.setVisibility(View.GONE);
+    }
+
+    private void showExitPopUp(){
+        mExitPopUp.setVisibility(View.VISIBLE);
+    }
+
+    private void hideExitPopUp(){
+        mExitPopUp.setVisibility(View.GONE);
     }
 
     public void colorFilterClick(View v) {
         if (mColorListFilterView.getVisibility() == View.VISIBLE) {
-            View parentView = (View) v.getParent();
-            parentView.setBackgroundColor(getResources().getColor(R.color.button_default));
             hideColorFilter();
         } else {
             showColorFilter();
-            View parentView = (View) v.getParent();
-            parentView.setBackgroundColor(getResources().getColor(R.color.button_pressed));
         }
     }
     public void closeEditStickerClick(View view){
@@ -357,15 +410,12 @@ public class StickerActivity extends AppCompatActivity {
                         DrawableSticker sticker = new DrawableSticker(d);
 
                         mStickerView.addSticker(sticker);
-                        mRlHeader.setVisibility(View.VISIBLE);
-                        unSelecteStickerGroupButtonState();
+
                         LogUtils.d(path);
                     } catch (Exception exp) {
                         LogUtils.e(exp);
                     }
                 }
-
-
             });
         } catch (Exception exp) {
             LogUtils.e(exp);
@@ -373,12 +423,49 @@ public class StickerActivity extends AppCompatActivity {
 
     }
 
+    public void saveImageClick(View view){
+        SaveFileTask task = new SaveFileTask(this);
+        task.execute();
+    }
+
+    private void saveFile(){
+        try {
+            File fTemp = FileUtils.createEmptyFile(this);
+            mStickerView.save(fTemp);
+            mFileSavedpath = fTemp.getAbsolutePath();
+        }catch (Exception exp){
+            LogUtils.e(exp);
+        }
+
+    }
+
+    public void noExitClick(View view){
+        hideExitPopUp();
+    }
+
+    public void yesExitClick(View view){
+        if(!showInterstitial()){
+            goBackMainActionCategory();
+        }
+    }
+
     @Override
     public void onBackPressed() {
+        if(mExitPopUp.getVisibility() == View.VISIBLE){
+            hideExitPopUp();
+            return;
+        }
         if (mGridViewSticker.getVisibility() == View.VISIBLE) {
             hideGroupSticker();
+            return;
         }
-        super.onBackPressed();
+
+        if(mLlEditSticker.getVisibility() == View.VISIBLE){
+            hideEditSticker();
+            return;
+        }
+        showExitPopUp();
+
     }
 
 
@@ -388,6 +475,36 @@ public class StickerActivity extends AppCompatActivity {
             mStickerView.removeAllStickers();;
         }catch (Exception exp){
 
+        }
+    }
+
+    class SaveFileTask extends AsyncTask<Void, Void, Void>{
+        Context context;
+        ProgressDialog pd;
+
+        public SaveFileTask(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            saveFile();
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            pd = ProgressDialog.show(context, "Please wait", "Image is processing");
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            pd.dismiss();
+            if(!showInterstitial()){
+                goBackMainActionCategory();
+            }
         }
     }
 }
