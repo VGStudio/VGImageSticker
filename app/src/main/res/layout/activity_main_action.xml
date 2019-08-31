@@ -107,7 +107,7 @@
                 <ImageButton
                     android:id="@+id/suits"
                     style="@style/button_edit_action"
-                    android:onClick="onClickCategories"
+                    android:onClick="openFrameActivity"
                     android:src="@drawable/suit_dress" />
 
                 <TextView

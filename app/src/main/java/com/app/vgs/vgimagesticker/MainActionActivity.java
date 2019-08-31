@@ -125,9 +125,19 @@ public class MainActionActivity extends BaseActivity {
         openStickerActivity(mStickerGroup3.getId());
     }
 
+    public void openFrameActivity(View view){
+        openFrameActivity("dresses");
+    }
+
     private void openStickerActivity(String groupId){
         Intent intent = new Intent(this, StickerActivity.class);
         intent.putExtra(StickerActivity.KEY_GROUP_STICKER_ID, groupId);
+        startActivityForResult(intent, EDIT_IMAGE_CODE);
+    }
+
+    private void openFrameActivity(String groupId){
+        Intent intent = new Intent(this, FrameActivity.class);
+        intent.putExtra(FrameActivity.KEY_FRAME_GROUP_ID, groupId);
         startActivityForResult(intent, EDIT_IMAGE_CODE);
     }
 
