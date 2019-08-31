@@ -1,0 +1,76 @@
+[
+  {
+    "id": "dresses",
+    "title": "Dress",
+    "icon": "frames/icon_dress.webp",
+    "group": [
+      {
+        "title": "Suit",
+        "icon": "frames/suits/icon_suits.webp",
+        "folder": "frames/suits",
+        "id": "suits"
+      },
+      {
+        "title": "Blazer",
+        "icon": "frames/blazer/icon_blazer.webp",
+        "folder": "frames/blazer",
+        "id": "blazer"
+      },
+      {
+        "title": "Traditional",
+        "icon": "frames/traditional/icon_traditional.webp",
+        "folder": "frames/traditional",
+        "id": "traditional"
+      },
+      {
+        "title": "Formal",
+        "icon": "frames/formal/icon_formal.webp",
+        "folder": "frames/formal",
+        "id": "formal"
+      },
+      {
+        "title": "Jacket",
+        "icon": "frames/jacket/icon_jacket.webp",
+        "folder": "frames/jacket",
+        "id": "jacket"
+      }
+    ]
+  },
+  {
+    "id": "frame",
+    "title": "Frame",
+    "icon": "frames/icon_frame.webp",
+    "group": [
+      {
+        "title": "Attitude",
+        "icon": "frames/attitudeframe/icon_attitudeframe.webp",
+        "folder": "frames/attitudeframe",
+        "id": "attitudeframe"
+      },
+      {
+        "title": "Fashion",
+        "icon": "frames/fashionframe/icon_fashionframe.webp",
+        "folder": "frames/fashionframe",
+        "id": "fashionframe"
+      },
+      {
+        "title": "Macho",
+        "icon": "frames/machoframe/icon_macho_frame.webp",
+        "folder": "frames/machoframe",
+        "id": "machoframe"
+      },
+      {
+        "title": "Love",
+        "icon": "frames/loveframe/icon_love.webp",
+        "folder": "frames/loveframe",
+        "id": "loveframe"
+      },
+      {
+        "title": "Border",
+        "icon": "frames/borderframe/icon_borderframes.webp",
+        "folder": "frames/borderframe",
+        "id": "borderframe"
+      }
+    ]
+  }
+]
