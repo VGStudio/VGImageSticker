@@ -105,15 +105,13 @@
                 android:background="@drawable/category_border">
 
                 <ImageButton
-                    android:id="@+id/suits"
+                    android:id="@+id/ibFrameGroup1"
                     style="@style/button_edit_action"
-                    android:onClick="openFrameActivity"
-                    android:src="@drawable/suit_dress" />
+                    android:onClick="frameGroup1Click" />
 
                 <TextView
-                    android:id="@+id/suits_text"
-                    style="@style/text_edit_action"
-                    android:text="Dresses" />
+                    android:id="@+id/tvFrameGroup1"
+                    style="@style/text_edit_action" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -200,15 +198,13 @@
                 android:background="@drawable/category_border">
 
                 <ImageButton
-                    android:id="@+id/frames"
+                    android:id="@+id/ibFrameGroup2"
                     style="@style/button_edit_action"
-                    android:onClick="onClickCategories"
-                    android:src="@drawable/frame" />
+                    android:onClick="frameGroup2Click" />
 
                 <TextView
-                    android:id="@+id/frames_text"
-                    style="@style/text_edit_action"
-                    android:text="@string/label_frames" />
+                    android:id="@+id/tvFrameGroup2"
+                    style="@style/text_edit_action" />
             </RelativeLayout>
 
             <RelativeLayout

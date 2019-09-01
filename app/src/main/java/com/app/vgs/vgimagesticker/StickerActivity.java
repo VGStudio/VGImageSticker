@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
@@ -25,6 +27,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.app.vgs.vgimagesticker.adapter.StickerAdapter;
+import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
@@ -103,7 +106,7 @@ public class StickerActivity extends BaseActivity {
 
     private void initData() {
         initAds();
-        mLstStickerGroup = JsonUtils.getStickerGroupFromJsonData(this, "sticker/data.json");
+        mLstStickerGroup = JsonUtils.getStickerGroupFromJsonData(this, Const.STICKER_DATA_FILE_PATH);
         mColorListForFilter = JsonUtils.getColorListFromJson(this);
         initColorFilterView();
     }
@@ -296,8 +299,8 @@ public class StickerActivity extends BaseActivity {
                 final View view = layoutInflater.inflate(R.layout.layout_sub_button, mLLStickerGroup, false);
                 ImageButton imgButton = view.findViewById(R.id.ibIcon);
                 TextView textView = view.findViewById(R.id.tvDes);
-                Drawable drawable = Drawable.createFromStream(getAssets().open(subGroup.getIcon()), null);
-                imgButton.setImageDrawable(drawable);
+                Bitmap bitmap = BitmapFactory.decodeStream(getAssets().open(subGroup.getIcon()));
+                imgButton.setImageBitmap(bitmap);
                 imgButton.setTag(subGroup.getFolder());
                 textView.setText(subGroup.getTitle());
 

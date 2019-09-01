@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,7 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.vgs.vgimagesticker.adapter.FrameAdapter;
-import com.app.vgs.vgimagesticker.adapter.StickerAdapter;
+import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
@@ -52,16 +54,14 @@ public class FrameActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_frame);
-
         initView();
         initData();
-
         addFrameGroupIconView();
     }
 
     @Override
     public void setShowInterstitial() {
-        mShowInterstitial = true;
+        mShowInterstitial = false;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class FrameActivity extends BaseActivity {
     private void initData() {
         initAds();
         mFrameGroupId = getIntent().getStringExtra(KEY_FRAME_GROUP_ID);
-        mLstFrameGroup = JsonUtils.getFrameGroupFromJsonData(this, "frames/data.json");
+        mLstFrameGroup = JsonUtils.getFrameGroupFromJsonData(this, Const.FRAME_DATA_FILE_PATH);
         LogUtils.d(mLstFrameGroup.size()+"");
     }
 
@@ -128,11 +128,10 @@ public class FrameActivity extends BaseActivity {
                 final View view = layoutInflater.inflate(R.layout.layout_sub_button, mLLFrameGroup, false);
                 ImageButton imgButton = view.findViewById(R.id.ibIcon);
                 TextView textView = view.findViewById(R.id.tvDes);
-                Drawable drawable = Drawable.createFromStream(getAssets().open(subGroup.getIcon()), null);
-                imgButton.setImageDrawable(drawable);
+                Bitmap bitmap = BitmapFactory.decodeStream(getAssets().open(subGroup.getIcon()));
+                imgButton.setImageBitmap(bitmap);
                 imgButton.setTag(subGroup.getFolder());
                 textView.setText(subGroup.getTitle());
-
                 imgButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -214,10 +213,7 @@ public class FrameActivity extends BaseActivity {
 
     }
 
-    public void saveImageClick(View view) {
-        SaveFileTask task = new SaveFileTask(this);
-        task.execute();
-    }
+
 
     private void saveFile() {
         try {
@@ -228,6 +224,15 @@ public class FrameActivity extends BaseActivity {
             LogUtils.e(exp);
         }
 
+    }
+
+    public void backClick(View view){
+        showExitPopUp();
+    }
+
+    public void saveImageClick(View view) {
+        SaveFileTask task = new SaveFileTask(this);
+        task.execute();
     }
 
     public void noExitClick(View view) {
