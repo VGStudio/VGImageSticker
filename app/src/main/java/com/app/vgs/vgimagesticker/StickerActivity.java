@@ -106,6 +106,7 @@ public class StickerActivity extends BaseActivity {
 
     private void initData() {
         initAds();
+        mStickerId = getIntent().getStringExtra(KEY_GROUP_STICKER_ID);
         mLstStickerGroup = JsonUtils.getStickerGroupFromJsonData(this, Const.STICKER_DATA_FILE_PATH);
         mColorListForFilter = JsonUtils.getColorListFromJson(this);
         initColorFilterView();
@@ -170,7 +171,7 @@ public class StickerActivity extends BaseActivity {
 
     private void initColorFilterView() {
         try {
-            mStickerId = getIntent().getStringExtra(KEY_GROUP_STICKER_ID);
+
             int size = getResources().getDimensionPixelSize(R.dimen.size_50dip);
             LinearLayout linearLayout = new LinearLayout(this);
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
