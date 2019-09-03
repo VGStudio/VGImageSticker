@@ -109,6 +109,52 @@ public class FileUtils {
         return rtnValue;
     }
 
+    public static File saveBitmapToFile(Bitmap bitmap, Context context) {
+        if (bitmap == null) {
+            return null;
+        }
+        File rtnValue = null;
+        try {
+            StringBuilder strBuilder = new StringBuilder();
+            strBuilder.append(Environment.getExternalStorageDirectory());
+            strBuilder.append("/" + FOLDER + "/Temp");
+            File folder = new File(strBuilder.toString());
+            if (folder.isDirectory()) {
+                String[] arrayOfString = folder.list();
+                //delete all file in temp folder
+                for (int i = 0; i < arrayOfString.length; i++) {
+                    (new File(folder, arrayOfString[i])).delete();
+                }
+
+            }
+            strBuilder = new StringBuilder();
+            if (!bitmap.isRecycled()) {
+                strBuilder.append(Environment.getExternalStorageDirectory());
+                strBuilder.append("/" + FOLDER + "/Temp");
+                folder = new File(strBuilder.toString());
+                if (!folder.exists()) {
+                    folder.mkdirs();
+                }
+                File imgFile = new File(folder, String.format("%s_%d.png", new Object[]{"temp", System.currentTimeMillis()}));
+                if (imgFile.exists()) {
+                    imgFile.delete();
+                }
+
+                imgFile.createNewFile();
+                FileOutputStream fileOutputStream = new FileOutputStream(imgFile);
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+
+
+                rtnValue = imgFile;
+            }
+        } catch (IOException exp) {
+            LogUtils.e(exp);
+            return null;
+        }
+
+        return rtnValue;
+    }
+
     public static File createEmptyFile(Context context) {
         File rtnValue = null;
         try {

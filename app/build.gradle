@@ -44,4 +44,7 @@ dependencies {
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
 
+    //photoview
+    implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
 }

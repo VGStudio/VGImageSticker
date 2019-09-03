@@ -45,10 +45,10 @@ public class AdmobUtils {
     }
 
     public boolean showInterstitial(){
-        if(isInterstitialLoaded()){
-            mInterstitialAd.show();
-            return true;
-        }
+//        if(isInterstitialLoaded()){
+//            mInterstitialAd.show();
+//            return true;
+//        }
         return false;
     }
 

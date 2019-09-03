@@ -6,11 +6,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -20,6 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.vgs.vgimagesticker.adapter.FrameAdapter;
+import com.app.vgs.vgimagesticker.events.TouchImageForDrapRotateZoomEvent;
 import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
@@ -45,9 +53,12 @@ public class FrameActivity extends BaseActivity {
     GridView mGridViewFrame;
     RelativeLayout mRlHeader;
     ImageView mIvPreview;
+    ImageView mIvFrame;
+    RelativeLayout mRlPreview;
 
     View mExitPopUp;
     AdView mBannerAdView;
+
 
 
     @Override
@@ -61,7 +72,7 @@ public class FrameActivity extends BaseActivity {
 
     @Override
     public void setShowInterstitial() {
-        mShowInterstitial = false;
+        mShowInterstitial = true;
     }
 
     @Override
@@ -73,7 +84,6 @@ public class FrameActivity extends BaseActivity {
         initAds();
         mFrameGroupId = getIntent().getStringExtra(KEY_FRAME_GROUP_ID);
         mLstFrameGroup = JsonUtils.getFrameGroupFromJsonData(this, Const.FRAME_DATA_FILE_PATH);
-        LogUtils.d(mLstFrameGroup.size()+"");
     }
 
     private void initAds() {
@@ -90,10 +100,85 @@ public class FrameActivity extends BaseActivity {
         mExitPopUp = findViewById(R.id.exitPopUp);
         mBannerAdView = findViewById(R.id.bannerAdView);
         mIvPreview = findViewById(R.id.ivPreview);
+        mIvFrame = findViewById(R.id.ivFrame);
+        mRlPreview = findViewById(R.id.rlPreview);
 
 
 
+        mIvPreview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                try {
+                    if (Build.VERSION.SDK_INT >= 16) {
+                        mIvPreview.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    } else {
+                        mIvPreview.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    }
 
+                    Drawable drawable = mIvPreview.getDrawable();
+                    Rect rectDrawable = drawable.getBounds();
+
+                    int drawableWidth = rectDrawable.width();
+                    int drawableHeight = rectDrawable.height();
+                    int imageViewWidth = mIvPreview.getMeasuredWidth();
+                    int imageViewHeight = mIvPreview.getMeasuredHeight();
+
+                    float scaleRatio = calScaleRationForImage(imageViewWidth, imageViewHeight, drawableWidth, drawableHeight);
+
+
+                    float centerX = drawableWidth / 2F;
+                    float centerY = drawableHeight / 2F;
+
+                    float leftOffset = (mIvPreview.getMeasuredWidth() - rectDrawable.width()) / 2f;
+                    float topOffset = (mIvPreview.getMeasuredHeight() - rectDrawable.height()) / 2f;
+
+                    Matrix matrix = mIvPreview.getImageMatrix();
+                    matrix.postScale(scaleRatio, scaleRatio, centerX, centerY);
+                    matrix.postTranslate(leftOffset, topOffset);
+                    mIvPreview.setImageMatrix(matrix);
+                    mIvPreview.invalidate();
+                } catch (Exception exp) {
+                    LogUtils.e(exp);
+                }
+
+            }
+        });
+
+        //calImagePreviewSize();
+
+
+        mIvPreview.setOnTouchListener(new TouchImageForDrapRotateZoomEvent());
+
+
+    }
+
+
+
+    private float calScaleRationForImage(int imageViewWidth, int imageViewHeight, int drawableWidth, int drawableHeight) {
+        float scaleRatio = 1;
+        try {
+            if (drawableWidth > drawableHeight) {
+                scaleRatio = ((float) imageViewWidth) / ((float) drawableWidth);
+                // neu drawableHeight * scale > imageViewHeight, tinh lai scale theo height
+                if (drawableHeight * scaleRatio > imageViewHeight) {
+                    float scaleRation2 = ((float) imageViewHeight) / ((float) (drawableHeight * scaleRatio));
+                    scaleRatio = scaleRation2 * scaleRatio;
+
+                }
+
+            } else {
+                scaleRatio = ((float) imageViewHeight) / ((float) drawableHeight);
+                // neu drawableWidth * scale > imageViewWidth, tinh lai scale theo width
+                if (drawableWidth * scaleRatio > imageViewWidth) {
+                    float scaleRation2 = ((float) imageViewWidth) / ((float) (drawableWidth * scaleRatio));
+                    scaleRatio = scaleRation2 * scaleRatio;
+
+                }
+            }
+        } catch (Exception exp) {
+            LogUtils.e(exp);
+        }
+        return scaleRatio;
 
     }
 
@@ -197,9 +282,8 @@ public class FrameActivity extends BaseActivity {
                     try {
                         String path = lstFramePath.get(i);
                         hideFrameGroup();
-                        Drawable d = Drawable.createFromStream(getResources().getAssets().open(path), null);
-                        DrawableSticker sticker = new DrawableSticker(d);
-
+                        Bitmap bitmap = BitmapFactory.decodeStream(getResources().getAssets().open(path));
+                        mIvFrame.setImageBitmap(bitmap);
 
                         LogUtils.d(path);
                     } catch (Exception exp) {
@@ -214,11 +298,12 @@ public class FrameActivity extends BaseActivity {
     }
 
 
-
     private void saveFile() {
         try {
-            File fTemp = FileUtils.createEmptyFile(this);
-            //mStickerView.save(fTemp);
+            Bitmap bitmap = Bitmap.createBitmap(mRlPreview.getWidth(), mRlPreview.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            mRlPreview.draw(canvas);
+            File fTemp = FileUtils.saveBitmapToFile(bitmap, this);
             mFileSavedpath = fTemp.getAbsolutePath();
         } catch (Exception exp) {
             LogUtils.e(exp);
@@ -226,7 +311,7 @@ public class FrameActivity extends BaseActivity {
 
     }
 
-    public void backClick(View view){
+    public void backClick(View view) {
         showExitPopUp();
     }
 
@@ -291,4 +376,5 @@ public class FrameActivity extends BaseActivity {
             }
         }
     }
+
 }

@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageButton;
@@ -28,6 +29,7 @@ import java.util.List;
 public class MainActionActivity extends BaseActivity {
 
     public static final String KEY_IMAGE_PATH_UPDATE = "KEY_IMAGE_PATH_UPDATE";
+
     public static final int EDIT_IMAGE_CODE = 1001;
 
     View mExitPopUp;
@@ -76,11 +78,19 @@ public class MainActionActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == EDIT_IMAGE_CODE && resultCode == Activity.RESULT_OK){
-            mImagePath = data.getStringExtra(KEY_IMAGE_PATH_UPDATE);
-            Drawable dPreview = Drawable.createFromPath(mImagePath);
-            mIvPreview.setImageDrawable(dPreview);
+        try {
+            if(requestCode == EDIT_IMAGE_CODE && resultCode == Activity.RESULT_OK){
+                if(data.getExtras().containsKey(KEY_IMAGE_PATH_UPDATE)){
+                    mImagePath = data.getStringExtra(KEY_IMAGE_PATH_UPDATE);
+                    Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
+
+                    mIvPreview.setImageBitmap(bitmap);
+                }
+            }
+        }catch (Exception exp){
+            LogUtils.e(exp);
         }
+
     }
 
     private void initView() {
