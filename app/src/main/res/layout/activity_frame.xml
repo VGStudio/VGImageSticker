@@ -104,7 +104,7 @@
         android:layout_below="@id/rlHeader"
         android:layout_gravity="center"
         android:background="@color/bg_color"
-        android:numColumns="4"
+        android:numColumns="3"
         android:visibility="gone" />
 
 
