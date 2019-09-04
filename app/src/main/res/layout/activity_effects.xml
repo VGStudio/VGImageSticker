@@ -1832,6 +1832,8 @@
                 android:text="@string/label_saturation"/>
             <SeekBar
                 android:id="@+id/seekSaturation"
+                android:max="256"
+                android:progress="256"
                 style="@style/seekbar_adjust" />/>
         </LinearLayout>
 
@@ -1844,6 +1846,8 @@
 
             <SeekBar
                 android:id="@+id/seekContrast"
+                android:max="200"
+                android:progress="100"
                 style="@style/seekbar_adjust" />
         </LinearLayout>
 

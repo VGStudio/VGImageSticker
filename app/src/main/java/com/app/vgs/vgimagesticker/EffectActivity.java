@@ -6,20 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 
+import com.app.vgs.vgimagesticker.utils.BitmapUtils;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.utils.NetworkUtils;
@@ -123,22 +119,64 @@ public class EffectActivity extends BaseActivity {
         mSeekSaturation = findViewById(R.id.seekSaturation);
         mSeekContrast = findViewById(R.id.seekContrast);
         mSeekBrightness = findViewById(R.id.seekBrightness);
-
         mSeekBrightness.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 float brightness = progress / 2.0f;
-                mBitmapEdit = changeBitmapContrastBrightness(mBitmapEdit, 1.0f, brightness);
                 if (mBitmapEdit != null) {
-                    mIvPreview.setImageBitmap(mBitmapEdit);
+                    mIvPreview.setImageBitmap(BitmapUtils.changeBitmapContrastBrightness(mBitmapEdit, 1.0f, brightness));
                 }
-                LogUtils.d("progress: " + progress + "  == brightness:" + brightness);
+
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                mSeekContrast.setProgress(100);
+                mSeekSaturation.setProgress(256);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        mSeekContrast.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                float contrast = progress / 100.0f;
+                if (mBitmapEdit != null) {
+                    mIvPreview.setImageBitmap(BitmapUtils.changeBitmapContrastBrightness(mBitmapEdit, contrast, 1.0f));
+                }
+
 
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
                 mSeekBrightness.setProgress(100);
+                mSeekSaturation.setProgress(256);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        mSeekSaturation.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                float saturation = progress / 256.0f;
+                if (mBitmapEdit != null) {
+                    mIvPreview.setImageBitmap(BitmapUtils.changeSaturation(mBitmapEdit, saturation));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                mSeekBrightness.setProgress(100);
+                mSeekContrast.setProgress(100);
             }
 
             @Override
@@ -180,33 +218,7 @@ public class EffectActivity extends BaseActivity {
         view.setBackgroundColor(getResources().getColor(R.color.button_focused));
     }
 
-    public Bitmap changeBitmapContrastBrightness(Bitmap bmp, float contrast, float brightness) {
-        try {
-//            ColorMatrix cm = new ColorMatrix(new float[]
-//                    {
-//                            contrast, 0, 0, 0, brightness,
-//                            0, contrast, 0, 0, brightness,
-//                            0, 0, contrast, 0, brightness,
-//                            0, 0, 0, 1, 0
-//                    });
-            ColorMatrix colorMatrix = new ColorMatrix(new float[]{
-                    contrast, 0.0F, 0.0F, 0.0F, brightness, 0.0F, contrast, 0.0F, 0.0F, brightness,
-                    0.0F, 0.0F, contrast, 0.0F, brightness, 0.0F, 0.0F, 0.0F, 1.0F, 0.0F});
 
-            Bitmap bitmap = Bitmap.createBitmap(bmp.getWidth(), bmp.getHeight(), bmp.getConfig());
-
-            Canvas canvas = new Canvas(bitmap);
-
-            Paint paint = new Paint();
-            paint.setColorFilter(new ColorMatrixColorFilter(colorMatrix));
-            canvas.drawBitmap(bmp, 0, 0, paint);
-            return bitmap;
-        } catch (Exception exp) {
-            LogUtils.e(exp);
-            return null;
-        }
-
-    }
 
 
     private void showExitPopUp() {
