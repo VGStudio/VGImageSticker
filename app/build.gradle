@@ -49,5 +49,8 @@ dependencies {
 
     implementation 'com.airbnb.android:lottie:2.7.0'
 
+    //image filter
+    implementation 'com.github.zomato:androidphotofilters:1.0.2'
+
 
 }

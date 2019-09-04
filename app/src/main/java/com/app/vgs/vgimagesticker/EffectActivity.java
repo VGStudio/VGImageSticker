@@ -51,6 +51,10 @@ public class EffectActivity extends BaseActivity {
     SeekBar mSeekContrast;
     SeekBar mSeekBrightness;
 
+    static {
+        System.loadLibrary("NativeImageProcessor");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,8 +221,6 @@ public class EffectActivity extends BaseActivity {
         unSelectedBottomButtonState();
         view.setBackgroundColor(getResources().getColor(R.color.button_focused));
     }
-
-
 
 
     private void showExitPopUp() {
