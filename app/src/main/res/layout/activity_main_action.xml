@@ -149,7 +149,7 @@
                 <ImageButton
                     android:id="@+id/effects"
                     style="@style/button_edit_action"
-                    android:onClick="onClickCategories"
+                    android:onClick="openStickerActivityClick"
                     android:src="@drawable/effect" />
 
                 <TextView

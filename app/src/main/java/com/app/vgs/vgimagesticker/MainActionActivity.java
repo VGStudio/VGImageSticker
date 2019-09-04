@@ -173,6 +173,9 @@ public class MainActionActivity extends BaseActivity {
     }
 
 
+    public void openStickerActivityClick(View view){
+        openStickerActivity();
+    }
     public void stickerGroup1Click(View view){
         openStickerActivity(mStickerGroup1.getId());
     }
@@ -199,6 +202,12 @@ public class MainActionActivity extends BaseActivity {
     private void openFrameActivity(String groupId){
         Intent intent = new Intent(this, FrameActivity.class);
         intent.putExtra(FrameActivity.KEY_FRAME_GROUP_ID, groupId);
+        startActivityForResult(intent, EDIT_IMAGE_CODE);
+    }
+
+    private void openStickerActivity(){
+        Intent intent = new Intent(this, EffectActivity.class);
+        //intent.putExtra(FrameActivity.KEY_FRAME_GROUP_ID, groupId);
         startActivityForResult(intent, EDIT_IMAGE_CODE);
     }
 

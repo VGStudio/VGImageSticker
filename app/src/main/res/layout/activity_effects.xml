@@ -1,0 +1,2068 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/effect_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/header_effect_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60.0dip"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:layout_width="60.0dip"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@id/back"
+                android:layout_width="match_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:id="@id/back_text"
+                android:layout_width="match_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Back"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60.0dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageButton
+                android:id="@id/done"
+                android:layout_width="match_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/done" />
+
+            <TextView
+                android:id="@id/done_text"
+                android:layout_width="match_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Done"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/my_font"
+            android:gravity="center"
+            android:text="Image Edit"
+            android:textColor="@color/colourBgAndSelected"
+            android:textSize="20.0sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_effect_buttons"
+        android:layout_below="@id/header_effect_layout">
+
+        <RelativeLayout
+            android:id="@+id/root_effect_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/effect_imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/gai_xinh3"
+                android:scaleType="centerInside" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/effect_scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="65.0dip"
+        android:layout_above="@id/bottom_effect_buttons"
+        android:visibility="gone"
+        android:background="@color/bar_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="1.5dip">
+
+            <RelativeLayout
+                android:id="@+id/filter0_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter0"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_0" />
+
+                <TextView
+                    android:id="@+id/filter0_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Original"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter1_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_1" />
+
+                <TextView
+                    android:id="@+id/filter1_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Fire Brick"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter2_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_2" />
+
+                <TextView
+                    android:id="@+id/filter2_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Fuchsia"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter0_3"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter3"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_3" />
+
+                <TextView
+                    android:id="@+id/filter3_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Light Cora"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter4_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter4"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_4" />
+
+                <TextView
+                    android:id="@+id/filter4_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Deep Cora"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter5_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter5"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_5" />
+
+                <TextView
+                    android:id="@+id/filter5_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Thistle"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter0_6"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter6"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_6" />
+
+                <TextView
+                    android:id="@+id/filter6_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Dodger Blue"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter7_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter7"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_7" />
+
+                <TextView
+                    android:id="@+id/filter7_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Floral White"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter8_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter8"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_8" />
+
+                <TextView
+                    android:id="@+id/filter8_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Royal Blue"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter9_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter9"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_9" />
+
+                <TextView
+                    android:id="@+id/filter9_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Olive Drab"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter10_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter10"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_10" />
+
+                <TextView
+                    android:id="@+id/filter10_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Deep Pink"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter11_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter11"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_11" />
+
+                <TextView
+                    android:id="@+id/filter11_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Golder Rod"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter12_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter12"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_12" />
+
+                <TextView
+                    android:id="@+id/filter12_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Steel Blue"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter13_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter13"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_13" />
+
+                <TextView
+                    android:id="@+id/filter13_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Dark Orange"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter14_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter14"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_14" />
+
+                <TextView
+                    android:id="@+id/filter14_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Magenta"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter15_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter15"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_15" />
+
+                <TextView
+                    android:id="@+id/filter15_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Fractal"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter16_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter16"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_16" />
+
+                <TextView
+                    android:id="@+id/filter16_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Honey dew"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter17_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter17"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_17" />
+
+                <TextView
+                    android:id="@+id/filter17_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Maroon"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter18_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter18"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_18" />
+
+                <TextView
+                    android:id="@+id/filter18_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="sea green"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter19_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter19"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_19" />
+
+                <TextView
+                    android:id="@+id/filter19_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Ghost White"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/filter20_l"
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter20"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilter"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/effects_20" />
+
+                <TextView
+                    android:id="@+id/filter20_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Dark Red"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+
+    <HorizontalScrollView
+        android:id="@+id/effect_scrollView_second"
+        android:layout_width="match_parent"
+        android:layout_height="65.0dip"
+        android:layout_above="@+id/bottom_effect_buttons"
+        android:background="@color/bar_bg"
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="1.5dip">
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_0"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__0" />
+
+                <TextView
+                    android:id="@+id/filter2_0_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Original"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__1" />
+
+                <TextView
+                    android:id="@+id/filter2_1_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Round"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__2" />
+
+                <TextView
+                    android:id="@+id/filter2_2_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="BlackDots"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__3" />
+
+                <TextView
+                    android:id="@+id/filter2_3_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Snow"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__4" />
+
+                <TextView
+                    android:id="@+id/filter2_4_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Tint"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_5"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__5" />
+
+                <TextView
+                    android:id="@+id/filter2_5_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Dark Gray"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_6"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__6" />
+
+                <TextView
+                    android:id="@+id/filter2_6_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Green"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_7"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__7" />
+
+                <TextView
+                    android:id="@+id/filter2_7_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Cyan"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_8"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__8" />
+
+                <TextView
+                    android:id="@+id/filter2_8_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Yellow"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_9"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__9" />
+
+                <TextView
+                    android:id="@+id/filter2_9_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Blue"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_10"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__10" />
+
+                <TextView
+                    android:id="@+id/filter2_10_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Light Gray"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_11"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__11" />
+
+                <TextView
+                    android:id="@+id/filter2_11_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Gray"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_12"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__12" />
+
+                <TextView
+                    android:id="@+id/filter2_12_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Magenta"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_13"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__13" />
+
+                <TextView
+                    android:id="@+id/filter2_13_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Red"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_14"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__14" />
+
+                <TextView
+                    android:id="@+id/filter2_14_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Indigo"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__15" />
+
+                <TextView
+                    android:id="@+id/filter2_15_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Purple"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_16"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__16" />
+
+                <TextView
+                    android:id="@+id/filter2_16_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Orange"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_17"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__17" />
+
+                <TextView
+                    android:id="@+id/filter2_17_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Teal"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_18"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__18" />
+
+                <TextView
+                    android:id="@+id/filter2_18_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Lime"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_19"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__19" />
+
+                <TextView
+                    android:id="@+id/filter2_19_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Pink"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/filter2_20"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyFilterSecond"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/filter__20" />
+
+                <TextView
+                    android:id="@+id/filter2_20_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Deep Purple"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:id="@+id/effect_scrollView_three"
+        android:layout_width="match_parent"
+        android:layout_height="65.0dip"
+        android:layout_above="@id/bottom_effect_buttons"
+        android:visibility="gone"
+        android:background="@color/bar_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="1.5dip">
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect0"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__0" />
+
+                <TextView
+                    android:id="@+id/Effect0_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Original"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect1"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__1" />
+
+                <TextView
+                    android:id="@+id/Effect1_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Boost Red"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__2" />
+
+                <TextView
+                    android:id="@+id/Effect2_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Boost Green"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect3"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__3" />
+
+                <TextView
+                    android:id="@+id/Effect3_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Boost Blue"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect4"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__4" />
+
+                <TextView
+                    android:id="@+id/Effect4_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Brightness"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect5"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__5" />
+
+                <TextView
+                    android:id="@+id/Effect5_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Color Red"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect6"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__6" />
+
+                <TextView
+                    android:id="@+id/Effect6_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Color Green"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect7"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__7" />
+
+                <TextView
+                    android:id="@+id/Effect7_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Color Blue"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect8"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__8" />
+
+                <TextView
+                    android:id="@+id/Effect8_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Paint Depth"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect9"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__9" />
+
+                <TextView
+                    android:id="@+id/Effect9_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Paint Light"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect10"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__10" />
+
+                <TextView
+                    android:id="@+id/Effect10_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Contrast"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect11"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__11" />
+
+                <TextView
+                    android:id="@+id/Effect11_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Gama"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect12"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__12" />
+
+                <TextView
+                    android:id="@+id/Effect12_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Gray Scale"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect13"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__13" />
+
+                <TextView
+                    android:id="@+id/Effect13_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Hue"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect14"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__14" />
+
+                <TextView
+                    android:id="@+id/Effect14_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Invert"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect15"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__15" />
+
+                <TextView
+                    android:id="@+id/Effect15_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Mean Removal"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect16"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__16" />
+
+                <TextView
+                    android:id="@+id/Effect16_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Sepia"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect17"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__17" />
+
+                <TextView
+                    android:id="@+id/Effect17_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Sepia green"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="50.0dip"
+                android:layout_height="match_parent">
+
+                <ImageButton
+                    android:id="@+id/effect18"
+                    android:layout_width="match_parent"
+                    android:layout_height="50.0dip"
+                    android:background="#00ffffff"
+                    android:onClick="applyEffect"
+                    android:padding="2.0dip"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/coloreffect__18" />
+
+                <TextView
+                    android:id="@+id/Effect18_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="15.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:padding="1.5dip"
+                    android:text="Sepia Blue"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="8.0sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom_effect_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="60.0dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal"
+        android:weightSum="4.0">
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/adjust"
+                android:layout_width="match_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/adjust" />
+
+            <TextView
+                android:id="@+id/adjust_text"
+                android:layout_width="match_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Adjust"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/effect"
+                android:layout_width="match_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/effect" />
+
+            <TextView
+                android:id="@+id/effect_text"
+                android:layout_width="match_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Effects"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/effect_two"
+                android:layout_width="match_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/filter" />
+
+            <TextView
+                android:id="@+id/effect_two_text"
+                android:layout_width="match_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Filters"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/effect_three"
+                android:layout_width="match_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/colour_effect" />
+
+            <TextView
+                android:id="@+id/effect_three_text"
+                android:layout_width="match_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Color Effects"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/rlAdjust"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_effect_buttons"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/Saturation"
+            android:layout_width="match_parent"
+            android:layout_height="30.0dip"
+            android:background="@color/transparent_white">
+
+            <SeekBar
+                android:id="@+id/saturationseek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@id/textsat"
+                android:max="255"
+                android:progress="255" />
+
+            <TextView
+                android:id="@+id/textsat"
+                android:layout_width="60.0dip"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/my_font"
+                android:gravity="center|left"
+                android:padding="4.0dip"
+                android:text="@string/label_saturation"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/Contrast"
+            android:layout_width="match_parent"
+            android:layout_height="30.0dip"
+            android:layout_below="@id/Saturation"
+            android:background="@color/transparent_white">
+
+            <SeekBar
+                android:id="@+id/contrastseek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@id/textcontrast"
+                android:max="255"
+                android:progress="255" />
+
+            <TextView
+                android:id="@+id/textcontrast"
+                android:layout_width="60.0dip"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/my_font"
+                android:gravity="center|left"
+                android:padding="4.0dip"
+                android:text="@string/label_contrast"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/Brightness"
+            android:layout_width="match_parent"
+            android:layout_height="30.0dip"
+            android:layout_below="@id/Contrast"
+            android:background="@color/transparent_white">
+
+            <SeekBar
+                android:id="@+id/brightseek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toRightOf="@id/textbright"
+                android:max="255"
+                android:progress="255" />
+
+            <TextView
+                android:id="@+id/textbright"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/my_font"
+                android:gravity="center|left"
+                android:padding="4.0dip"
+                android:text="@string/label_brightness"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <!--
+    <RelativeLayout
+        android:id="@+id/progress_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageButton
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#99000000" />
+
+        <RelativeLayout
+            android:layout_width="100.0dip"
+            android:layout_height="100.0dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/bg_shape">
+
+            <TextView
+                android:id="@+id/applying"
+                android:layout_width="match_parent"
+                android:layout_height="50.0dip"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Applying"
+                android:textAllCaps="false"
+                android:textSize="16.0sp" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animation_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/bottom_buttons"
+                android:layout_marginTop="20.0dip"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="loader.json"
+                app:lottie_loop="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+-->
+
+
+
+</RelativeLayout>
