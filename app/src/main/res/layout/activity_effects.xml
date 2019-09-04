@@ -75,7 +75,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottom_effect_buttons"
+        android:layout_above="@id/llButtonControl"
         android:layout_below="@id/header_effect_layout">
 
         <RelativeLayout
@@ -85,19 +85,18 @@
             android:layout_centerInParent="true">
 
             <ImageView
-                android:id="@+id/effect_imageview"
+                android:id="@+id/ivPreview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/gai_xinh3"
                 android:scaleType="centerInside" />
         </RelativeLayout>
     </RelativeLayout>
 
     <HorizontalScrollView
-        android:id="@+id/effect_scrollView"
+        android:id="@+id/horiEffect"
         android:layout_width="match_parent"
         android:layout_height="65.0dip"
-        android:layout_above="@id/bottom_effect_buttons"
+        android:layout_above="@id/llButtonControl"
         android:visibility="gone"
         android:background="@color/bar_bg">
 
@@ -700,12 +699,12 @@
 
 
     <HorizontalScrollView
-        android:id="@+id/effect_scrollView_second"
+        android:id="@+id/horiFilter"
         android:layout_width="match_parent"
         android:layout_height="65.0dip"
-        android:layout_above="@+id/bottom_effect_buttons"
+        android:layout_above="@+id/llButtonControl"
         android:background="@color/bar_bg"
-        android:visibility="invisible">
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -1283,10 +1282,10 @@
     </HorizontalScrollView>
 
     <HorizontalScrollView
-        android:id="@+id/effect_scrollView_three"
+        android:id="@+id/horiColorEffect"
         android:layout_width="match_parent"
         android:layout_height="65.0dip"
-        android:layout_above="@id/bottom_effect_buttons"
+        android:layout_above="@id/llButtonControl"
         android:visibility="gone"
         android:background="@color/bar_bg">
 
@@ -1811,8 +1810,61 @@
         </LinearLayout>
     </HorizontalScrollView>
 
+
+
+
+
+
+
     <LinearLayout
-        android:id="@+id/bottom_effect_buttons"
+        android:id="@+id/llAdjust"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="3.0"
+        android:layout_above="@id/llButtonControl"
+        android:visibility="visible">
+
+        <LinearLayout
+            style="@style/linnear_adjust">
+            <TextView
+                style="@style/text_adjust"
+                android:text="@string/label_saturation"/>
+            <SeekBar
+                android:id="@+id/seekSaturation"
+                style="@style/seekbar_adjust" />/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/linnear_adjust">
+
+            <TextView
+                style="@style/text_adjust"
+                android:text="@string/label_contrast" />
+
+            <SeekBar
+                android:id="@+id/seekContrast"
+                style="@style/seekbar_adjust" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/linnear_adjust">
+            <TextView
+                style="@style/text_adjust"
+                android:text="@string/label_brightness" />
+
+            <SeekBar
+                android:id="@+id/seekBrightness"
+                android:max="200"
+                android:progress="100"
+                style="@style/seekbar_adjust" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llButtonControl"
         android:layout_width="match_parent"
         android:layout_height="60.0dip"
         android:layout_alignParentBottom="true"
@@ -1821,247 +1873,77 @@
         android:weightSum="4.0">
 
         <RelativeLayout
+            android:id="@+id/rlAdjust"
             android:layout_width="0.0dip"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
             android:layout_weight="1.0">
 
             <ImageButton
-                android:id="@+id/adjust"
-                android:layout_width="match_parent"
-                android:layout_height="50.0dip"
-                android:background="#00ffffff"
-                android:scaleType="centerInside"
+                android:id="@+id/ibAdjust"
+                style="@style/effect_bottom_button"
+                android:onClick="adJustClick"
                 android:src="@drawable/adjust" />
 
             <TextView
-                android:id="@+id/adjust_text"
-                android:layout_width="match_parent"
-                android:layout_height="20.0dip"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/my_font"
-                android:gravity="center"
-                android:text="Adjust"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="12.0sp" />
+                android:text="@string/label_adjust"
+                style="@style/effect_button_text" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlEffect"
             android:layout_width="0.0dip"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
             android:layout_weight="1.0">
 
             <ImageButton
-                android:id="@+id/effect"
-                android:layout_width="match_parent"
-                android:layout_height="50.0dip"
-                android:background="#00ffffff"
-                android:scaleType="centerInside"
+                android:id="@+id/ibEffect"
+                style="@style/effect_bottom_button"
+                android:onClick="effectClick"
                 android:src="@drawable/effect" />
 
             <TextView
-                android:id="@+id/effect_text"
-                android:layout_width="match_parent"
-                android:layout_height="20.0dip"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/my_font"
-                android:gravity="center"
-                android:text="Effects"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="12.0sp" />
+                style="@style/effect_button_text"
+                android:text="@string/label_effects" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlFilter"
             android:layout_width="0.0dip"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_weight="1.0">
 
             <ImageButton
-                android:id="@+id/effect_two"
-                android:layout_width="match_parent"
-                android:layout_height="50.0dip"
-                android:background="#00ffffff"
-                android:scaleType="centerInside"
+                android:id="@+id/ibFilter"
+                android:onClick="filterClick"
+                style="@style/effect_bottom_button"
                 android:src="@drawable/filter" />
 
             <TextView
-                android:id="@+id/effect_two_text"
-                android:layout_width="match_parent"
-                android:layout_height="20.0dip"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/my_font"
-                android:gravity="center"
-                android:text="Filters"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="12.0sp" />
+                style="@style/effect_button_text"
+                android:text="@string/label_filters" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlColorFilter"
             android:layout_width="0.0dip"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_weight="1.0">
 
             <ImageButton
-                android:id="@+id/effect_three"
-                android:layout_width="match_parent"
-                android:layout_height="50.0dip"
-                android:background="#00ffffff"
-                android:scaleType="centerInside"
+                android:id="@+id/ibColorEffect"
+                style="@style/effect_bottom_button"
+                android:onClick="colorFilterClick"
                 android:src="@drawable/colour_effect" />
 
             <TextView
-                android:id="@+id/effect_three_text"
-                android:layout_width="match_parent"
-                android:layout_height="20.0dip"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/my_font"
-                android:gravity="center"
-                android:text="Color Effects"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="12.0sp" />
+                style="@style/effect_button_text"
+                android:text="Color Effects" />
         </RelativeLayout>
     </LinearLayout>
+    <include layout="@layout/layout_confirm_exit" android:layout_centerInParent="true" />
 
-
-
-
-
-    <RelativeLayout
-        android:id="@+id/rlAdjust"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bottom_effect_buttons"
-        android:visibility="visible">
-
-        <RelativeLayout
-            android:id="@+id/Saturation"
-            android:layout_width="match_parent"
-            android:layout_height="30.0dip"
-            android:background="@color/transparent_white">
-
-            <SeekBar
-                android:id="@+id/saturationseek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_toRightOf="@id/textsat"
-                android:max="255"
-                android:progress="255" />
-
-            <TextView
-                android:id="@+id/textsat"
-                android:layout_width="60.0dip"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/my_font"
-                android:gravity="center|left"
-                android:padding="4.0dip"
-                android:text="@string/label_saturation"
-                android:textAllCaps="false"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="10.0sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/Contrast"
-            android:layout_width="match_parent"
-            android:layout_height="30.0dip"
-            android:layout_below="@id/Saturation"
-            android:background="@color/transparent_white">
-
-            <SeekBar
-                android:id="@+id/contrastseek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_toRightOf="@id/textcontrast"
-                android:max="255"
-                android:progress="255" />
-
-            <TextView
-                android:id="@+id/textcontrast"
-                android:layout_width="60.0dip"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/my_font"
-                android:gravity="center|left"
-                android:padding="4.0dip"
-                android:text="@string/label_contrast"
-                android:textAllCaps="false"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="10.0sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/Brightness"
-            android:layout_width="match_parent"
-            android:layout_height="30.0dip"
-            android:layout_below="@id/Contrast"
-            android:background="@color/transparent_white">
-
-            <SeekBar
-                android:id="@+id/brightseek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_toRightOf="@id/textbright"
-                android:max="255"
-                android:progress="255" />
-
-            <TextView
-                android:id="@+id/textbright"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/my_font"
-                android:gravity="center|left"
-                android:padding="4.0dip"
-                android:text="@string/label_brightness"
-                android:textAllCaps="false"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="10.0sp" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <!--
-    <RelativeLayout
-        android:id="@+id/progress_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ImageButton
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#99000000" />
-
-        <RelativeLayout
-            android:layout_width="100.0dip"
-            android:layout_height="100.0dip"
-            android:layout_centerInParent="true"
-            android:background="@drawable/bg_shape">
-
-            <TextView
-                android:id="@+id/applying"
-                android:layout_width="match_parent"
-                android:layout_height="50.0dip"
-                android:fontFamily="@font/my_font"
-                android:gravity="center"
-                android:text="Applying"
-                android:textAllCaps="false"
-                android:textSize="16.0sp" />
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/animation_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_above="@id/bottom_buttons"
-                android:layout_marginTop="20.0dip"
-                app:lottie_autoPlay="true"
-                app:lottie_fileName="loader.json"
-                app:lottie_loop="true" />
-        </RelativeLayout>
-    </RelativeLayout>
--->
 
 
 

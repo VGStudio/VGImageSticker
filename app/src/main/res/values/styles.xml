@@ -46,6 +46,12 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <style name="text_adjust" parent="text">
+        <item name="android:layout_width">60.0dip</item>
+        <item name="android:padding">4.0dip</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:gravity">left</item>
+    </style>
 
     <style name="text_header" parent="text">
         <item name="android:textSize">20.0sp</item>
@@ -87,5 +93,33 @@
         <item name="android:adjustViewBounds">true</item>
         <item name="android:background">#00ffffff</item>
         <item name="android:scaleType">centerInside</item>
+    </style>
+
+    <style name="seekbar_adjust">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="linnear_adjust">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.0dp</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="effect_bottom_button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">70.0dip</item>
+        <item name="android:background">#00ffffff</item>
+        <item name="android:scaleType">centerInside</item>
+    </style>
+
+    <style name="effect_button_text" parent="text">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">20.0dip</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">12.0sp</item>
     </style>
 </resources>

@@ -23,7 +23,6 @@
     <string name="accessories">Accessories</string>
     <string name="makeover">Makeover</string>
     <string name="bg_eraser">Bg Eraser</string>
-    <string name="label_effects">Effects</string>
     <string name="label_blur">Blur</string>
     <string name="label_frames">Frames</string>
     <string name="label_new_frames">New Frames</string>
@@ -39,4 +38,7 @@
     <string name="label_saturation">Saturation</string>
     <string name="label_contrast">Contrast</string>
     <string name="label_brightness">Brightness</string>
+    <string name="label_adjust">Adjust</string>
+    <string name="label_effects">Effects</string>
+    <string name="label_filters">Filters</string>
 </resources>
