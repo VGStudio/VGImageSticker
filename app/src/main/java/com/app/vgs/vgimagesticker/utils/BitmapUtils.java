@@ -1,5 +1,6 @@
 package com.app.vgs.vgimagesticker.utils;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
@@ -13,6 +14,7 @@ import com.zomato.photofilters.imageprocessors.subfilters.ColorOverlaySubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.ContrastSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.SaturationSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.ToneCurveSubFilter;
+import com.zomato.photofilters.imageprocessors.subfilters.VignetteSubFilter;
 
 public class BitmapUtils {
     public static Bitmap changeSaturation(Bitmap paramBitmap, float saturation) {
@@ -47,152 +49,80 @@ public class BitmapUtils {
 
     }
 
-    public static Bitmap filterImage(Bitmap bitmap, int index) {
+    public static Bitmap filterImage(Context context, Bitmap bitmap, int index) {
         Bitmap rtnValue = null;
         try {
-            Filter myFilter;
+            Filter filter = new Filter();
             switch (index) {
-                case 0:
-
-                    //    ImageLoader.getInstance().displayImage("file:///" + path, imageView);
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new SaturationSubFilter(2.3f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
-                    break;
                 case 1:
-
-                    //  ImageLoader.getInstance().displayImage("file:///" + path, imageView);
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 0.7f, 0.0f, 1.0f));
-                    rtnValue = myFilter.processFilter(bitmap);
+                    filter.addSubFilter(new SaturationSubFilter(2.3f));
                     break;
                 case 2:
-
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 0.2f, 0.2f, 0.0f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 0.7f, 0.0f, 1.0f));
                     break;
                 case 3:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ContrastSubFilter(1.2f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 0.2f, 0.2f, 0.0f));
                     break;
                 case 4:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new BrightnessSubFilter(30));
-                    rtnValue = myFilter.processFilter(bitmap);
-
-
+                    filter.addSubFilter(new ContrastSubFilter(1.2f));
                     break;
                 case 5:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 0.0f, 0.4f, 1.0f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new BrightnessSubFilter(30));
                     break;
                 case 6:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 0.5f, 0.5f, 0.5f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 0.0f, 0.4f, 1.0f));
                     break;
                 case 7:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 0.1f, 1.0f, 0.8f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 0.5f, 0.5f, 0.5f));
                     break;
                 case 8:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 0.3f, 0.5f, 0.0f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 0.1f, 1.0f, 0.8f));
                     break;
                 case 9:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 0.8f, 0.0f, 0.5f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 0.3f, 0.5f, 0.0f));
                     break;
                 case 10:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 1.0f, 0.5f, 0.0f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 0.8f, 0.0f, 0.5f));
                     break;
                 case 11:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 0.0f, 0.0f, 1.0f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 1.0f, 0.5f, 0.0f));
                     break;
                 case 12:
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 1.0f, 0.5f, 0.0f));
-                    rtnValue = myFilter.processFilter(bitmap);
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 0.0f, 0.0f, 1.0f));
                     break;
                 case 13:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 0.3f, 0.0f, 0.8f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 1.0f, 0.5f, 0.0f));
                     break;
-
                 case 14:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ToneCurveSubFilter(new Point[]{new Point(0.0f, 0.0f), new Point(100.0f, 159.0f), new Point(255.0f, 255.0f)}, null, null, null));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 0.3f, 0.0f, 0.8f));
                     break;
                 case 15:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 0.8f, 0.0f, 0.0f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new VignetteSubFilter(context, 100));
                     break;
                 case 16:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ColorOverlaySubFilter(100, 0.0f, 0.6f, 0.0f));
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ToneCurveSubFilter(new Point[]{new Point(0.0f, 0.0f), new Point(100.0f, 159.0f), new Point(255.0f, 255.0f)}, null, null, null));
                     break;
                 case 17:
-
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new ToneCurveSubFilter(new Point[]{new Point(0.0f, 0.0f), new Point(100.0f, 200.0f), new Point(255.0f, 255.0f)}, null, null, null));
-
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 0.8f, 0.0f, 0.0f));
                     break;
                 case 18:
-                    myFilter = new Filter();
-                    myFilter.addSubFilter(new SaturationSubFilter(4.3f));
-
-                    rtnValue = myFilter.processFilter(bitmap);
-
+                    filter.addSubFilter(new ColorOverlaySubFilter(100, 0.0f, 0.6f, 0.0f));
+                    break;
+                case 19:
+                    filter.addSubFilter(new ToneCurveSubFilter(new Point[]{new Point(0.0f, 0.0f), new Point(100.0f, 200.0f), new Point(255.0f, 255.0f)}, null, null, null));
+                    break;
+                case 20:
+                    filter.addSubFilter(new SaturationSubFilter(4.3f));
+                    break;
+                default:
+                    filter = null;
+                    rtnValue = bitmap;
                     break;
 
 
+            }
+            if (filter != null) {
+                rtnValue = filter.processFilter(bitmap);
             }
         } catch (Exception exp) {
 
