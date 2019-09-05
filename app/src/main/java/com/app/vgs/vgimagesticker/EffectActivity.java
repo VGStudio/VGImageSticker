@@ -6,14 +6,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.HorizontalScrollView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.app.vgs.vgimagesticker.utils.BitmapUtils;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
@@ -30,6 +37,7 @@ public class EffectActivity extends BaseActivity {
 
     private String mFileSavedpath = null;
     private Bitmap mBitmapEdit = null;
+    private Bitmap mBitmapInput = null;
 
 
     RelativeLayout mRlHeader;
@@ -50,6 +58,7 @@ public class EffectActivity extends BaseActivity {
     SeekBar mSeekSaturation;
     SeekBar mSeekContrast;
     SeekBar mSeekBrightness;
+    LinearLayout mLlFilterList;
 
     static {
         System.loadLibrary("NativeImageProcessor");
@@ -69,10 +78,14 @@ public class EffectActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mBitmapEdit != null) {
-            mBitmapEdit.recycle();
+        if (mBitmapInput != null) {
+            mBitmapInput.recycle();
         }
-        mBitmapEdit = null;
+        mBitmapInput = null;
+        if(mBitmapEdit != null){
+            mBitmapEdit.recycle();
+            mBitmapEdit = null;
+        }
     }
 
     @Override
@@ -88,8 +101,11 @@ public class EffectActivity extends BaseActivity {
     private void initData() {
         initAds();
 
-        mBitmapEdit = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3);
-        mIvPreview.setImageBitmap(mBitmapEdit);
+
+        mBitmapInput = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3);
+        mIvPreview.setImageBitmap(mBitmapInput);
+
+        initFilterListView();
         //mSeekSaturation.setProgress(255);
     }
 
@@ -120,6 +136,8 @@ public class EffectActivity extends BaseActivity {
         selectBottomButtonState(mRlAdjust);
         mLlAdjust.setVisibility(View.VISIBLE);
 
+        mLlFilterList = findViewById(R.id.llFilterList);
+
         mSeekSaturation = findViewById(R.id.seekSaturation);
         mSeekContrast = findViewById(R.id.seekContrast);
         mSeekBrightness = findViewById(R.id.seekBrightness);
@@ -127,8 +145,8 @@ public class EffectActivity extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 float brightness = progress / 2.0f;
-                if (mBitmapEdit != null) {
-                    mIvPreview.setImageBitmap(BitmapUtils.changeBitmapContrastBrightness(mBitmapEdit, 1.0f, brightness));
+                if (mBitmapInput != null) {
+                    mIvPreview.setImageBitmap(BitmapUtils.changeBitmapContrastBrightness(mBitmapInput, 1.0f, brightness));
                 }
 
 
@@ -149,8 +167,8 @@ public class EffectActivity extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 float contrast = progress / 100.0f;
-                if (mBitmapEdit != null) {
-                    mIvPreview.setImageBitmap(BitmapUtils.changeBitmapContrastBrightness(mBitmapEdit, contrast, 1.0f));
+                if (mBitmapInput != null) {
+                    mIvPreview.setImageBitmap(BitmapUtils.changeBitmapContrastBrightness(mBitmapInput, contrast, 1.0f));
                 }
 
 
@@ -172,8 +190,8 @@ public class EffectActivity extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
                 float saturation = progress / 256.0f;
-                if (mBitmapEdit != null) {
-                    mIvPreview.setImageBitmap(BitmapUtils.changeSaturation(mBitmapEdit, saturation));
+                if (mBitmapInput != null) {
+                    mIvPreview.setImageBitmap(BitmapUtils.changeSaturation(mBitmapInput, saturation));
                 }
             }
 
@@ -188,8 +206,65 @@ public class EffectActivity extends BaseActivity {
 
             }
         });
+    }
+
+    public void GetOrizinalImage() {
+        try {
+            mIvPreview.setImageBitmap(mBitmapInput);
+            Drawable drawable = mIvPreview.getDrawable();
+
+            mBitmapEdit = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inMutable = true;
+            drawable.draw(new Canvas(mBitmapEdit));
+            //mBitmapEdit = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3, options);
+
+        }catch (Exception exp){
+            LogUtils.e(exp);
+        }
+
+        //drawable.draw(new Canvas(mBitmapEdit));
+    }
+
+    private void initFilterListView() {
+        try {
+
+            LayoutInflater layoutInflater = getLayoutInflater();
+
+            mLlFilterList.setWeightSum(BitmapUtils.FILTER_LIST.length);
+            for (int i = 0; i < BitmapUtils.FILTER_LIST.length; i++) {
+                GetOrizinalImage();
+                String filterName = BitmapUtils.FILTER_LIST[i];
+                final View view = layoutInflater.inflate(R.layout.layout_effect_item, mLlFilterList, false);
+                TextView textView = view.findViewById(R.id.tvName);
+                ImageButton imageIcon = view.findViewById(R.id.ibIcon);
+                BitmapFactory.Options option = new BitmapFactory.Options();
+                option.inMutable = true;
+                Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.filter__0, option);
+                bitmap = BitmapUtils.filterImage(this, bitmap, i);
+                imageIcon.setImageBitmap(bitmap);
+                imageIcon.setTag(i);
+                imageIcon.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        GetOrizinalImage();
+                        int index = Integer.parseInt(view.getTag().toString());
+                        Bitmap bitmap = BitmapUtils.filterImage(getBaseContext(), mBitmapEdit, index);
+                        mIvPreview.setImageBitmap(bitmap);
+                    }
+                });
+
+                textView.setText(filterName);
+                mLlFilterList.addView(view);
+            }
 
 
+
+
+        } catch (Exception exp) {
+            LogUtils.e(exp);
+        }
     }
 
 

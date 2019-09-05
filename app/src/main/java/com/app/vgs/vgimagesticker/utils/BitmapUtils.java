@@ -17,6 +17,8 @@ import com.zomato.photofilters.imageprocessors.subfilters.ToneCurveSubFilter;
 import com.zomato.photofilters.imageprocessors.subfilters.VignetteSubFilter;
 
 public class BitmapUtils {
+    public static final String[] FILTER_LIST = new String[]{"Original", "Fire Brick", "Fuchsia", "Light Cora", "Deep Cora", "Thistle", "Dodger Blue", "Floral White", "Royal Blue", "Olive Drab", "Deep Pink", "Golder Rod", "Steel Blue", "Dark Orange", "Magenta", "Fractal", "Honey Dew", "Maroon", "See Green", "Ghost White", "Dark Red"};
+
     public static Bitmap changeSaturation(Bitmap paramBitmap, float saturation) {
         Bitmap bitmap = Bitmap.createBitmap(paramBitmap.getWidth(), paramBitmap.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -125,7 +127,7 @@ public class BitmapUtils {
                 rtnValue = filter.processFilter(bitmap);
             }
         } catch (Exception exp) {
-
+            LogUtils.e(exp);
         }
         return rtnValue;
     }
