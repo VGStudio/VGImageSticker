@@ -13,5 +13,6 @@
     <color name="bg_color">#ffeeeeee</color>
     <color name="white_color">#ffffffff</color>
     <color name="transparent_white">#b5ffffff</color>
+    <color name="effect_selected">#ff212121</color>
 
 </resources>

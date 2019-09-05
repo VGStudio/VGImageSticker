@@ -251,6 +251,7 @@ public class EffectActivity extends BaseActivity {
                         GetOrizinalImage();
                         int index = Integer.parseInt(view.getTag().toString());
                         Bitmap bitmap = BitmapUtils.filterImage(getBaseContext(), mBitmapEdit, index);
+                        view.setBackgroundResource(R.drawable.bg_button_shape);
                         mIvPreview.setImageBitmap(bitmap);
                     }
                 });
