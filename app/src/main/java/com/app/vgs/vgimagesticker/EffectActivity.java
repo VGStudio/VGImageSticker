@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -59,6 +57,8 @@ public class EffectActivity extends BaseActivity {
     SeekBar mSeekContrast;
     SeekBar mSeekBrightness;
     LinearLayout mLlFilterList;
+
+    ImageButton [] mImgFilterList = null;
 
     static {
         System.loadLibrary("NativeImageProcessor");
@@ -208,7 +208,7 @@ public class EffectActivity extends BaseActivity {
         });
     }
 
-    public void GetOrizinalImage() {
+    public void getOrizinalImage() {
         try {
             mIvPreview.setImageBitmap(mBitmapInput);
             Drawable drawable = mIvPreview.getDrawable();
@@ -218,13 +218,10 @@ public class EffectActivity extends BaseActivity {
             BitmapFactory.Options options = new BitmapFactory.Options();
             options.inMutable = true;
             drawable.draw(new Canvas(mBitmapEdit));
-            //mBitmapEdit = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3, options);
 
         }catch (Exception exp){
             LogUtils.e(exp);
         }
-
-        //drawable.draw(new Canvas(mBitmapEdit));
     }
 
     private void initFilterListView() {
@@ -233,12 +230,15 @@ public class EffectActivity extends BaseActivity {
             LayoutInflater layoutInflater = getLayoutInflater();
 
             mLlFilterList.setWeightSum(BitmapUtils.FILTER_LIST.length);
+            mImgFilterList = new ImageButton[BitmapUtils.FILTER_LIST.length];
             for (int i = 0; i < BitmapUtils.FILTER_LIST.length; i++) {
-                GetOrizinalImage();
+                getOrizinalImage();
                 String filterName = BitmapUtils.FILTER_LIST[i];
-                final View view = layoutInflater.inflate(R.layout.layout_effect_item, mLlFilterList, false);
+                final View view = layoutInflater.inflate(R.layout.layout_filter_item, mLlFilterList, false);
                 TextView textView = view.findViewById(R.id.tvName);
                 ImageButton imageIcon = view.findViewById(R.id.ibIcon);
+                mImgFilterList[i] = imageIcon;
+
                 BitmapFactory.Options option = new BitmapFactory.Options();
                 option.inMutable = true;
                 Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.filter__0, option);
@@ -248,10 +248,11 @@ public class EffectActivity extends BaseActivity {
                 imageIcon.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        GetOrizinalImage();
                         int index = Integer.parseInt(view.getTag().toString());
+                        getOrizinalImage();
+                        unSelectedAllFilterImageButtonState();
                         Bitmap bitmap = BitmapUtils.filterImage(getBaseContext(), mBitmapEdit, index);
-                        view.setBackgroundResource(R.drawable.bg_button_shape);
+                        selectEffectFilterStateView(view, true);
                         mIvPreview.setImageBitmap(bitmap);
                     }
                 });
@@ -265,6 +266,22 @@ public class EffectActivity extends BaseActivity {
 
         } catch (Exception exp) {
             LogUtils.e(exp);
+        }
+    }
+
+    private void unSelectedAllFilterImageButtonState(){
+        if(mImgFilterList != null && mImgFilterList.length > 0){
+            for(ImageButton imgButton : mImgFilterList){
+                selectEffectFilterStateView(imgButton, false);
+            }
+        }
+    }
+
+    private void selectEffectFilterStateView(View view, boolean selected){
+        if(selected){
+            view.setBackgroundResource(R.drawable.bg_button_shape);
+        }else{
+            view.setBackgroundResource(R.color.button_default);
         }
     }
 
@@ -380,6 +397,43 @@ public class EffectActivity extends BaseActivity {
 
         showExitPopUp();
 
+    }
+
+    class FilterImageTask extends AsyncTask<Void, Void, Bitmap> {
+        Context context;
+        View viewClicked;
+        ProgressDialog pd;
+        int indexFilterSelected;
+
+        public FilterImageTask(Context ctx, View view, int index) {
+            context = ctx;
+            this.viewClicked  = view;
+            indexFilterSelected = index;
+        }
+
+        @Override
+        protected Bitmap doInBackground(Void... voids) {
+            getOrizinalImage();
+            Bitmap bitmap = BitmapUtils.filterImage(getBaseContext(), mBitmapEdit, indexFilterSelected);
+            return bitmap;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            unSelectedAllFilterImageButtonState();
+            pd = ProgressDialog.show(context, context.getString(R.string.label_please_wait), context.getString(R.string.image_processing));
+            selectEffectFilterStateView(viewClicked, true);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            if(bitmap != null){
+                mIvPreview.setImageBitmap(bitmap);
+            }
+            pd.dismiss();
+        }
     }
 
 

@@ -251,7 +251,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#beede9ea"
-                android:src="@drawable/load_gif_1"
                 android:visibility="gone" />
 
             <GridLayout
