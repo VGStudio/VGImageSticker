@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout android:orientation="horizontal" android:id="@+id/buttonlayout" android:background="@color/bar_bg" android:layout_width="fill_parent" android:layout_height="60.0dip" android:weightSum="100.0"
@@ -26,15 +26,21 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <com.google.android.gms.ads.AdView
-        android:layout_marginTop="15dp"
-        android:id="@+id/admob_adview"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardViewAd"
         android:layout_width="match_parent"
-        android:layout_height="225dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        ads:adSize="BANNER"
-        ads:adUnitId="@string/banner_footer" />
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="7.0dip"
+        card_view:cardElevation="7.0dip"
+        card_view:cardUseCompatPadding="true">
+
+        <com.google.android.ads.nativetemplates.TemplateView
+            android:id="@+id/my_templateSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:gnt_template_type="@layout/gnt_medium_template_view" />
+    </android.support.v7.widget.CardView>
 
     <LinearLayout
         android:layout_marginTop="10dp"

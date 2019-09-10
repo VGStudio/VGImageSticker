@@ -106,6 +106,7 @@ public class MainActivity extends BaseActivity {
         int screenWidth = ScreenDimension.mWidth;
 
         mViewFlipper.getLayoutParams().height = (int) (screenWidth*0.55);
+        loadNativeAd();
 
     }
 

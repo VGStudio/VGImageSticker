@@ -20,8 +20,10 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -29,13 +31,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.vgs.vgimagesticker.Classes.ConnectionDetector;
+import com.app.vgs.vgimagesticker.ads.AdUtils;
 import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.vo.MoreAppGroup;
+import com.google.android.ads.nativetemplates.TemplateView;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.VideoOptions;
+import com.google.android.gms.ads.formats.NativeAdOptions;
+import com.google.android.gms.ads.formats.UnifiedNativeAd;
+import com.google.android.gms.ads.formats.UnifiedNativeAdView;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 
 import java.io.File;
 import java.io.IOException;
@@ -52,12 +67,12 @@ public class ShareActivity extends AppCompatActivity {
     List<MoreAppGroup> mLstMoreAppGroup;
     GridLayout mGrid;
     ConnectionDetector mCD;
-    AdView mAdMobAdView;
-    AdRequest adRequest;
     GifImageView mGIV;
     ImageButton mFacebook,mInstagram,mWallpaper,mShare;
 
     File mFileImagePath = new File(" /Downloads/hong.jpg  ");  // Just example you use file URL
+    TemplateView mTemplate;
+
 
 
     WallpaperManager wallpaperManager;
@@ -93,6 +108,7 @@ public class ShareActivity extends AppCompatActivity {
         mInstagram      = findViewById(R.id.instagram);
         mWallpaper      = findViewById(R.id.wallpaper);
         mShare          = findViewById(R.id.multiple);
+        mTemplate       = findViewById(R.id.my_templateSave);
     }
 
     // add dữ liệu từ json vào moreapp
@@ -155,16 +171,24 @@ public class ShareActivity extends AppCompatActivity {
 
     // thanh quảng cáo ở màn hình
     private void addQuangCao(){
-        //Banner
-        mAdMobAdView = new AdView(getApplicationContext());
-        mAdMobAdView.setAdSize(AdSize.SMART_BANNER);
-        mAdMobAdView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
-        mAdMobAdView = (AdView) findViewById(R.id.admob_adview);
-        adRequest = new AdRequest.Builder()
-                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                //       .addTestDevice("4DD0986B8BB49093161F4F00CF61B887")// Add your real device id here
-                .build();
-        mAdMobAdView.loadAd(adRequest);
+        String admobNativedId = AdUtils.getAdmobNativeId(this);
+
+        mTemplate.setVisibility(View.GONE);
+        AdLoader.Builder builder = new AdLoader.Builder(
+                this, admobNativedId);
+
+        builder.forUnifiedNativeAd(new UnifiedNativeAd.OnUnifiedNativeAdLoadedListener() {
+            @Override
+            public void onUnifiedNativeAdLoaded(UnifiedNativeAd unifiedNativeAd) {
+                Log.d("VGImageSticker", "Load Native ad full");
+                mTemplate.setVisibility(View.VISIBLE);
+                mTemplate.setNativeAd(unifiedNativeAd);
+            }
+        });
+        Log.d("","");
+
+        AdLoader adLoader = builder.build();
+        adLoader.loadAd(new AdRequest.Builder().build());
     }
 
     //click vào facebook
