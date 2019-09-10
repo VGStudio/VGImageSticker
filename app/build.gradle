@@ -48,9 +48,10 @@ dependencies {
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
 
     implementation 'com.airbnb.android:lottie:2.7.0'
-
+    //facebook
+    implementation 'com.facebook.android:facebook-share:[4,5)'
     //image filter
     implementation 'com.github.zomato:androidphotofilters:1.0.2'
-
+    implementation 'com.github.zomato:androidphotofilters:1.0.1'
 
 }
