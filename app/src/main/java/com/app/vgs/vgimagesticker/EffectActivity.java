@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 
 import com.app.vgs.vgimagesticker.utils.BitmapUtils;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
+import com.app.vgs.vgimagesticker.utils.ImageProcess;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.utils.NetworkUtils;
 import com.google.android.gms.ads.AdRequest;
@@ -347,12 +350,24 @@ public class EffectActivity extends BaseActivity {
     }
 
     public void effectClick(View view) {
-        if (mHoriEffect.getVisibility() == View.VISIBLE) {
-            unSelectedBottomButtonState();
-        } else {
-            selectBottomButtonState(mRlEffect);
-            mHoriEffect.setVisibility(View.VISIBLE);
-        }
+        LogUtils.d("start");
+        getOrizinalImage();
+        ImageProcess imageProcess = new ImageProcess();
+        //Bitmap bitmap = imageProcess.applyColorFilterEffect(mBitmapEdit, 4, 6, 8);
+        //Drawable drawable = getResources().getDrawable(R.drawable.gai_xinh3);
+        //drawable.setColorFilter(Color.parseColor("#6200EA"), PorterDuff.Mode.MULTIPLY);
+        Bitmap bitmap = imageProcess.applyGreyscaleEffect(mBitmapEdit);
+        mIvPreview.setImageBitmap(bitmap);
+        //mIvPreview.setImageDrawable(drawable);
+        LogUtils.d("end1");
+
+
+//        if (mHoriEffect.getVisibility() == View.VISIBLE) {
+//            unSelectedBottomButtonState();
+//        } else {
+//            selectBottomButtonState(mRlEffect);
+//            mHoriEffect.setVisibility(View.VISIBLE);
+//        }
     }
 
     public void filterClick(View view) {

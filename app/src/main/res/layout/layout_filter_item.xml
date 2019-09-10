@@ -16,6 +16,7 @@
         android:adjustViewBounds="true"
         android:scaleType="centerInside" />
 
+
     <TextView
         android:id="@+id/tvName"
         style="@style/text"

@@ -1327,6 +1327,7 @@
                 android:id="@+id/ibAdjust"
                 style="@style/effect_bottom_button"
                 android:onClick="adJustClick"
+
                 android:src="@drawable/adjust" />
 
             <TextView
@@ -1344,6 +1345,7 @@
                 android:id="@+id/ibEffect"
                 style="@style/effect_bottom_button"
                 android:onClick="effectClick"
+
                 android:src="@drawable/effect" />
 
             <TextView
