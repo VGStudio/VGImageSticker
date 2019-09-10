@@ -41,4 +41,6 @@
     <string name="label_adjust">Adjust</string>
     <string name="label_effects">Effects</string>
     <string name="label_filters">Filters</string>
+    <string name="label_please_wait">Please Wait</string>
+    <string name="image_processing">Image Processing</string>
 </resources>
