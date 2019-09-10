@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout android:orientation="horizontal" android:id="@+id/buttonlayout" android:background="@color/bar_bg" android:layout_width="fill_parent" android:layout_height="60.0dip" android:weightSum="100.0"
+        tools:ignore="MissingConstraints">
+        <RelativeLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="25.0">
+            <ImageButton android:id="@+id/facebook" android:background="#03ffffff" android:layout_width="fill_parent" android:layout_height="50.0dip" android:src="@drawable/facebook" android:scaleType="centerInside" />
+            <TextView android:textSize="10.0sp" android:textColor="@color/colourBgAndSelected" android:gravity="center" android:layout_width="fill_parent" android:layout_height="20.0dip" android:text="Facebook" android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="25.0">
+            <ImageButton android:id="@+id/instagram" android:background="#03ffffff" android:layout_width="fill_parent" android:layout_height="50.0dip" android:src="@drawable/instagram" android:scaleType="centerInside" />
+            <TextView android:textSize="10.0sp" android:textColor="@color/colourBgAndSelected" android:gravity="center" android:layout_width="fill_parent" android:layout_height="20.0dip" android:text="Instagram" android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="25.0">
+            <ImageButton android:id="@+id/wallpaper" android:background="#03ffffff" android:layout_width="fill_parent" android:layout_height="50.0dip" android:src="@drawable/set_wallpaper" android:scaleType="centerInside" />
+            <TextView android:textSize="10.0sp" android:textColor="@color/colourBgAndSelected" android:gravity="center" android:layout_width="fill_parent" android:layout_height="20.0dip" android:text="Wallpaper" android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="25.0">
+            <ImageButton android:id="@+id/multiple" android:background="#03ffffff" android:layout_width="fill_parent" android:layout_height="50.0dip" android:src="@drawable/share" android:scaleType="centerInside" />
+            <TextView android:textSize="10.0sp" android:textColor="@color/colourBgAndSelected" android:gravity="center" android:layout_width="fill_parent" android:layout_height="20.0dip" android:text="Share" android:layout_alignParentBottom="true" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <com.google.android.gms.ads.AdView
+        android:layout_marginTop="15dp"
+        android:id="@+id/admob_adview"
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_footer" />
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textSize="22sp"
+            android:textColor="@color/colourBgAndSelected"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:text="More apps from Developer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#ffffffff"
+            android:fadeScrollbars="false"
+            android:scrollbarSize="3.0dip"
+            android:scrollbarThumbVertical="@color/colourBgAndSelected">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/gifMoreAppSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#beede9ea"
+                    android:src="@drawable/load_gif_1"
+                    android:visibility="gone" />
+                <GridLayout
+                    android:id="@+id/gridSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="8"
+                    android:alignmentMode="alignMargins"
+                    android:columnCount="3"
+                    android:columnOrderPreserved="false"
+                    android:padding="14dp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>
