@@ -1,16 +1,25 @@
 package com.app.vgs.vgimagesticker.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.app.vgs.vgimagesticker.vo.FrameGroup;
 import com.app.vgs.vgimagesticker.vo.FrameSubGroup;
+import com.app.vgs.vgimagesticker.vo.MoreAppGroup;
 import com.app.vgs.vgimagesticker.vo.StickerGroup;
 import com.app.vgs.vgimagesticker.vo.StickerSubGroup;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,6 +125,50 @@ public class JsonUtils {
     }
 
 
+    //MoreApp
+    public static List<MoreAppGroup> getMoreAppJsonData(Context context,String path){
+        List<MoreAppGroup> lstMoreApp = new ArrayList<>();
+        String json = "moreappdata.json";
+        StringBuilder stringBuilder = new StringBuilder("");
+        BufferedReader reader = null;
+        String rtn = "";
+        int index =0;
+        String hinhanh = "";
+        String tittle = "";
+        String   link = "";
+        Bitmap bitmap =null;
+        try {
+                reader = new BufferedReader(new InputStreamReader(context.getAssets().open(json)));
+                while ((path = reader.readLine()) != null) {
+                    stringBuilder.append(path);
+                }
+                rtn = stringBuilder.toString();
+            try {
+                JSONObject jsonObject = new JSONObject(rtn);
+                JSONArray jsonArray = jsonObject.getJSONArray("apps");
+                for(int i=0;i<jsonArray.length();i++){
+                    jsonObject = jsonArray.getJSONObject(i);
+                    hinhanh = jsonObject.getString("icon");
+                    tittle  = jsonObject.getString("app_name");
+                    link   = jsonObject.getString("link");
+                    index   = jsonObject.getInt("index");
+
+                    MoreAppGroup subGroup = new MoreAppGroup(tittle, hinhanh, link);
+                    lstMoreApp.add(subGroup);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return lstMoreApp;
+    }
+    //
+
 
 
     public static List<String> getImagesPathFromJson(Context context, String path){
@@ -146,4 +199,5 @@ public class JsonUtils {
         }
         return lstRtn;
     }
+
 }
