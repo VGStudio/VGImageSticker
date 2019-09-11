@@ -1,17 +1,25 @@
 package com.app.vgs.vgimagesticker;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.HorizontalScrollView;
@@ -22,11 +30,13 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.app.vgs.vgimagesticker.adapter.EffectAdapter;
 import com.app.vgs.vgimagesticker.utils.BitmapUtils;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.ImageProcess;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.utils.NetworkUtils;
+import com.app.vgs.vgimagesticker.vo.EffectItem;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
@@ -61,7 +71,11 @@ public class EffectActivity extends BaseActivity {
     SeekBar mSeekBrightness;
     LinearLayout mLlFilterList;
 
-    ImageButton [] mImgFilterList = null;
+    RecyclerView mRVEffect;
+
+    ImageButton[] mImgFilterList = null;
+
+    EffectAdapter mEffectAdapter;
 
     static {
         System.loadLibrary("NativeImageProcessor");
@@ -85,9 +99,50 @@ public class EffectActivity extends BaseActivity {
             mBitmapInput.recycle();
         }
         mBitmapInput = null;
-        if(mBitmapEdit != null){
+        if (mBitmapEdit != null) {
             mBitmapEdit.recycle();
             mBitmapEdit = null;
+        }
+    }
+
+    private void checkAndRequestPermission() {
+        if (!checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+                    getString(R.string.permission_read_storage_rationale),
+                    REQUEST_STORAGE_READ_ACCESS_PERMISSION);
+        } else if(!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    getString(R.string.permission_write_storage_rationale),
+                    REQUEST_STORAGE_WRITE_ACCESS_PERMISSION);
+
+        }else {
+            fillData();
+        }
+    }
+
+    private void fillData() {
+        try {
+            mBitmapInput = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3);
+            if (mBitmapInput != null) {
+                mIvPreview.setImageBitmap(mBitmapInput);
+            }
+            initFilterListView();
+            initEffectListView();
+        } catch (Exception exp) {
+            LogUtils.e(exp);
+        }
+    }
+
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode) {
+            case REQUEST_STORAGE_WRITE_ACCESS_PERMISSION:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    fillData();
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
@@ -103,13 +158,8 @@ public class EffectActivity extends BaseActivity {
 
     private void initData() {
         initAds();
+        checkAndRequestPermission();
 
-
-        mBitmapInput = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3);
-        mIvPreview.setImageBitmap(mBitmapInput);
-
-        initFilterListView();
-        //mSeekSaturation.setProgress(255);
     }
 
     private void initAds() {
@@ -136,10 +186,14 @@ public class EffectActivity extends BaseActivity {
         mRlFilter = findViewById(R.id.rlFilter);
         mRlColorEffect = findViewById(R.id.rlColorFilter);
 
-        selectBottomButtonState(mRlAdjust);
-        mLlAdjust.setVisibility(View.VISIBLE);
+        //selectBottomButtonState(mRlAdjust);
+        //mLlAdjust.setVisibility(View.VISIBLE);
+
+
 
         mLlFilterList = findViewById(R.id.llFilterList);
+
+        mRVEffect = findViewById(R.id.rvEffect);
 
         mSeekSaturation = findViewById(R.id.seekSaturation);
         mSeekContrast = findViewById(R.id.seekContrast);
@@ -213,18 +267,27 @@ public class EffectActivity extends BaseActivity {
 
     public void getOrizinalImage() {
         try {
-            mIvPreview.setImageBitmap(mBitmapInput);
-            Drawable drawable = mIvPreview.getDrawable();
+            if (mBitmapInput != null) {
+                mIvPreview.setImageBitmap(mBitmapInput);
+                Drawable drawable = mIvPreview.getDrawable();
 
-            mBitmapEdit = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+                mBitmapEdit = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
 
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inMutable = true;
-            drawable.draw(new Canvas(mBitmapEdit));
-
-        }catch (Exception exp){
+                BitmapFactory.Options options = new BitmapFactory.Options();
+                options.inMutable = true;
+                drawable.draw(new Canvas(mBitmapEdit));
+            }
+        } catch (Exception exp) {
             LogUtils.e(exp);
         }
+    }
+
+    private void initEffectListView(){
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mRVEffect.setLayoutManager(horizontalLayoutManager);
+        mEffectAdapter = new EffectAdapter(this, EffectItem.getEffectList());
+        mRVEffect.setAdapter(mEffectAdapter);
+
     }
 
     private void initFilterListView() {
@@ -265,25 +328,23 @@ public class EffectActivity extends BaseActivity {
             }
 
 
-
-
         } catch (Exception exp) {
             LogUtils.e(exp);
         }
     }
 
-    private void unSelectedAllFilterImageButtonState(){
-        if(mImgFilterList != null && mImgFilterList.length > 0){
-            for(ImageButton imgButton : mImgFilterList){
+    private void unSelectedAllFilterImageButtonState() {
+        if (mImgFilterList != null && mImgFilterList.length > 0) {
+            for (ImageButton imgButton : mImgFilterList) {
                 selectEffectFilterStateView(imgButton, false);
             }
         }
     }
 
-    private void selectEffectFilterStateView(View view, boolean selected){
-        if(selected){
+    private void selectEffectFilterStateView(View view, boolean selected) {
+        if (selected) {
             view.setBackgroundResource(R.drawable.bg_button_shape);
-        }else{
+        } else {
             view.setBackgroundResource(R.color.button_default);
         }
     }
@@ -350,24 +411,15 @@ public class EffectActivity extends BaseActivity {
     }
 
     public void effectClick(View view) {
-        LogUtils.d("start");
-        getOrizinalImage();
-        ImageProcess imageProcess = new ImageProcess();
-        //Bitmap bitmap = imageProcess.applyColorFilterEffect(mBitmapEdit, 4, 6, 8);
-        //Drawable drawable = getResources().getDrawable(R.drawable.gai_xinh3);
-        //drawable.setColorFilter(Color.parseColor("#6200EA"), PorterDuff.Mode.MULTIPLY);
-        Bitmap bitmap = imageProcess.applyGreyscaleEffect(mBitmapEdit);
-        mIvPreview.setImageBitmap(bitmap);
-        //mIvPreview.setImageDrawable(drawable);
-        LogUtils.d("end1");
 
 
-//        if (mHoriEffect.getVisibility() == View.VISIBLE) {
-//            unSelectedBottomButtonState();
-//        } else {
-//            selectBottomButtonState(mRlEffect);
-//            mHoriEffect.setVisibility(View.VISIBLE);
-//        }
+
+        if (mHoriEffect.getVisibility() == View.VISIBLE) {
+            unSelectedBottomButtonState();
+        } else {
+            selectBottomButtonState(mRlEffect);
+            mHoriEffect.setVisibility(View.VISIBLE);
+        }
     }
 
     public void filterClick(View view) {
@@ -403,6 +455,142 @@ public class EffectActivity extends BaseActivity {
         }
     }
 
+
+    private void getEffectIcon(){
+        try {
+            ImageProcess imageProcess = new ImageProcess();
+
+            Bitmap bitmapTemp = null;
+
+            LogUtils.d("Start create round icon");
+            Bitmap bitmap = getIcon();
+            Bitmap roundBitmap = imageProcess.applyRoundCornerEffect(bitmap, 45.0f);
+            FileUtils.saveBitmapToFile(roundBitmap, "effect_icon", "icon_effect_round.png");
+            LogUtils.d("Finish create round icon");
+
+            LogUtils.d("Start create black dots icon");
+            bitmap = getIcon();
+            Bitmap blackDots = imageProcess.applyBlackFilter(bitmap);
+            FileUtils.saveBitmapToFile(blackDots, "effect_icon", "icon_effect_blackdots.png");
+            LogUtils.d("Finish create black dots icon");
+
+            LogUtils.d("Start create snow icon");
+            bitmap = getIcon();
+            Bitmap snowBitmap = imageProcess.applySnowEffect(bitmap);
+            FileUtils.saveBitmapToFile(snowBitmap, "effect_icon", "icon_effect_snow.png");
+            LogUtils.d("Finish create snow icon");
+
+            LogUtils.d("Start create tint icon");
+            bitmap = getIcon();
+            Bitmap tintBitmap = imageProcess.applyTintEffect(bitmap, 100);
+            FileUtils.saveBitmapToFile(tintBitmap, "effect_icon", "icon_effect_tint.png");
+            LogUtils.d("Finish create tint icon");
+
+            LogUtils.d("Start create green icon");
+            bitmap = getIcon();
+            bitmapTemp = imageProcess.applyShadingFilter(bitmap, Color.GREEN);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_green.png");
+            LogUtils.d("Finish create green icon");
+
+
+            LogUtils.d("Start create cyan icon");
+            bitmap = getIcon();
+            bitmapTemp = imageProcess.applyShadingFilter(bitmap, Color.CYAN);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_cyan.png");
+            LogUtils.d("Finish create cyan icon");
+
+            LogUtils.d("Start create YELLOW icon");
+            bitmap = getIcon();
+            bitmapTemp = imageProcess.applyShadingFilter(bitmap, Color.YELLOW);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_yellow.png");
+            LogUtils.d("Finish create YELLOW icon");
+
+            LogUtils.d("Start create blue icon");
+            bitmap = getIcon();
+            bitmapTemp = imageProcess.applyShadingFilter(bitmap, Color.BLUE);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_blue.png");
+            LogUtils.d("Finish create blue icon");
+
+            LogUtils.d("Start create gray icon");
+            bitmap = getIcon();
+            bitmapTemp = imageProcess.applyShadingFilter(bitmap, Color.GRAY);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_gray.png");
+            LogUtils.d("Finish create gray icon");
+
+            LogUtils.d("Start create magenta icon");
+            bitmap = getIcon();
+            bitmapTemp = imageProcess.applyShadingFilter(bitmap, Color.MAGENTA);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_magenta.png");
+            LogUtils.d("Finish create magenta icon");
+
+            LogUtils.d("Start create red icon");
+            bitmap = getIcon();
+            bitmapTemp = imageProcess.applyShadingFilter(bitmap, Color.RED);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_red.png");
+            LogUtils.d("Finish create red icon");
+
+            LogUtils.d("Start create indigo icon");
+            Drawable drawable = getResources().getDrawable(R.drawable.filter__0);
+            drawable.setColorFilter(Color.parseColor("#283593"), PorterDuff.Mode.MULTIPLY);
+            bitmapTemp = BitmapUtils.convertDrawable2Bitmap(drawable);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_indigo.png");
+            LogUtils.d("Finish create indigo icon");
+
+            LogUtils.d("Start create Purple icon");
+            drawable = getResources().getDrawable(R.drawable.filter__0);
+            drawable.setColorFilter(Color.parseColor("#D500F9"), PorterDuff.Mode.MULTIPLY);
+            bitmapTemp = BitmapUtils.convertDrawable2Bitmap(drawable);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_purple.png");
+            LogUtils.d("Finish create Purple icon");
+
+            LogUtils.d("Start create Orange icon");
+            drawable = getResources().getDrawable(R.drawable.filter__0);
+            drawable.setColorFilter(Color.parseColor("#DD2C00"), PorterDuff.Mode.MULTIPLY);
+            bitmapTemp = BitmapUtils.convertDrawable2Bitmap(drawable);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_orange.png");
+            LogUtils.d("Finish create Orange icon");
+
+            LogUtils.d("Start create Teal icon");
+            drawable = getResources().getDrawable(R.drawable.filter__0);
+            drawable.setColorFilter(Color.parseColor("#004D40"), PorterDuff.Mode.MULTIPLY);
+            bitmapTemp = BitmapUtils.convertDrawable2Bitmap(drawable);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_teal.png");
+            LogUtils.d("Finish create Teal icon");
+
+            LogUtils.d("Start create Lime icon");
+            drawable = getResources().getDrawable(R.drawable.filter__0);
+            drawable.setColorFilter(Color.parseColor("#C0CA33"), PorterDuff.Mode.MULTIPLY);
+            bitmapTemp = BitmapUtils.convertDrawable2Bitmap(drawable);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_lime.png");
+            LogUtils.d("Finish create Lime icon");
+
+            LogUtils.d("Start create Pink icon");
+            drawable = getResources().getDrawable(R.drawable.filter__0);
+            drawable.setColorFilter(Color.parseColor("#E91E63"), PorterDuff.Mode.MULTIPLY);
+            bitmapTemp = BitmapUtils.convertDrawable2Bitmap(drawable);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_pink.png");
+            LogUtils.d("Finish create Pink icon");
+
+            LogUtils.d("Start create Deep Purple icon");
+            drawable = getResources().getDrawable(R.drawable.filter__0);
+            drawable.setColorFilter(Color.parseColor("#6200EA"), PorterDuff.Mode.MULTIPLY);
+            bitmapTemp = BitmapUtils.convertDrawable2Bitmap(drawable);
+            FileUtils.saveBitmapToFile(bitmapTemp, "effect_icon", "icon_effect_deeppurple.png");
+            LogUtils.d("Finish create Deep Purple icon");
+
+
+        }catch (Exception exp){
+            LogUtils.e(exp);
+        }
+    }
+
+    private Bitmap getIcon(){
+        BitmapFactory.Options option = new BitmapFactory.Options();
+        option.inMutable = true;
+        return BitmapFactory.decodeResource(getResources(), R.drawable.filter__0, option);
+    }
+
+
     @Override
     public void onBackPressed() {
         if (mExitPopUp.getVisibility() == View.VISIBLE) {
@@ -422,7 +610,7 @@ public class EffectActivity extends BaseActivity {
 
         public FilterImageTask(Context ctx, View view, int index) {
             context = ctx;
-            this.viewClicked  = view;
+            this.viewClicked = view;
             indexFilterSelected = index;
         }
 
@@ -444,7 +632,7 @@ public class EffectActivity extends BaseActivity {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
-            if(bitmap != null){
+            if (bitmap != null) {
                 mIvPreview.setImageBitmap(bitmap);
             }
             pd.dismiss();

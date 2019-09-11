@@ -1,6 +1,9 @@
 package com.app.vgs.vgimagesticker;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -80,6 +83,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
         }
+    }
+
+    protected boolean checkPermission(final String permission){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
+                && ActivityCompat.checkSelfPermission(this, permission)
+                == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        return false;
     }
 
     /**

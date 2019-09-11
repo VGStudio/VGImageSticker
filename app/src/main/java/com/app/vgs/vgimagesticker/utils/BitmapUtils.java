@@ -6,6 +6,8 @@ import android.graphics.Canvas;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 
 import com.zomato.photofilters.geometry.Point;
 import com.zomato.photofilters.imageprocessors.Filter;
@@ -130,5 +132,18 @@ public class BitmapUtils {
             LogUtils.e(exp);
         }
         return rtnValue;
+    }
+
+    public static Bitmap convertDrawable2Bitmap(@NonNull Drawable drawable){
+        try {
+            Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+            Canvas canvas = new Canvas(bitmap);
+            drawable.setBounds(0,0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+            drawable.draw(canvas);
+            return bitmap;
+        }catch (Exception exp){
+            LogUtils.e(exp);
+        }
+        return null;
     }
 }

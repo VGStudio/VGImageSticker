@@ -155,6 +155,34 @@ public class FileUtils {
         return rtnValue;
     }
 
+    public static File saveBitmapToFile(Bitmap bitmap, String folderName, String fileName) {
+        if (bitmap == null) {
+            return null;
+        }
+        File rtnValue = null;
+        try {
+            StringBuilder strBuilder = new StringBuilder();
+            strBuilder.append(Environment.getExternalStorageDirectory());
+            strBuilder.append("/" + FOLDER + "/" + folderName);
+            File folder = new File(strBuilder.toString());
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            File imgFile = new File(folder, fileName);
+            if (imgFile.exists()) {
+                imgFile.delete();
+            }
+            imgFile.createNewFile();
+            FileOutputStream fileOutputStream = new FileOutputStream(imgFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
+        } catch (IOException exp) {
+            LogUtils.e(exp);
+            return null;
+        }
+
+        return rtnValue;
+    }
+
     public static File createEmptyFile(Context context) {
         File rtnValue = null;
         try {
