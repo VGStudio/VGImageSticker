@@ -134,6 +134,89 @@ public class BitmapUtils {
         return rtnValue;
     }
 
+    public static Bitmap applyColorEffectImage(Bitmap bitmap, int index){
+        Bitmap rtnValue = null;
+        try {
+            ImageProcess imageProcess = new ImageProcess();
+            switch ( index){
+                case 1:
+                    rtnValue = imageProcess.applyBoostEffect(bitmap, 1, 40);;
+                    break;
+                case 2:
+                    rtnValue = imageProcess.applyBoostEffect(bitmap, 2, 30);
+                    break;
+                case 3:
+                    rtnValue = imageProcess.applyBoostEffect(bitmap, 3, 67);
+                    break;
+                case 4:
+                    rtnValue = imageProcess.applyBrightnessEffect(bitmap, 80);;
+                    break;
+                case 5:
+                    rtnValue =  imageProcess.applyColorFilterEffect(bitmap, 255, 0, 0);
+                    break;
+                case 6:
+                    rtnValue = imageProcess.applyColorFilterEffect(bitmap, 0, 255, 0);
+                    break;
+                case 7:
+                    rtnValue = imageProcess.applyColorFilterEffect(bitmap, 0, 0, 255);
+                    break;
+                case 8:
+                    rtnValue = imageProcess.applyDecreaseColorDepthEffect(bitmap, 64);
+                    break;
+                case 9:
+                    rtnValue = imageProcess.applyDecreaseColorDepthEffect(bitmap, 32);
+                    break;
+                case 10:
+                    rtnValue = imageProcess.applyContrastEffect(bitmap, 25);
+                    break;
+                case 11:
+                    rtnValue = imageProcess.applyGammaEffect(bitmap, 1.8, 1.8, 1.8);
+                    break;
+                case 12:
+                    rtnValue = imageProcess.applyGreyscaleEffect(bitmap);
+                    break;
+                case 13:
+                    rtnValue = imageProcess.applyHueFilter(bitmap, 2);
+                    break;
+                case 14:
+                    rtnValue = imageProcess.applyInvertEffect(bitmap);
+                    break;
+                case 15:
+                    rtnValue = imageProcess.applyMeanRemovalEffect(bitmap);
+                    break;
+                case 16:
+                    rtnValue = imageProcess.applySepiaToningEffect(bitmap, 10, 1.5, 0.6, 0.12);
+                    break;
+                case 17:
+                    rtnValue = imageProcess.applySepiaToningEffect(bitmap, 10, 0.88, 2.45, 1.43);
+                    break;
+                case 18:
+                    rtnValue = imageProcess.applySepiaToningEffect(bitmap, 10, 1.2, 0.87, 2.1);
+                    break;
+                case 19:
+                    rtnValue = imageProcess.applyEmbossEffect(bitmap);
+                    break;
+                case 20:
+                    rtnValue = imageProcess.applyEngraveEffect(bitmap);
+                    break;
+                case 21:
+                    rtnValue = imageProcess.applyGaussianBlurEffect(bitmap);
+                    break;
+                case 22:
+                    rtnValue = imageProcess.applySmoothEffect(bitmap, 100);
+                    break;
+
+                default:
+                    rtnValue = bitmap;
+                    break;
+            }
+        }catch (Exception exp){
+            rtnValue = bitmap;
+            LogUtils.e(exp);
+        }
+        return rtnValue;
+    }
+
     public static Bitmap filterImage(Context context, Bitmap bitmap, int index) {
         Bitmap rtnValue = null;
         try {

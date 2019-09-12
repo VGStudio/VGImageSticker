@@ -70,4 +70,32 @@ public class EffectItem {
         lst.add(new EffectItem(18, "Deep Purple", "icon/effect_icon/icon_effect_deeppurple.png"));
         return lst;
     }
+
+    public static List<EffectItem> getColorEffectList(){
+        List<EffectItem> lst = new ArrayList<>();
+        lst.add(new EffectItem(0, "Origin", "icon/color_effect_icon/icon_color_effect_origin.webp"));
+        lst.add(new EffectItem(1, "Boost Red", "icon/color_effect_icon/icon_color_effect_boostred.png"));
+        lst.add(new EffectItem(2, "Boost Green", "icon/color_effect_icon/icon_color_effect_boostgreen.png"));
+        lst.add(new EffectItem(3, "Boost Blue", "icon/color_effect_icon/icon_color_effect_boostblue.png"));
+        lst.add(new EffectItem(4, "Brightness", "icon/color_effect_icon/icon_color_effect_brightness.png"));
+        lst.add(new EffectItem(5, "Color Red", "icon/color_effect_icon/icon_color_effect_colorred.png"));
+        lst.add(new EffectItem(6, "Color Green", "icon/color_effect_icon/icon_color_effect_colorgreen.png"));
+        lst.add(new EffectItem(7, "Color Blue", "icon/color_effect_icon/icon_color_effect_colorblue.png"));
+        lst.add(new EffectItem(8, "Paint Depth", "icon/color_effect_icon/icon_color_effect_paintdeep.png"));
+        lst.add(new EffectItem(9, "Paint Light", "icon/color_effect_icon/icon_color_effect_paintlight.png"));
+        lst.add(new EffectItem(10, "Contrast", "icon/color_effect_icon/icon_color_effect_contrast.png"));
+        lst.add(new EffectItem(11, "Gama", "icon/color_effect_icon/icon_color_effect_gamma.png"));
+        lst.add(new EffectItem(12, "Gray Scale", "icon/color_effect_icon/icon_color_effect_grayscale.png"));
+        lst.add(new EffectItem(13, "Hue", "icon/color_effect_icon/icon_color_effect_hue.png"));
+        lst.add(new EffectItem(14, "Invert", "icon/color_effect_icon/icon_color_effect_invert.png"));
+        lst.add(new EffectItem(15, "Mean", "icon/color_effect_icon/icon_color_effect_mean.png"));
+        lst.add(new EffectItem(16, "Sepia", "icon/color_effect_icon/icon_color_effect_sepia.png"));
+        lst.add(new EffectItem(17, "Sepia Green", "icon/color_effect_icon/icon_color_effect_sepiagreen.png"));
+        lst.add(new EffectItem(18, "Sepia Blue", "icon/color_effect_icon/icon_color_effect_sepiablue.png"));
+        lst.add(new EffectItem(19, "Emboss", "icon/color_effect_icon/icon_color_effect_emboss.png"));
+        lst.add(new EffectItem(20, "Engrave", "icon/color_effect_icon/icon_color_effect_engrave.png"));
+        lst.add(new EffectItem(21, "Gaussian Blur", "icon/color_effect_icon/icon_color_effect_gaussianblur.png"));
+        lst.add(new EffectItem(22, "Smooth", "icon/color_effect_icon/icon_color_effect_smooth.png"));
+        return lst;
+    }
 }

@@ -53,9 +53,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
     AdView mBannerAdView;
 
     LinearLayout mLlAdjust;
-    //HorizontalScrollView mHoriEffect;
     HorizontalScrollView mHoriFilter;
-    HorizontalScrollView mHoriColorEffect;
 
     RelativeLayout mRlAdjust;
     RelativeLayout mRlEffect;
@@ -68,10 +66,12 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
     LinearLayout mLlFilterList;
 
     RecyclerView mRVEffect;
+    RecyclerView mRVColorEffect;
 
     ImageButton[] mImgFilterList = null;
 
     EffectAdapter mEffectAdapter;
+    EffectAdapter mColorEffectAdapter;
 
     static {
         System.loadLibrary("NativeImageProcessor");
@@ -106,12 +106,12 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
             requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
                     getString(R.string.permission_read_storage_rationale),
                     REQUEST_STORAGE_READ_ACCESS_PERMISSION);
-        } else if(!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        } else if (!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     getString(R.string.permission_write_storage_rationale),
                     REQUEST_STORAGE_WRITE_ACCESS_PERMISSION);
 
-        }else {
+        } else {
             fillData();
         }
     }
@@ -124,6 +124,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
             }
             initFilterListView();
             initEffectListView();
+            initColorEffectListView();
         } catch (Exception exp) {
             LogUtils.e(exp);
         }
@@ -156,6 +157,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
         initAds();
         checkAndRequestPermission();
 
+
     }
 
     private void initAds() {
@@ -175,7 +177,6 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
         mLlAdjust = findViewById(R.id.llAdjust);
         //mHoriEffect = findViewById(R.id.horiEffect);
         mHoriFilter = findViewById(R.id.horiFilter);
-        mHoriColorEffect = findViewById(R.id.horiColorEffect);
 
         mRlAdjust = findViewById(R.id.rlAdjust);
         mRlEffect = findViewById(R.id.rlEffect);
@@ -186,10 +187,10 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
         //mLlAdjust.setVisibility(View.VISIBLE);
 
 
-
         mLlFilterList = findViewById(R.id.llFilterList);
 
         mRVEffect = findViewById(R.id.rvEffect);
+        mRVColorEffect = findViewById(R.id.rvColorEffect);
 
         mSeekSaturation = findViewById(R.id.seekSaturation);
         mSeekContrast = findViewById(R.id.seekContrast);
@@ -271,11 +272,19 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
         }
     }
 
-    private void initEffectListView(){
+    private void initEffectListView() {
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRVEffect.setLayoutManager(horizontalLayoutManager);
-        mEffectAdapter = new EffectAdapter(this, EffectItem.getEffectList(), this);
+        mEffectAdapter = new EffectAdapter(this, EffectItem.getEffectList(), this, EffectAdapter.MODE_EFFECT);
         mRVEffect.setAdapter(mEffectAdapter);
+
+    }
+
+    private void initColorEffectListView() {
+        LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mRVColorEffect.setLayoutManager(horizontalLayoutManager);
+        mColorEffectAdapter = new EffectAdapter(this, EffectItem.getColorEffectList(), this, EffectAdapter.MODE_COLOR_EFFECT);
+        mRVColorEffect.setAdapter(mColorEffectAdapter);
 
     }
 
@@ -357,11 +366,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
         mRlFilter.setBackgroundColor(getResources().getColor(R.color.button_default));
         mRlColorEffect.setBackgroundColor(getResources().getColor(R.color.button_default));
 
-        mLlAdjust.setVisibility(View.GONE);
-        mHoriFilter.setVisibility(View.GONE);
-        mHoriColorEffect.setVisibility(View.GONE);
-
-        mRVEffect.setVisibility(View.GONE);
+        hideAllEditImageTool();
     }
 
     private void selectBottomButtonState(View view) {
@@ -390,9 +395,18 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
 
     }
 
+    private void hideAllEditImageTool(){
+        mLlAdjust.setVisibility(View.GONE);
+        mRVEffect.setVisibility(View.GONE);
+        mRVColorEffect.setVisibility(View.GONE);
+        mHoriFilter.setVisibility(View.GONE);
+    }
+
 
     public void adJustClick(View view) {
-        if (mLlAdjust.getVisibility() == View.VISIBLE) {
+        int visibility = mLlAdjust.getVisibility();
+        hideAllEditImageTool();
+        if (visibility == View.VISIBLE) {
             unSelectedBottomButtonState();
         } else {
             selectBottomButtonState(mRlAdjust);
@@ -401,28 +415,32 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
     }
 
     public void effectClick(View view) {
-
-
-
-//        if (mHoriEffect.getVisibility() == View.VISIBLE) {
-//            unSelectedBottomButtonState();
-//        } else {
-//            selectBottomButtonState(mRlEffect);
-//            mHoriEffect.setVisibility(View.VISIBLE);
-//        }
-
-        if (mRVEffect.getVisibility() == View.VISIBLE) {
+        int visibility = mRVEffect.getVisibility();
+        hideAllEditImageTool();
+        if (visibility == View.VISIBLE) {
             unSelectedBottomButtonState();
         } else {
             selectBottomButtonState(mRlEffect);
             mRVEffect.setVisibility(View.VISIBLE);
         }
+    }
 
 
+    public void colorFilterClick(View view) {
+        int visibility = mRVColorEffect.getVisibility();
+        hideAllEditImageTool();
+        if (visibility == View.VISIBLE) {
+            unSelectedBottomButtonState();
+        } else {
+            selectBottomButtonState(mRlColorEffect);
+            mRVColorEffect.setVisibility(View.VISIBLE);
         }
+    }
 
     public void filterClick(View view) {
-        if (mHoriFilter.getVisibility() == View.VISIBLE) {
+        int visibility = mHoriFilter.getVisibility();
+        hideAllEditImageTool();
+        if (visibility == View.VISIBLE) {
             unSelectedBottomButtonState();
         } else {
             selectBottomButtonState(mRlFilter);
@@ -430,14 +448,6 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
         }
     }
 
-    public void colorFilterClick(View view) {
-        if (mHoriColorEffect.getVisibility() == View.VISIBLE) {
-            unSelectedBottomButtonState();
-        } else {
-            selectBottomButtonState(mRlColorEffect);
-            mHoriColorEffect.setVisibility(View.VISIBLE);
-        }
-    }
 
     public void saveImageClick(View view) {
         SaveFileTask task = new SaveFileTask(this);
@@ -455,7 +465,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
     }
 
 
-    private void getEffectIcon(){
+    private void getEffectIcon() {
         try {
             ImageProcess imageProcess = new ImageProcess();
 
@@ -578,12 +588,119 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
             LogUtils.d("Finish create Deep Purple icon");
 
 
-        }catch (Exception exp){
+        } catch (Exception exp) {
             LogUtils.e(exp);
         }
     }
 
-    private Bitmap getIcon(){
+
+    private void getColorEffectIcon() {
+        try {
+            ImageProcess imgFilter = new ImageProcess();
+            String folder = "color_effect_icon";
+
+            Bitmap bitmapTemp = null;
+            LogUtils.d("Start");
+            Bitmap bitmap = getIcon();
+
+            bitmapTemp = imgFilter.applyBoostEffect(bitmap, 1, 40);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_boostred.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyBoostEffect(bitmap, 2, 30);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_boostgreen.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyBoostEffect(bitmap, 3, 67);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_boostblue.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyBrightnessEffect(bitmap, 80);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_brightness.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyColorFilterEffect(bitmap, 255, 0, 0);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_colorred.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyColorFilterEffect(bitmap, 0, 255, 0);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_colorgreen.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyColorFilterEffect(bitmap, 0, 0, 255);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_colorblue.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyDecreaseColorDepthEffect(bitmap, 64);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_paintdeep.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyDecreaseColorDepthEffect(bitmap, 32);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_paintlight.png");
+
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyContrastEffect(bitmap, 25);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_contrast.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyGammaEffect(bitmap, 1.8, 1.8, 1.8);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_gamma.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyGreyscaleEffect(bitmap);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_grayscale.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyHueFilter(bitmap, 2);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_hue.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyInvertEffect(bitmap);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_invert.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyMeanRemovalEffect(bitmap);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_mean.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applySepiaToningEffect(bitmap, 10, 1.5, 0.6, 0.12);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_sepia.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applySepiaToningEffect(bitmap, 10, 0.88, 2.45, 1.43);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_sepiagreen.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applySepiaToningEffect(bitmap, 10, 1.2, 0.87, 2.1);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_sepiablue.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyEmbossEffect(bitmap);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_emboss.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyEngraveEffect(bitmap);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_engrave.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applyGaussianBlurEffect(bitmap);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_gaussianblur.png");
+
+            bitmap = getIcon();
+            bitmapTemp = imgFilter.applySmoothEffect(bitmap, 100);
+            FileUtils.saveBitmapToFile(bitmapTemp, folder, "icon_color_effect_smooth.png");
+
+
+            LogUtils.d("Finish");
+
+
+        } catch (Exception exp) {
+            LogUtils.e(exp);
+        }
+    }
+
+    private Bitmap getIcon() {
         BitmapFactory.Options option = new BitmapFactory.Options();
         option.inMutable = true;
         return BitmapFactory.decodeResource(getResources(), R.drawable.filter__0, option);
@@ -592,6 +709,12 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
 
     @Override
     public void onBackPressed() {
+        int editToolVisible = mLlAdjust.getVisibility() +  mRVEffect.getVisibility() + mRVColorEffect.getVisibility() + mHoriFilter.getVisibility();
+        if(editToolVisible < View.GONE * 4){
+            unSelectedBottomButtonState();
+            return;
+        }
+
         if (mExitPopUp.getVisibility() == View.VISIBLE) {
             hideExitPopUp();
             return;
@@ -602,13 +725,8 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
     }
 
     @Override
-    public void onEffectClick(int position) {
-//        getOrizinalImage();
-//        if(mBitmapEdit != null){
-//            Bitmap bitmap = BitmapUtils.applyEffectImage(this, mBitmapEdit, position);
-//            mIvPreview.setImageBitmap(bitmap);
-//        }
-        EffectImageTask effectImageTask = new EffectImageTask(this, position);
+    public void onEffectClick(int position, int mode) {
+        EffectImageTask effectImageTask = new EffectImageTask(this, position, mode);
         effectImageTask.execute();
     }
 
@@ -616,17 +734,25 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
         Context context;
         ProgressDialog pd;
         int index;
+        int mode;
 
-        public EffectImageTask(Context ctx, int index) {
+        public EffectImageTask(Context ctx, int index, int mode) {
             context = ctx;
             this.index = index;
+            this.mode = mode;
         }
 
         @Override
         protected Bitmap doInBackground(Void... voids) {
             getOrizinalImage();
-            if(mBitmapEdit != null){
-                Bitmap bitmap = BitmapUtils.applyEffectImage(context, mBitmapEdit, index);
+            if (mBitmapEdit != null) {
+                Bitmap bitmap = null;
+                if (mode == EffectAdapter.MODE_EFFECT) {
+                    bitmap = BitmapUtils.applyEffectImage(context, mBitmapEdit, index);
+                } else if (mode == EffectAdapter.MODE_COLOR_EFFECT) {
+                    bitmap = BitmapUtils.applyColorEffectImage(mBitmapEdit, index);
+                }
+
                 return bitmap;
             }
             return null;
@@ -679,4 +805,6 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
             }
         }
     }
+
+
 }

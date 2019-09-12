@@ -1,7 +1,6 @@
 package com.app.vgs.vgimagesticker.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -17,14 +16,21 @@ import com.app.vgs.vgimagesticker.vo.EffectItem;
 import java.util.List;
 
 public class EffectAdapter  extends RecyclerView.Adapter<EffectAdapter.EffectViewHolder> {
+    public static final int MODE_EFFECT = 1;
+    public static final int MODE_COLOR_EFFECT = 2;
+
+
+
     List<EffectItem> mEffectList;
     Context mContext;
     EffectChooseListner mEffectChooseListener;
+    int mEffectMode;
 
-    public EffectAdapter(Context context, List<EffectItem> effectList, EffectChooseListner effectChooseListner) {
+    public EffectAdapter(Context context, List<EffectItem> effectList, EffectChooseListner effectChooseListner, int mode) {
         this.mEffectList = effectList;
         mContext = context;
         mEffectChooseListener = effectChooseListner;
+        mEffectMode = mode;
     }
 
     @Override
@@ -88,11 +94,11 @@ public class EffectAdapter  extends RecyclerView.Adapter<EffectAdapter.EffectVie
         @Override
         public void onClick(View view) {
             setSelectedEffectViewState(mIndex);
-            mEffectChooseListener.onEffectClick(mIndex);
+            mEffectChooseListener.onEffectClick(mIndex, mEffectMode);
         }
     }
 
     public interface EffectChooseListner{
-        void onEffectClick(int position);
+        void onEffectClick(int position, int mode);
     }
 }
