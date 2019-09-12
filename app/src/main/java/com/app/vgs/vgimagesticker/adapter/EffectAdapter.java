@@ -19,16 +19,28 @@ import java.util.List;
 public class EffectAdapter  extends RecyclerView.Adapter<EffectAdapter.EffectViewHolder> {
     List<EffectItem> mEffectList;
     Context mContext;
+    EffectChooseListner mEffectChooseListener;
 
-    public EffectAdapter(Context context, List<EffectItem> effectList) {
+    public EffectAdapter(Context context, List<EffectItem> effectList, EffectChooseListner effectChooseListner) {
         this.mEffectList = effectList;
         mContext = context;
+        mEffectChooseListener = effectChooseListner;
     }
 
     @Override
     public EffectViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.layout_effect_item, parent, false);
         return new EffectViewHolder(view);
+    }
+
+    public void setSelectedEffectViewState(int position){
+        for(int i = 0; i< mEffectList.size(); i++){
+            if(i == position){
+                mEffectList.get(i).setSelected(true);
+            }else{
+                mEffectList.get(i).setSelected(false);
+            }
+        }
     }
 
     @Override
@@ -38,11 +50,13 @@ public class EffectAdapter  extends RecyclerView.Adapter<EffectAdapter.EffectVie
             Drawable drawable = Drawable.createFromStream(mContext.getAssets().open(effectItem.getIconPath()), null);
             holder.mIbIcon.setImageDrawable(drawable);
             holder.mTvName.setText(effectItem.getName());
-//            if(position % 2 == 0){
-//                holder.mView.setBackgroundColor(Color.RED);
-//            }else{
-//                holder.mView.setBackgroundColor(Color.BLUE);
-//            }
+            holder.mIndex = position;
+            if(effectItem.isSelected()){
+                holder.mIbIcon.setBackgroundResource(R.drawable.bg_button_shape);
+            }else{
+                holder.mIbIcon.setBackgroundResource(R.color.button_default);
+            }
+
         }catch (Exception exp){
             LogUtils.e(exp);
         }
@@ -56,7 +70,7 @@ public class EffectAdapter  extends RecyclerView.Adapter<EffectAdapter.EffectVie
         return mEffectList.size();
     }
 
-    public class EffectViewHolder extends RecyclerView.ViewHolder {
+    public class EffectViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         View mView;
         ImageButton mIbIcon;
         TextView mTvName;
@@ -67,8 +81,18 @@ public class EffectAdapter  extends RecyclerView.Adapter<EffectAdapter.EffectVie
             mView = view;
             mIbIcon = view.findViewById(R.id.ibEffectIcon);
             mTvName = view.findViewById(R.id.tvEffectName);
+            mIbIcon.setOnClickListener(this);
         }
 
 
+        @Override
+        public void onClick(View view) {
+            setSelectedEffectViewState(mIndex);
+            mEffectChooseListener.onEffectClick(mIndex);
+        }
+    }
+
+    public interface EffectChooseListner{
+        void onEffectClick(int position);
     }
 }

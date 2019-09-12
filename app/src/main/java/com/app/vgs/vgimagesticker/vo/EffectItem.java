@@ -7,11 +7,20 @@ public class EffectItem {
     int index;
     String name;
     String iconPath;
+    boolean selected = false;
 
     public EffectItem(int index, String name, String iconPath) {
         this.index = index;
         this.name = name;
         this.iconPath = iconPath;
+    }
+
+    public boolean isSelected() {
+        return selected;
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
     }
 
     public int getIndex() {

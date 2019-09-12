@@ -8,16 +8,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -42,7 +38,7 @@ import com.google.android.gms.ads.AdView;
 
 import java.io.File;
 
-public class EffectActivity extends BaseActivity {
+public class EffectActivity extends BaseActivity implements EffectAdapter.EffectChooseListner {
     public static String KEY_IMAGE_PATH = "KEY_IMAGE_PATH";
 
 
@@ -57,7 +53,7 @@ public class EffectActivity extends BaseActivity {
     AdView mBannerAdView;
 
     LinearLayout mLlAdjust;
-    HorizontalScrollView mHoriEffect;
+    //HorizontalScrollView mHoriEffect;
     HorizontalScrollView mHoriFilter;
     HorizontalScrollView mHoriColorEffect;
 
@@ -177,7 +173,7 @@ public class EffectActivity extends BaseActivity {
         mIvPreview = findViewById(R.id.ivPreview);
 
         mLlAdjust = findViewById(R.id.llAdjust);
-        mHoriEffect = findViewById(R.id.horiEffect);
+        //mHoriEffect = findViewById(R.id.horiEffect);
         mHoriFilter = findViewById(R.id.horiFilter);
         mHoriColorEffect = findViewById(R.id.horiColorEffect);
 
@@ -268,14 +264,7 @@ public class EffectActivity extends BaseActivity {
     public void getOrizinalImage() {
         try {
             if (mBitmapInput != null) {
-                mIvPreview.setImageBitmap(mBitmapInput);
-                Drawable drawable = mIvPreview.getDrawable();
-
-                mBitmapEdit = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-
-                BitmapFactory.Options options = new BitmapFactory.Options();
-                options.inMutable = true;
-                drawable.draw(new Canvas(mBitmapEdit));
+                mBitmapEdit = mBitmapInput.copy(mBitmapInput.getConfig(), true);
             }
         } catch (Exception exp) {
             LogUtils.e(exp);
@@ -285,7 +274,7 @@ public class EffectActivity extends BaseActivity {
     private void initEffectListView(){
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRVEffect.setLayoutManager(horizontalLayoutManager);
-        mEffectAdapter = new EffectAdapter(this, EffectItem.getEffectList());
+        mEffectAdapter = new EffectAdapter(this, EffectItem.getEffectList(), this);
         mRVEffect.setAdapter(mEffectAdapter);
 
     }
@@ -369,9 +358,10 @@ public class EffectActivity extends BaseActivity {
         mRlColorEffect.setBackgroundColor(getResources().getColor(R.color.button_default));
 
         mLlAdjust.setVisibility(View.GONE);
-        mHoriEffect.setVisibility(View.GONE);
         mHoriFilter.setVisibility(View.GONE);
         mHoriColorEffect.setVisibility(View.GONE);
+
+        mRVEffect.setVisibility(View.GONE);
     }
 
     private void selectBottomButtonState(View view) {
@@ -414,13 +404,22 @@ public class EffectActivity extends BaseActivity {
 
 
 
-        if (mHoriEffect.getVisibility() == View.VISIBLE) {
+//        if (mHoriEffect.getVisibility() == View.VISIBLE) {
+//            unSelectedBottomButtonState();
+//        } else {
+//            selectBottomButtonState(mRlEffect);
+//            mHoriEffect.setVisibility(View.VISIBLE);
+//        }
+
+        if (mRVEffect.getVisibility() == View.VISIBLE) {
             unSelectedBottomButtonState();
         } else {
             selectBottomButtonState(mRlEffect);
-            mHoriEffect.setVisibility(View.VISIBLE);
+            mRVEffect.setVisibility(View.VISIBLE);
         }
-    }
+
+
+        }
 
     public void filterClick(View view) {
         if (mHoriFilter.getVisibility() == View.VISIBLE) {
@@ -602,30 +601,40 @@ public class EffectActivity extends BaseActivity {
 
     }
 
-    class FilterImageTask extends AsyncTask<Void, Void, Bitmap> {
-        Context context;
-        View viewClicked;
-        ProgressDialog pd;
-        int indexFilterSelected;
+    @Override
+    public void onEffectClick(int position) {
+//        getOrizinalImage();
+//        if(mBitmapEdit != null){
+//            Bitmap bitmap = BitmapUtils.applyEffectImage(this, mBitmapEdit, position);
+//            mIvPreview.setImageBitmap(bitmap);
+//        }
+        EffectImageTask effectImageTask = new EffectImageTask(this, position);
+        effectImageTask.execute();
+    }
 
-        public FilterImageTask(Context ctx, View view, int index) {
+    class EffectImageTask extends AsyncTask<Void, Void, Bitmap> {
+        Context context;
+        ProgressDialog pd;
+        int index;
+
+        public EffectImageTask(Context ctx, int index) {
             context = ctx;
-            this.viewClicked = view;
-            indexFilterSelected = index;
+            this.index = index;
         }
 
         @Override
         protected Bitmap doInBackground(Void... voids) {
             getOrizinalImage();
-            Bitmap bitmap = BitmapUtils.filterImage(getBaseContext(), mBitmapEdit, indexFilterSelected);
-            return bitmap;
+            if(mBitmapEdit != null){
+                Bitmap bitmap = BitmapUtils.applyEffectImage(context, mBitmapEdit, index);
+                return bitmap;
+            }
+            return null;
         }
 
         @Override
         protected void onPreExecute() {
-            unSelectedAllFilterImageButtonState();
             pd = ProgressDialog.show(context, context.getString(R.string.label_please_wait), context.getString(R.string.image_processing));
-            selectEffectFilterStateView(viewClicked, true);
             super.onPreExecute();
         }
 
@@ -634,6 +643,7 @@ public class EffectActivity extends BaseActivity {
             super.onPostExecute(bitmap);
             if (bitmap != null) {
                 mIvPreview.setImageBitmap(bitmap);
+                mEffectAdapter.notifyDataSetChanged();
             }
             pd.dismiss();
         }

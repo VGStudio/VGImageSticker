@@ -3,12 +3,16 @@ package com.app.vgs.vgimagesticker.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
+import com.app.vgs.vgimagesticker.R;
 import com.zomato.photofilters.geometry.Point;
 import com.zomato.photofilters.imageprocessors.Filter;
 import com.zomato.photofilters.imageprocessors.subfilters.BrightnessSubFilter;
@@ -51,6 +55,83 @@ public class BitmapUtils {
             return null;
         }
 
+    }
+
+    public static Bitmap applyEffectImage(Context context, Bitmap bitmap, int index){
+        Bitmap rtnValue = null;
+        try {
+            Drawable drawable = drawable = new BitmapDrawable(context.getResources(), bitmap);
+            ImageProcess imageProcess = new ImageProcess();
+            switch ( index){
+                case 1:
+                    rtnValue = imageProcess.applyRoundCornerEffect(bitmap, 45.0f);
+                    break;
+                case 2:
+                    rtnValue = imageProcess.applyBlackFilter(bitmap);
+                    break;
+                case 3:
+                    rtnValue = imageProcess.applySnowEffect(bitmap);
+                    break;
+                case 4:
+                    rtnValue = imageProcess.applyTintEffect(bitmap, 100);
+                    break;
+                case 5:
+                    rtnValue = imageProcess.applyShadingFilter(bitmap, Color.GREEN);
+                    break;
+                case 6:
+                    rtnValue = imageProcess.applyShadingFilter(bitmap, Color.CYAN);
+                    break;
+                case 7:
+                    rtnValue = imageProcess.applyShadingFilter(bitmap, Color.YELLOW);
+                    break;
+                case 8:
+                    rtnValue = imageProcess.applyShadingFilter(bitmap, Color.BLUE);
+                    break;
+                case 9:
+                    rtnValue = imageProcess.applyShadingFilter(bitmap, Color.GRAY);
+                    break;
+                case 10:
+                    rtnValue = imageProcess.applyShadingFilter(bitmap, Color.MAGENTA);
+                    break;
+                case 11:
+                    rtnValue = imageProcess.applyShadingFilter(bitmap, Color.RED);
+                    break;
+                case 12:
+                    drawable.setColorFilter(Color.parseColor("#283593"), PorterDuff.Mode.MULTIPLY);
+                    rtnValue = BitmapUtils.convertDrawable2Bitmap(drawable);
+                    break;
+                case 13:
+                    drawable.setColorFilter(Color.parseColor("#D500F9"), PorterDuff.Mode.MULTIPLY);
+                    rtnValue = BitmapUtils.convertDrawable2Bitmap(drawable);
+                    break;
+                case 14:
+                    drawable.setColorFilter(Color.parseColor("#DD2C00"), PorterDuff.Mode.MULTIPLY);
+                    rtnValue = BitmapUtils.convertDrawable2Bitmap(drawable);
+                    break;
+                case 15:
+                    drawable.setColorFilter(Color.parseColor("#004D40"), PorterDuff.Mode.MULTIPLY);
+                    rtnValue = BitmapUtils.convertDrawable2Bitmap(drawable);
+                    break;
+                case 16:
+                    drawable.setColorFilter(Color.parseColor("#C0CA33"), PorterDuff.Mode.MULTIPLY);
+                    rtnValue = BitmapUtils.convertDrawable2Bitmap(drawable);
+                    break;
+                case 17:
+                    drawable.setColorFilter(Color.parseColor("#E91E63"), PorterDuff.Mode.MULTIPLY);
+                    rtnValue = BitmapUtils.convertDrawable2Bitmap(drawable);
+                    break;
+                case 18:
+                    drawable.setColorFilter(Color.parseColor("#6200EA"), PorterDuff.Mode.MULTIPLY);
+                    rtnValue = BitmapUtils.convertDrawable2Bitmap(drawable);
+                    break;
+                default:
+                    rtnValue = bitmap;
+                    break;
+            }
+        }catch (Exception exp){
+            LogUtils.e(exp);
+        }
+        return rtnValue;
     }
 
     public static Bitmap filterImage(Context context, Bitmap bitmap, int index) {
