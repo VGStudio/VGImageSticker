@@ -103,29 +103,14 @@
 
 
 
-    <HorizontalScrollView
-        android:id="@+id/horiFilter"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvFilter"
+        android:layout_above="@id/llButtonControl"
         android:layout_width="match_parent"
-        android:layout_height="65.0dip"
-        android:layout_above="@+id/llButtonControl"
         android:background="@color/bar_bg"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:id="@+id/llFilterList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:padding="1.5dip">
-
-
-
-
-
-
-
-        </LinearLayout>
-    </HorizontalScrollView>
+        android:visibility="gone"
+        android:scrollbars="horizontal"
+        android:layout_height="65dip"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvColorEffect"
@@ -135,12 +120,6 @@
         android:visibility="gone"
         android:scrollbars="horizontal"
         android:layout_height="65dip"/>
-
-
-
-
-
-
 
     <LinearLayout
         android:id="@+id/llAdjust"

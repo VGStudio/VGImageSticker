@@ -98,4 +98,31 @@ public class EffectItem {
         lst.add(new EffectItem(22, "Smooth", "icon/color_effect_icon/icon_color_effect_smooth.png"));
         return lst;
     }
+
+    public static List<EffectItem> getFilterList(){
+        List<EffectItem> lst = new ArrayList<>();
+        lst.add(new EffectItem(0, "Origin", "icon/filter_icon/icon_filter_original.webp"));
+        lst.add(new EffectItem(1, "Fire Brick", "icon/filter_icon/icon_filter_firebrick.png"));
+        lst.add(new EffectItem(2, "Fuchsia", "icon/filter_icon/icon_filter_fuchsia.png"));
+        lst.add(new EffectItem(3, "Light Cora", "icon/filter_icon/icon_filter_lightcora.png"));
+        lst.add(new EffectItem(4, "Deep Cora", "icon/filter_icon/icon_filter_deepcora.png"));
+        lst.add(new EffectItem(5, "Thistle", "icon/filter_icon/icon_filter_thistle.png"));
+        lst.add(new EffectItem(6, "Dodger Blue", "icon/filter_icon/icon_filter_dodgerblue.png"));
+        lst.add(new EffectItem(7, "Floral White", "icon/filter_icon/icon_filter_floralwhite.png"));
+        lst.add(new EffectItem(8, "Royal Blue", "icon/filter_icon/icon_filter_royalblue.png"));
+        lst.add(new EffectItem(9, "Olive Drab", "icon/filter_icon/icon_filter_olivedrab.png"));
+        lst.add(new EffectItem(10, "Deep Pink", "icon/filter_icon/icon_filter_deeppink.png"));
+        lst.add(new EffectItem(11, "Golder Rod", "icon/filter_icon/icon_filter_golderrod.png"));
+        lst.add(new EffectItem(12, "Steel Blue", "icon/filter_icon/icon_filter_steelblue.png"));
+        lst.add(new EffectItem(13, "Dark Orange", "icon/filter_icon/icon_filter_darkorange.png"));
+        lst.add(new EffectItem(14, "Magenta", "icon/filter_icon/icon_filter_magenta.png"));
+        lst.add(new EffectItem(15, "Fractal", "icon/filter_icon/icon_filter_fractal.png"));
+        lst.add(new EffectItem(16, "Honey Dew", "icon/filter_icon/icon_filter_honeydew.png"));
+        lst.add(new EffectItem(17, "Maroon", "icon/filter_icon/icon_filter_maroon.png"));
+        lst.add(new EffectItem(18, "See Green", "icon/filter_icon/icon_filter_seegreen.png"));
+        lst.add(new EffectItem(19, "Ghost White", "icon/filter_icon/icon_filter_ghostwhite.png"));
+        lst.add(new EffectItem(20, "Dark Red", "icon/filter_icon/icon_filter_darkred.png"));
+
+        return lst;
+    }
 }

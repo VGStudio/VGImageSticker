@@ -18,6 +18,7 @@ import java.util.List;
 public class EffectAdapter  extends RecyclerView.Adapter<EffectAdapter.EffectViewHolder> {
     public static final int MODE_EFFECT = 1;
     public static final int MODE_COLOR_EFFECT = 2;
+    public static final int MODE_FILTER = 3;
 
 
 

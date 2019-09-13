@@ -217,7 +217,7 @@ public class BitmapUtils {
         return rtnValue;
     }
 
-    public static Bitmap filterImage(Context context, Bitmap bitmap, int index) {
+    public static Bitmap applyFilterImage(Context context, Bitmap bitmap, int index) {
         Bitmap rtnValue = null;
         try {
             Filter filter = new Filter();
