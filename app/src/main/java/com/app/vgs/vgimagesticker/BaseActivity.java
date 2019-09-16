@@ -119,6 +119,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public abstract void setShowInterstitial();
-    public abstract void closeInterstitial();
+    public void closeInterstitial(){
+
+    }
 
 }

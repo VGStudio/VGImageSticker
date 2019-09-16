@@ -1,8 +1,12 @@
 package com.app.vgs.vgimagesticker;
 
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 
 public class MainActivity2 extends AppCompatActivity {
 
@@ -16,7 +20,10 @@ public class MainActivity2 extends AppCompatActivity {
 
         //initView();
         //initData();
+
+
     }
+
 
 
 

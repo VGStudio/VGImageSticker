@@ -12,6 +12,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.CardView;
@@ -59,8 +60,10 @@ import pl.droidsonroids.gif.GifImageView;
 public class MainActivity extends BaseActivity {
 
     public static final int REQUEST_IMAGE_FROM_GALLERY = 10001;
+    public static final int REQUEST_IMAGE_FROM_CAMERA = 10002;
 
     List<MoreAppGroup> mLstMoreAppGroup;
+
 
 
 
@@ -193,26 +196,49 @@ public class MainActivity extends BaseActivity {
         adLoader.loadAd(new AdRequest.Builder().build());
     }
 
+    public void openCamera(View view){
+        pickCamera();
+    }
 
-
-
+    public void pickCamera(){
+        try {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA},REQUEST_IMAGE_FROM_CAMERA);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    //
+//////////////////////
     public void openGallery(View view) {
         pickGallery();
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_IMAGE_FROM_GALLERY) {
-                final Uri selectedUri = data.getData();
-                if (selectedUri != null) {
-                    //startCrop(selectedUri);
-                    openCropImageActivity(selectedUri);
-                } else {
-                    Toast.makeText(this, R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+        try {
+            if (resultCode == RESULT_OK) {
+                if (requestCode == REQUEST_IMAGE_FROM_GALLERY) {
+                    final Uri selectedUri = data.getData();
+                    if (selectedUri != null) {
+                        //startCrop(selectedUri);
+                        openCropImageActivity(selectedUri);
+                    } else {
+                        Toast.makeText(this, R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } else if (requestCode == REQUEST_IMAGE_FROM_CAMERA) {
+                if (resultCode == RESULT_OK) {
+                    final Uri selectedUri = data.getData();
+                    if (selectedUri != null) {
+                        //startCrop(selectedUri);
+                        openCropImageActivity(selectedUri);
+                    } else {
+                        Toast.makeText(this, R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
+        }catch (Exception e){
+            e.printStackTrace();
         }
-
     }
 
     private void openCropImageActivity(@NonNull  Uri imageSelectedUri){
@@ -231,6 +257,16 @@ public class MainActivity extends BaseActivity {
                 break;
             default:
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+        try {
+            if (requestCode == REQUEST_IMAGE_FROM_CAMERA && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, REQUEST_IMAGE_FROM_CAMERA);
+            } else {
+                Toast.makeText(this, "Bạn Không Cho Phép Mở Camera", Toast.LENGTH_SHORT).show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

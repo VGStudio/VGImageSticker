@@ -112,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="65.0dip"
                         android:background="#00ffffff"
-                        android:onClick="openApps"
+                        android:onClick="openCamera"
                         android:scaleType="centerInside"
                         android:src="@drawable/camera" />
 

@@ -6,31 +6,24 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:largeHeap="true"
         android:theme="@style/FullScreenTheme">
+        <activity android:name=".ReferencesActivity"></activity>
         <activity android:name=".ShareActivity">
-
-        </activity>
-
-        <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".StickerActivity" />
-        <activity android:name=".MainActionActivity">
-
-        </activity>
-        <activity android:name=".CropImageActivity" />
-        <activity android:name=".EffectActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".StickerActivity" />
+        <activity android:name=".MainActionActivity"></activity>
+        <activity android:name=".CropImageActivity" />
+        <activity android:name=".EffectActivity"></activity>
         <activity android:name=".FrameActivity" />
-
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -44,6 +37,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
