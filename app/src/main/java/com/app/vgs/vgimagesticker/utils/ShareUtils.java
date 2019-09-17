@@ -1,33 +1,26 @@
 package com.app.vgs.vgimagesticker.utils;
 
-import android.annotation.SuppressLint;
-import android.app.ActivityManager;
 import android.app.WallpaperManager;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
+import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
-import android.os.StrictMode;
+import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.app.vgs.vgimagesticker.ReferencesActivity;
 import com.app.vgs.vgimagesticker.ShareActivity;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Iterator;
-import java.util.List;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import static com.app.vgs.vgimagesticker.ReferencesActivity.uriReferences;
-import static com.app.vgs.vgimagesticker.ShareActivity.intentFB;
 
 public class ShareUtils {
 
@@ -120,7 +113,7 @@ public class ShareUtils {
         return false;
     }
 
-    public void shareInstagram(File mFileImagePath) {
+    public void shareInstagram() {
         try {
             Intent intent = shareActivity.getPackageManager().getLaunchIntentForPackage("com.instagram.android");
             if (intent != null) {
@@ -152,41 +145,5 @@ public class ShareUtils {
     //
     ////////////////////
 
-    // tìm địa chỉ tới nguồn ảnh để liên kết facebook
-    @SuppressLint("WrongConstant")
-    public void supportDataFacebook(){
-        Object uriObj1 = new StrictMode.VmPolicy.Builder();
-        StrictMode.setVmPolicy(((StrictMode.VmPolicy.Builder)uriObj1).build());
-        if (Build.VERSION.SDK_INT >= 18) {
-            ((StrictMode.VmPolicy.Builder)uriObj1).detectFileUriExposure();
-        }
-        try {
-            uriObj1 = Uri.parse((shareActivity).getIntent().getStringExtra("imageToShare-uri"));
-            intentFB.setType("image/png");
-            intentFB.putExtra("android.intent.extra.STREAM", uriReferences);
-            uriObj1 = shareActivity.getPackageManager().queryIntentActivities(intentFB, 0).iterator();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        while (((Iterator)uriObj1).hasNext())
-        {
-            Object uriObj2 = (ResolveInfo)((Iterator)uriObj1).next();
-            if (((ResolveInfo)uriObj2).activityInfo.name.contains("facebook"))
-            {
-                uriObj2 = ((ResolveInfo)uriObj2).activityInfo;
-                uriObj2 = new ComponentName(((ActivityInfo)uriObj2).applicationInfo.packageName, ((ActivityInfo)uriObj2).name);
-                intentFB.addCategory("android.intent.category.LAUNCHER");
-                intentFB.setFlags(270532608);
-                intentFB.setComponent((ComponentName)uriObj2);
-                shareActivity.startActivity(intentFB);
-            }
-        }
-    }
 
-    //hỗ trợ facebook
-    public boolean isApplicationSentToBackground(Context paramContext)
-    {
-        @SuppressLint("WrongConstant") List localList = ((ActivityManager)paramContext.getSystemService("activity")).getRunningTasks(1);
-        return (!localList.isEmpty()) && (!((ActivityManager.RunningTaskInfo)localList.get(0)).topActivity.getPackageName().equals(paramContext.getPackageName()));
-    }
 }

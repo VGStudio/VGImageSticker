@@ -24,12 +24,13 @@ import com.app.vgs.vgimagesticker.utils.JsonUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.utils.ShareUtils;
 import com.app.vgs.vgimagesticker.vo.MoreAppGroup;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
-import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -47,10 +48,7 @@ public class ShareActivity extends AppCompatActivity {
     GifImageView mGIV;
     ImageButton mFacebook, mInstagram, mWallpaper, mShare;
 
-    File mFileImagePath = new File(" /Downloads/hong.jpg  ");  // Just example you use file URL
     TemplateView mTemplate;
-
-
     public ShareUtils shareUtils;
     String imgUrl;
     Bitmap bitmap = null;
@@ -188,30 +186,16 @@ public class ShareActivity extends AppCompatActivity {
         shareUtils.wallpaperUtils();
     }
 
-
-    public static Intent intentFB;
-
-    //click vào facebook
-    @SuppressLint("WrongConstant")
-    public void facebook(View view) {
-        if (!shareUtils.isApplicationSentToBackground(getApplicationContext())) {
-            intentFB = new Intent("android.intent.action.SEND");
-            intentFB.setType("text/plain");
-            intentFB.putExtra("android.intent.extra.TITLE", "Smarty App");
-            intentFB.putExtra("android.intent.extra.TEXT", "Created using Smarty App. Use following install link to download :- https://play.google.com/store/apps/details?id=com.appwallet.smarty");
-            intentFB.putExtra("android.intent.extra.SUBJECT", "Smarty App");
-            shareUtils.supportDataFacebook();
-        }
-    }
-    //
-    ///////////////////
-
-
     // click vào istagram
     public void instagram(View view) {
         shareUtils.checkAppInstall();
-        shareUtils.shareInstagram(mFileImagePath);
+        shareUtils.shareInstagram();
     }
 
-
+    //click vào facebook
+    public void facebook(View view) {
+        startActivity(new Intent(this,FaceBookActivity.class));
+    }
+    //
+    ///////////////////
 }

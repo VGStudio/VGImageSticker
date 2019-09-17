@@ -2,6 +2,8 @@ package com.app.vgs.vgimagesticker.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +15,14 @@ import android.widget.Toast;
 
 import com.app.vgs.vgimagesticker.Classes.EditImage;
 import com.app.vgs.vgimagesticker.R;
+import com.app.vgs.vgimagesticker.ShareActivity;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.Serializable;
 import java.util.List;
+
+import static com.app.vgs.vgimagesticker.ReferencesActivity.uriReferences;
 
 public class ListEditImageAdapter extends RecyclerView.Adapter<ListEditImageAdapter.Itemholder2> {
 
@@ -40,7 +45,7 @@ public class ListEditImageAdapter extends RecyclerView.Adapter<ListEditImageAdap
     @Override
     public void onBindViewHolder(@NonNull Itemholder2 holder, int position) {
         final EditImage editImage = editImageList.get(position);
-        String imgEdit = editImage.getHinh();
+        final String imgEdit = editImage.getHinh();
         try {
             InputStream inputStream = context.getAssets().open(imgEdit);
             holder.imgEdit.setImageDrawable(Drawable.createFromStream(inputStream, null));
@@ -51,7 +56,9 @@ public class ListEditImageAdapter extends RecyclerView.Adapter<ListEditImageAdap
         holder.imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Chuyển ảnh tới Share and Save", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(context, ShareActivity.class);
+                    intent.putExtra("imageEdit",imgEdit);
+                    context.startActivity(intent);
             }
         });
     }

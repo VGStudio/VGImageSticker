@@ -2,6 +2,7 @@ package com.app.vgs.vgimagesticker;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.app.vgs.vgimagesticker.ads.AdmobUtils;
 import com.app.vgs.vgimagesticker.utils.NetworkUtils;
+import com.google.android.gms.ads.InterstitialAd;
 
 /**
  * Created by Oleksii Shliama (https://github.com/shliama).
@@ -27,7 +29,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     public AdmobUtils mAdmobUtils;
 
     private AlertDialog mAlertDialog;
-
 
 
     @Override
@@ -120,7 +121,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract void setShowInterstitial();
     public void closeInterstitial(){
-
+        startActivity(new Intent(this,ShareActivity.class));
+        startActivity(new Intent(this,CropImageActivity.class));
+        startActivity(new Intent(this,EffectActivity.class));
+        startActivity(new Intent(this,FrameActivity.class));
+        startActivity(new Intent(this,MainActionActivity.class));
+        startActivity(new Intent(this,ReferencesActivity.class));
+        startActivity(new Intent(this,StickerActivity.class));
     }
 
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:gravity="center"
+    tools:context=".FaceBookActivity">
+
+    <com.facebook.login.widget.ProfilePictureView
+        android:id="@+id/friendProfilePicture"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp" />
+    <TextView
+        style="@style/text_header"
+        android:id="@+id/txtName"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+        android:text="Name"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:background="@drawable/bg_button"
+        style="@style/text_header"
+        android:layout_marginTop="30dp"
+        android:id="@+id/btnLogout"
+        android:layout_gravity="center"
+        android:text="Đăng Xuất"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <Button
+        android:background="@drawable/bg_button"
+        style="@style/text_header"
+        android:layout_marginTop="10dp"
+        android:id="@+id/btnlogChucNang"
+        android:layout_gravity="center"
+        android:text="Chia Sẻ Hình Ảnh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

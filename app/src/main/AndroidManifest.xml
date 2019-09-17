@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.app.vgs.vgimagesticker">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/FullScreenTheme">
-        <activity android:name=".ReferencesActivity"></activity>
+        <activity android:name=".FaceBookActivity"></activity>
+        <activity android:name=".ReferencesActivity" />
         <activity android:name=".ShareActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,16 +21,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity android:name=".StickerActivity" />
-        <activity android:name=".MainActionActivity"></activity>
+        <activity android:name=".MainActionActivity" />
         <activity android:name=".CropImageActivity" />
-        <activity android:name=".EffectActivity"></activity>
+        <activity android:name=".EffectActivity" />
         <activity android:name=".FrameActivity" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id" />
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"/>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <provider android:authorities="com.facebook.app.FacebookContentProvider987992938215938"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
     </application>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -39,6 +49,6 @@
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
 
 </manifest>
