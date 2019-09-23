@@ -168,12 +168,12 @@ public class FileUtils {
             if (!folder.exists()) {
                 folder.mkdirs();
             }
-            File imgFile = new File(folder, fileName);
-            if (imgFile.exists()) {
-                imgFile.delete();
+            rtnValue = new File(folder, fileName);
+            if (rtnValue.exists()) {
+                rtnValue.delete();
             }
-            imgFile.createNewFile();
-            FileOutputStream fileOutputStream = new FileOutputStream(imgFile);
+            rtnValue.createNewFile();
+            FileOutputStream fileOutputStream = new FileOutputStream(rtnValue);
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutputStream);
         } catch (IOException exp) {
             LogUtils.e(exp);

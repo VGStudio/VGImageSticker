@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.app.vgs.vgimagesticker.adapter.EffectAdapter;
 import com.app.vgs.vgimagesticker.utils.BitmapUtils;
@@ -91,25 +93,11 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
     }
 
     private void checkAndRequestPermission() {
-//        if (!checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-//            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
-//                    getString(R.string.permission_read_storage_rationale),
-//                    REQUEST_STORAGE_READ_ACCESS_PERMISSION);
-//        } else if (!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-//            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-//                    getString(R.string.permission_write_storage_rationale),
-//                    REQUEST_STORAGE_WRITE_ACCESS_PERMISSION);
-//
-//        } else {
-//            fillData();
-//        }
-
-        if (!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                    getString(R.string.permission_write_storage_rationale),
-                    REQUEST_STORAGE_WRITE_ACCESS_PERMISSION);
-
-        } else {
+        if (!checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+                    getString(R.string.permission_read_storage_rationale),
+                    REQUEST_STORAGE_READ_ACCESS_PERMISSION);
+        }else {
             fillData();
         }
     }
@@ -117,6 +105,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
     private void fillData() {
         try {
             mBitmapInput = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3);
+
             if (mBitmapInput != null) {
                 mIvPreview.setImageBitmap(mBitmapInput);
             }
@@ -129,11 +118,21 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
+        String strPermissionNotGranted = getString(R.string.permission_not_granted);
         switch (requestCode) {
             case REQUEST_STORAGE_READ_ACCESS_PERMISSION:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     fillData();
+                }else{
+                    Toast.makeText(this, strPermissionNotGranted, Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case REQUEST_STORAGE_WRITE_ACCESS_PERMISSION:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    SaveFileTask task = new SaveFileTask(this);
+                    task.execute();
+                }else{
+                    Toast.makeText(this, strPermissionNotGranted, Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
@@ -330,9 +329,15 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
 
     private void saveFile() {
         try {
-            File fTemp = FileUtils.createEmptyFile(this);
-            //mStickerView.save(fTemp);
+
+            Drawable drawable = mIvPreview.getDrawable();
+            if(drawable == null){
+                return;
+            }
+            Bitmap bitmap = BitmapUtils.convertDrawable2Bitmap(drawable);
+            File fTemp = FileUtils.saveBitmapToFile(bitmap, "temp", "temp.png");
             mFileSavedpath = fTemp.getAbsolutePath();
+            LogUtils.d("path:" + mFileSavedpath);
         } catch (Exception exp) {
             LogUtils.e(exp);
         }
@@ -394,8 +399,15 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
 
 
     public void saveImageClick(View view) {
-        SaveFileTask task = new SaveFileTask(this);
-        task.execute();
+        if (!checkPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    getString(R.string.permission_write_storage_rationale),
+                    REQUEST_STORAGE_WRITE_ACCESS_PERMISSION);
+        }else{
+            SaveFileTask task = new SaveFileTask(this);
+            task.execute();
+        }
+
     }
 
     public void noExitClick(View view) {
@@ -427,6 +439,12 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
     public void onEffectClick(int position, int mode) {
         EffectImageTask effectImageTask = new EffectImageTask(this, position, mode);
         effectImageTask.execute();
+    }
+
+    public void backClick(View view) {
+        if (mExitPopUp.getVisibility() == View.GONE) {
+            showExitPopUp();
+        }
     }
 
     class EffectImageTask extends AsyncTask<Void, Void, Bitmap> {
@@ -498,7 +516,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
 
         @Override
         protected void onPreExecute() {
-            pd = ProgressDialog.show(context, "Please wait", "Image is processing");
+            pd = ProgressDialog.show(context, "Please wait", "Image is saving");
             super.onPreExecute();
         }
 

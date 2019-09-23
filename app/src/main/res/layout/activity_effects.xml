@@ -23,6 +23,7 @@
                 android:layout_height="50.0dip"
                 android:background="#00ffffff"
                 android:scaleType="centerInside"
+                android:onClick="backClick"
                 android:src="@drawable/back" />
 
             <TextView
@@ -47,6 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50.0dip"
                 android:background="#00ffffff"
+                android:onClick="saveImageClick"
                 android:scaleType="centerInside"
                 android:src="@drawable/done" />
 
