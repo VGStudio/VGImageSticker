@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
@@ -16,6 +17,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import static com.app.vgs.vgimagesticker.ShareActivity.imPath;
+import static com.app.vgs.vgimagesticker.ShareActivity.imgEditShare;
+import static com.app.vgs.vgimagesticker.ShareActivity.imgReferences;
 
 
 public class ShareUtils {
@@ -44,7 +47,7 @@ public class ShareUtils {
 
             // Make sure you put example png image named myImage.png in your
             // directory
-            share.putExtra(Intent.EXTRA_STREAM, imPath);
+            share.putExtra(Intent.EXTRA_STREAM, imgReferences);
             shareActivity.startActivity(Intent.createChooser(share, "Share Image!"));
         }catch (Exception e){
             e.printStackTrace();
@@ -60,7 +63,7 @@ public class ShareUtils {
         wallpaperManager = WallpaperManager.getInstance(shareActivity);
         try {
             wallpaperManager.setBitmap(bitmap2);
-            wallpaperManager.suggestDesiredDimensions(width, height);
+ //           wallpaperManager.suggestDesiredDimensions(width, height);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -81,16 +84,18 @@ public class ShareUtils {
 
     public void SetBitmapSize(){
 
-        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
-        bitmapOptions.inDither = true; //optional
-        bitmapOptions.inPreferredConfig=Bitmap.Config.ARGB_8888;
-        try {
-            InputStream input = shareActivity.getContentResolver().openInputStream(Uri.parse(imPath));
-            bitmap1 = BitmapFactory.decodeStream(input, null, bitmapOptions);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        bitmap2 = Bitmap.createScaledBitmap(bitmap1, width, height, false);
+//        BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+//        bitmapOptions.inDither = true; //optional
+//        bitmapOptions.inPreferredConfig=Bitmap.Config.ARGB_8888;
+//        try {
+//            InputStream input = shareActivity.getContentResolver().openInputStream(Uri.parse(imgReferences));
+//            bitmap1 = BitmapFactory.decodeStream(input, null, bitmapOptions);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        BitmapDrawable bitmapDrawable = (BitmapDrawable) imgEditShare.getDrawable();
+        Bitmap bitmapTest = bitmapDrawable.getBitmap();
+        bitmap2 = Bitmap.createScaledBitmap(bitmapTest, width, height, false);
     }
     //
     /////////////////////

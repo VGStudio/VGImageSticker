@@ -50,8 +50,9 @@ public class ShareActivity extends AppCompatActivity {
     public ShareUtils shareUtils;
 
     public static String imPath= "";
+    public static String imgReferences= "";
     TextView txtHienThi;
-    ImageView imgEditShare;
+    public static ImageView imgEditShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,8 @@ public class ShareActivity extends AppCompatActivity {
     private void initData() {
         mLstMoreAppGroup = JsonUtils.getMoreAppSaveJsonData(this, Const.MORE_APP_SAVE_DATA_FILE_PATH);
         addQuangCao();
-        readImage();
+        readImage();  // MainActionActivity
+        readDataImage(); // ReferencesActivity
     }
 
     private void initView() {
@@ -119,56 +121,52 @@ public class ShareActivity extends AppCompatActivity {
         try {
             Intent intent = getIntent();
             imPath = intent.getStringExtra("mImagePath");
-            if(imPath == null){
-                txtHienThi.setVisibility(View.VISIBLE);
-            }
-            else {
+//            if(imPath == null){
+//                txtHienThi.setVisibility(View.VISIBLE);
+//            }
+//            else {
                 Bitmap bitmap = BitmapFactory.decodeFile(imPath);
                 imgEditShare.setImageBitmap(bitmap);
-            }
+//            }
         }catch (Exception e){
             e.printStackTrace();
         }
 
     }
 
-    public void share(View view) {
-        if(imPath == null){
-            Toast.makeText(this, R.string.warning, Toast.LENGTH_SHORT).show();
-        }
-        else {
-            shareUtils.shareUtils();
+    //đọc hình ảnh gửi về từ References
+    private void readDataImage(){
+        try {
+            Intent intent = getIntent();
+            imgReferences = intent.getStringExtra("imageEdit2");
+            try{
+                imgEditShare.setImageResource(Integer.parseInt(imgReferences));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
+    public void share(View view) {
+        shareUtils.shareUtils();
+    }
+
     public void wallpaper(View view) {
-        if(imPath == null){
-            Toast.makeText(this, R.string.warning, Toast.LENGTH_SHORT).show();
-        }
-        else {
-            shareUtils.wallpaperUtils();
-        }
+        shareUtils.wallpaperUtils();
+        Toast.makeText(this, "Đã Thay Hình Nền", Toast.LENGTH_SHORT).show();
     }
 
     // click vào istagram
     public void instagram(View view) {
-        if(imPath == null){
-            Toast.makeText(this, R.string.warning, Toast.LENGTH_SHORT).show();
-        }
-        else {
-            shareUtils.checkAppInstall();
-            shareUtils.shareInstagram();
-        }
+        shareUtils.checkAppInstall();
+        shareUtils.shareInstagram();
     }
 
     //click vào facebook
     public void facebook(View view) {
-        if(imPath == null){
-            Toast.makeText(this, R.string.warning, Toast.LENGTH_SHORT).show();
-        }
-        else {
-            startActivity(new Intent(this, FaceBookActivity.class));
-        }
+        startActivity(new Intent(this, FaceBookActivity.class));
     }
     //
     ///////////////////

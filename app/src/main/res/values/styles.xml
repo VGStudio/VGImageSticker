@@ -124,4 +124,9 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">12.0sp</item>
     </style>
+
+    <style name="FullScreenTheme.CustomTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
 </resources>

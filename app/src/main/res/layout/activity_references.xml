@@ -12,6 +12,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
         <ImageView
+            android:onClick="clickBack"
+            android:id="@+id/imgBackImageList"
             android:src="@drawable/back"
             android:layout_width="50dp"
             android:layout_height="50dp"/>
@@ -22,13 +24,8 @@
             android:textSize="24sp"
             android:text="List Of Your Edited Images"
             style="@style/button_text"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
-        <ImageView
-            android:layout_marginLeft="20dp"
-            android:src="@drawable/share"
-            android:layout_width="50dp"
-            android:layout_height="50dp"/>
     </LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcvEditImage"

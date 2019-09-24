@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
     GridLayout mGrid;
     TemplateView mTemplate;
     ViewFlipper mViewFlipper;
-    ImageButton mImgCamera,mImgGallery;
+    ImageButton mImgCamera,mImgGallery,mImgCricket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +97,7 @@ public class MainActivity extends BaseActivity {
         mGrid           = findViewById(R.id.gridMain);
         mImgCamera      = findViewById(R.id.imgCamera);
         mImgGallery     = findViewById(R.id.imgGallery);
+        mImgCricket     = findViewById(R.id.cricket_icon);
         mGIV            = findViewById(R.id.gifMoreApp);
     }
 
@@ -110,7 +111,7 @@ public class MainActivity extends BaseActivity {
 
         mViewFlipper.getLayoutParams().height = (int) (screenWidth*0.55);
         loadNativeAd();
-
+        clickCricket();
     }
 
     // add dữ liệu từ json vào moreapp
@@ -298,5 +299,16 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void closeInterstitial() {
+    }
+
+    //Chuyển tới list ảnh
+    private void clickCricket(){
+        mImgCricket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this,ReferencesActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

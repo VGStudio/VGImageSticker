@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.app.vgs.vgimagesticker.Classes.EditImage;
+import com.app.vgs.vgimagesticker.Popup.PopupReferences;
 import com.app.vgs.vgimagesticker.R;
 import com.app.vgs.vgimagesticker.ShareActivity;
 
@@ -22,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import static com.app.vgs.vgimagesticker.ReferencesActivity.uriReferences;
 
 public class ListEditImageAdapter extends RecyclerView.Adapter<ListEditImageAdapter.Itemholder2> {
 
@@ -45,20 +45,24 @@ public class ListEditImageAdapter extends RecyclerView.Adapter<ListEditImageAdap
     @Override
     public void onBindViewHolder(@NonNull Itemholder2 holder, int position) {
         final EditImage editImage = editImageList.get(position);
-        final String imgEdit = editImage.getHinh();
-        try {
-            InputStream inputStream = context.getAssets().open(imgEdit);
-            holder.imgEdit.setImageDrawable(Drawable.createFromStream(inputStream, null));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        final String hinhanh = editImage.getHinh();
+        holder.imgEdit.setImageResource(Integer.parseInt(hinhanh));
+//        final String imgEdit = editImage.getHinh();
+//        try {
+////            InputStream inputStream = context.getAssets().open(imgEdit);
+////            holder.imgEdit.setImageDrawable(Drawable.createFromStream(inputStream, null));
+////        } catch (IOException e) {
+////            e.printStackTrace();
+////        }
+
 
         holder.imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    Intent intent = new Intent(context, ShareActivity.class);
-                    intent.putExtra("imageEdit",imgEdit);
-                    context.startActivity(intent);
+                Intent intent = new Intent(context, PopupReferences.class);
+                intent.putExtra("listImage", hinhanh);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(intent);
             }
         });
     }
