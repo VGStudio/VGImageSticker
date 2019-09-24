@@ -19,14 +19,17 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".StickerActivity" />
-        <activity android:name=".MainActionActivity" />
-        <activity android:name=".CropImageActivity" />
-        <activity android:name=".EffectActivity" >
+        <activity android:name=".MainActionActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".CropImageActivity" />
+        <activity android:name=".EffectActivity" >
+
         </activity>
         <activity android:name=".FrameActivity" />
 

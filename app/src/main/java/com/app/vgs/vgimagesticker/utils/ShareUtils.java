@@ -2,14 +2,11 @@ package com.app.vgs.vgimagesticker.utils;
 
 import android.app.WallpaperManager;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Base64;
+import android.net.Uri;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.app.vgs.vgimagesticker.ReferencesActivity;
@@ -17,10 +14,9 @@ import com.app.vgs.vgimagesticker.ShareActivity;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
-import static com.app.vgs.vgimagesticker.ReferencesActivity.uriReferences;
+import static com.app.vgs.vgimagesticker.ShareActivity.imPath;
+
 
 public class ShareUtils {
 
@@ -48,7 +44,7 @@ public class ShareUtils {
 
             // Make sure you put example png image named myImage.png in your
             // directory
-            share.putExtra(Intent.EXTRA_STREAM, uriReferences);
+            share.putExtra(Intent.EXTRA_STREAM, imPath);
             shareActivity.startActivity(Intent.createChooser(share, "Share Image!"));
         }catch (Exception e){
             e.printStackTrace();
@@ -89,7 +85,7 @@ public class ShareUtils {
         bitmapOptions.inDither = true; //optional
         bitmapOptions.inPreferredConfig=Bitmap.Config.ARGB_8888;
         try {
-            InputStream input = shareActivity.getContentResolver().openInputStream(uriReferences);
+            InputStream input = shareActivity.getContentResolver().openInputStream(Uri.parse(imPath));
             bitmap1 = BitmapFactory.decodeStream(input, null, bitmapOptions);
         } catch (IOException e) {
             e.printStackTrace();
@@ -128,7 +124,7 @@ public class ShareUtils {
     //chuyển địa chỉ tới instagram
     public void intentInstagram(){
         Intent mIntentShare = new Intent(Intent.ACTION_SEND);
-        String mStrExtension = android.webkit.MimeTypeMap.getFileExtensionFromUrl(String.valueOf(uriReferences));
+        String mStrExtension = android.webkit.MimeTypeMap.getFileExtensionFromUrl(String.valueOf(imPath));
         String mStrMimeType = android.webkit.MimeTypeMap.getSingleton().getMimeTypeFromExtension(mStrExtension);
         if (mStrExtension.equalsIgnoreCase("") || mStrMimeType == null) {
             // if there is no extension or there is no definite mimetype, still try to open the file
@@ -136,7 +132,7 @@ public class ShareUtils {
         } else {
             mIntentShare.setType(mStrMimeType);
         }
-        mIntentShare.putExtra(Intent.EXTRA_STREAM, uriReferences);
+        mIntentShare.putExtra(Intent.EXTRA_STREAM, imPath);
         mIntentShare.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 
         mIntentShare.setPackage("com.instagram.android");

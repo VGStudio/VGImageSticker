@@ -50,7 +50,7 @@ public class MainActionActivity extends BaseActivity {
 
     private ImageView mIvPreview;
 
-
+    ImageView imgSave;
     List<StickerGroup> mLstStickerGroup;
     StickerGroup mStickerGroup1;
     StickerGroup mStickerGroup2;
@@ -110,7 +110,7 @@ public class MainActionActivity extends BaseActivity {
 
         mIvPreview = findViewById(R.id.ivPreview);
 
-
+        imgSave = findViewById(R.id.save);
 
         mExitPopUp.setVisibility(View.GONE);
     }
@@ -125,7 +125,7 @@ public class MainActionActivity extends BaseActivity {
             LogUtils.e(exp);
         }
 
-
+        clickSave();
     }
 
     private void fillDataForStickerGroup(){
@@ -248,6 +248,18 @@ public class MainActionActivity extends BaseActivity {
         }else{
             finish();
         }
+    }
+
+    //click Save
+    private void clickSave(){
+        imgSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActionActivity.this, ShareActivity.class);
+                intent.putExtra("picture", mImagePath);
+                startActivity(intent);
+            }
+        });
     }
 
     public void closeInterstitial() {

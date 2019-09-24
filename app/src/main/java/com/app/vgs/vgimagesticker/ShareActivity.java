@@ -43,21 +43,20 @@ public class ShareActivity extends AppCompatActivity {
     public boolean mShowInterstitial = true;
 
     List<MoreAppGroup> mLstMoreAppGroup;
-    GridLayout mGrid;
     ConnectionDetector mCD;
-    GifImageView mGIV;
     ImageButton mFacebook, mInstagram, mWallpaper, mShare;
 
     TemplateView mTemplate;
     public ShareUtils shareUtils;
-    String imgUrl;
-    Bitmap bitmap = null;
+
+    public static String imPath= "";
+    TextView txtHienThi;
+    ImageView imgEditShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_save_share);
-        supportImage();
 
         initView();
         initData();
@@ -74,85 +73,22 @@ public class ShareActivity extends AppCompatActivity {
     private void initData() {
         mLstMoreAppGroup = JsonUtils.getMoreAppSaveJsonData(this, Const.MORE_APP_SAVE_DATA_FILE_PATH);
         addQuangCao();
-        addMoreAppIconView();
+        readImage();
     }
 
     private void initView() {
-        mGIV = findViewById(R.id.gifMoreAppSave);
-        mGrid = findViewById(R.id.gridSave);
         mCD = new ConnectionDetector(this);
         mFacebook = findViewById(R.id.facebook);
         mInstagram = findViewById(R.id.instagram);
         mWallpaper = findViewById(R.id.wallpaper);
         mShare = findViewById(R.id.multiple);
         mTemplate = findViewById(R.id.my_templateSave);
-    }
 
-    // add dữ liệu từ json vào moreapp
-    private void addMoreAppIconView() {
-        try {
-
-            mGrid.setRowCount(mLstMoreAppGroup.size());
-            if (mCD.isConected() == true) {
-                fillDataMoreApp();
-            } else {
-                mGIV.setVisibility(View.VISIBLE);
-            }
-        } catch (Exception exp) {
-            LogUtils.e(exp);
-        }
+        txtHienThi = findViewById(R.id.txtHienThi);
+        imgEditShare = findViewById(R.id.imgEditPath);
     }
 
 
-    // đưa ra dữ liệu của json
-    private void fillDataMoreApp() {
-        LayoutInflater layoutInflater = getLayoutInflater();
-        for (final MoreAppGroup moreAppGroup1 : mLstMoreAppGroup) {
-            final View view = layoutInflater.inflate(R.layout.layout_sub_btn_moreapp, mGrid, false);
-            ImageView imgButton = view.findViewById(R.id.imgMoreApp);
-            TextView textView = view.findViewById(R.id.txtMoreApp);
-            textView.setText(moreAppGroup1.getTittle());
-            imgUrl = moreAppGroup1.getIcon();
-            readDataImageInternet();
-            imgButton.setImageBitmap(bitmap);
-
-            imgButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mCD.isConected() == true) {
-                        String link = moreAppGroup1.getLink();
-                        Intent intent = new Intent();
-                        intent.setAction(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(link));
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(ShareActivity.this, "Are you connected to the internet?", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
-            mGrid.addView(view);
-        }
-    }
-
-    // đọc dữ liệu hình ảnh trên mạng
-    public void readDataImageInternet() {
-        try {
-            URL url = new URL(imgUrl);
-            HttpURLConnection httpConn = (HttpURLConnection) url.openConnection();
-            httpConn.connect();
-            InputStream in = httpConn.getInputStream();
-            bitmap = BitmapFactory.decodeStream(in);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    //support fill data Image for Internet
-    public void supportImage() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-    }
-    /////////////////////
 
     // thanh quảng cáo ở màn hình
     private void addQuangCao() {
@@ -178,23 +114,61 @@ public class ShareActivity extends AppCompatActivity {
     //
     ////////////////////////////////
 
+    //đọc hình ảnh gửi về từ MainAction
+    private void readImage(){
+        try {
+            Intent intent = getIntent();
+            imPath = intent.getStringExtra("mImagePath");
+            if(imPath == null){
+                txtHienThi.setVisibility(View.VISIBLE);
+            }
+            else {
+                Bitmap bitmap = BitmapFactory.decodeFile(imPath);
+                imgEditShare.setImageBitmap(bitmap);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
     public void share(View view) {
-        shareUtils.shareUtils();
+        if(imPath == null){
+            Toast.makeText(this, R.string.warning, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            shareUtils.shareUtils();
+        }
     }
 
     public void wallpaper(View view) {
-        shareUtils.wallpaperUtils();
+        if(imPath == null){
+            Toast.makeText(this, R.string.warning, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            shareUtils.wallpaperUtils();
+        }
     }
 
     // click vào istagram
     public void instagram(View view) {
-        shareUtils.checkAppInstall();
-        shareUtils.shareInstagram();
+        if(imPath == null){
+            Toast.makeText(this, R.string.warning, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            shareUtils.checkAppInstall();
+            shareUtils.shareInstagram();
+        }
     }
 
     //click vào facebook
     public void facebook(View view) {
-        startActivity(new Intent(this,FaceBookActivity.class));
+        if(imPath == null){
+            Toast.makeText(this, R.string.warning, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            startActivity(new Intent(this, FaceBookActivity.class));
+        }
     }
     //
     ///////////////////
