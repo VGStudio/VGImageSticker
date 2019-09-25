@@ -128,48 +128,20 @@
             app:gnt_template_type="@layout/gnt_medium_template_view" />
     </android.support.v7.widget.CardView>
 
-    <LinearLayout
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
+    <TextView
+        android:id="@+id/txtHienThi"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="@string/warning"
+        android:textSize="30sp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:textSize="22sp"
-            android:textColor="@color/colourBgAndSelected"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:text="More apps from Developer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffffff"
-            android:fadeScrollbars="false"
-            android:scrollbarSize="3.0dip"
-            android:scrollbarThumbVertical="@color/colourBgAndSelected">
+        android:layout_height="match_parent"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <pl.droidsonroids.gif.GifImageView
-                    android:id="@+id/gifMoreAppSave"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#beede9ea"
-                    android:src="@drawable/load_gif_1"
-                    android:visibility="gone" />
-                <GridLayout
-                    android:id="@+id/gridSave"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="8"
-                    android:alignmentMode="alignMargins"
-                    android:columnCount="3"
-                    android:columnOrderPreserved="false"
-                    android:padding="14dp" />
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
+    <ImageView
+        android:src="@drawable/gai_xinh3"
+        android:id="@+id/imgEditPath"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

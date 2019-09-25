@@ -40,6 +40,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+import static com.app.vgs.vgimagesticker.ShareActivity.imPath;
+
 public class FaceBookActivity extends AppCompatActivity {
 
     ProfilePictureView proFile;
@@ -190,10 +192,8 @@ public class FaceBookActivity extends AppCompatActivity {
     }
 
     public void readDataImage(){
-        Intent intent =getIntent();
-        String dataImage = intent.getStringExtra("imageEdit");
         try {
-            InputStream inputStream = getContentResolver().openInputStream(Uri.parse(dataImage));
+            InputStream inputStream = getContentResolver().openInputStream(Uri.parse(imPath));
             bitmap = BitmapFactory.decodeStream(inputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
