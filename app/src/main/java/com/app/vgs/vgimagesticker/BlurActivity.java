@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.RelativeLayout;
 
+import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.vo.DrawingView;
 
 public class BlurActivity extends AppCompatActivity {
@@ -19,6 +20,12 @@ public class BlurActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blur);
 
         initView();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         initData();
     }
 
@@ -31,12 +38,13 @@ public class BlurActivity extends AppCompatActivity {
 
         int widthPx = getWindowManager().getDefaultDisplay().getWidth();
         int heightPx = getWindowManager().getDefaultDisplay().getHeight();
+        int drawingWidth = mDrawingView.getMeasuredWidth();
+        int drawingViewHeight = mDrawingView.getMeasuredHeight();
 //
 //
 //
 //        mDrawingView.setCanvasBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), widthPx, heightPx);
 //        mDrawingView.firstsetupdrawing(bitmap);
-
 
 
         //widthPx = mDrawingView.getLayoutParams().width;
@@ -66,33 +74,31 @@ public class BlurActivity extends AppCompatActivity {
         }
 
         mDrawingView.setLayoutParams(params);
-        mDrawingView.setCanvasBitmap(bitmap, bitmap.getHeight(),
-                bitmap.getWidth(), widthPx, heightPx);
+        mDrawingView.setCanvasBitmap(bitmap, bitmap.getHeight(),bitmap.getWidth(), widthPx, heightPx);
 
-        if(bitmap.getHeight()<heightPx&&bitmap.getWidth()<widthPx){
-            this.originalheight=bitmap.getHeight();
-            this.originalwidth=bitmap.getWidth();
-        }else{
+        if (bitmap.getHeight() < heightPx && bitmap.getWidth() < widthPx) {
+            this.originalheight = bitmap.getHeight();
+            this.originalwidth = bitmap.getWidth();
+        } else {
 
-            if(bitmap.getHeight()>heightPx&&bitmap.getWidth()>widthPx){
+            if (bitmap.getHeight() > heightPx && bitmap.getWidth() > widthPx) {
 
-                this.originalheight=heightPx;
-                this.originalwidth=widthPx;
-            }
-            else if(bitmap.getWidth()>widthPx){
-                this.originalwidth=widthPx;
-                this.originalheight=bitmap.getHeight();
+                this.originalheight = heightPx;
+                this.originalwidth = widthPx;
+            } else if (bitmap.getWidth() > widthPx) {
+                this.originalwidth = widthPx;
+                this.originalheight = bitmap.getHeight();
 
-            }
-            else{
-                this.originalwidth=bitmap.getWidth();
-                this.originalheight=heightPx;
+            } else {
+                this.originalwidth = bitmap.getWidth();
+                this.originalheight = heightPx;
 
             }
         }
-        Bitmap tem=Bitmap.createScaledBitmap(bitmap, originalwidth,
+        Bitmap bitmapGaiXinh = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh2, options);
+        Bitmap tem = Bitmap.createScaledBitmap(bitmapGaiXinh, originalwidth,
                 originalheight, true);
-        Bitmap bitmap2=createBitmap_ScriptIntrinsicBlur(tem,40);
+        Bitmap bitmap2 = createBitmap_ScriptIntrinsicBlur(tem, 20);
         mDrawingView.firstsetupdrawing(bitmap2);
     }
 
@@ -101,51 +107,17 @@ public class BlurActivity extends AppCompatActivity {
     }
 
     public Bitmap createBitmap_ScriptIntrinsicBlur(Bitmap src, int radius) {
-        // TODO Auto-generated method stub
-
-        // TODO Auto-generated method stub
-
         // Radius range (0 < r <= 25)
-    /*  if (r <= 1) {
-            r = 1;
-        } else if (r > 25) {
-            r = 25;
-        }
-
-        Bitmap bitmap = Bitmap.createBitmap(src.getWidth(), src.getHeight(),
-                Bitmap.Config.ARGB_8888);
-
-        RenderScript renderScript = RenderScript.create(this);
-
-        Allocation blurInput = Allocation.createFromBitmap(renderScript, src);
-        Allocation blurOutput = Allocation.createFromBitmap(renderScript,
-                bitmap);
-
-        ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(renderScript,
-                Element.U8_4(renderScript));
-        blur.setInput(blurInput);
-        blur.setRadius(r);
-        blur.forEach(blurOutput);
-
-        blurOutput.copyTo(bitmap);
-        renderScript.destroy();
-        return bitmap;*/
-
-
-
-//here i can make radius up to 40 use for it below code
+        //here i can make radius up to 40 use for it below code
 
         int w = src.getWidth();
         int h = src.getHeight();
         int[] pix = new int[w * h];
         src.getPixels(pix, 0, w, 0, 0, w, h);
 
-        for(int r = radius; r >= 1; r /= 2)
-        {
-            for(int i = r; i < h - r; i++)
-            {
-                for(int j = r; j < w - r; j++)
-                {
+        for (int r = radius; r >= 1; r /= 2) {
+            for (int i = r; i < h - r; i++) {
+                for (int j = r; j < w - r; j++) {
                     int tl = pix[(i - r) * w + j - r];
                     int tr = pix[(i - r) * w + j + r];
                     int tc = pix[(i - r) * w + j];
@@ -159,7 +131,7 @@ public class BlurActivity extends AppCompatActivity {
                             (((tl & 0xFF) + (tr & 0xFF) + (tc & 0xFF) + (bl & 0xFF) +
                                     (br & 0xFF) + (bc & 0xFF) + (cl & 0xFF) + (cr & 0xFF)) >> 3) & 0xFF |
                             (((tl & 0xFF00) + (tr & 0xFF00) + (tc & 0xFF00) + (bl & 0xFF00)
-                                    +  (br & 0xFF00) + (bc & 0xFF00) + (cl & 0xFF00) + (cr & 0xFF00)) >> 3) & 0xFF00 |
+                                    + (br & 0xFF00) + (bc & 0xFF00) + (cl & 0xFF00) + (cr & 0xFF00)) >> 3) & 0xFF00 |
                             (((tl & 0xFF0000) + (tr & 0xFF0000) + (tc & 0xFF0000) +
                                     (bl & 0xFF0000) + (br & 0xFF0000) + (bc & 0xFF0000) + (cl & 0xFF0000) +
                                     (cr & 0xFF0000)) >> 3) & 0xFF0000;

@@ -16,16 +16,19 @@
         <activity android:name=".ReferencesActivity" />
         <activity android:name=".ShareActivity"></activity>
         <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".StickerActivity" />
+        <activity android:name=".MainActionActivity"></activity>
+        <activity android:name=".CropImageActivity" />
+        <activity android:name=".EffectActivity"></activity>
+        <activity android:name=".BlurActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StickerActivity" />
-        <activity android:name=".MainActionActivity"></activity>
-        <activity android:name=".CropImageActivity" />
-        <activity android:name=".EffectActivity"></activity>
         <activity android:name=".FrameActivity" />
 
         <activity

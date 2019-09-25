@@ -46,4 +46,10 @@
     <string name="image_processing">Image Processing</string>
     <string name="facebook_app_id">987992938215938</string>
     <string name="warning">No photos displayed</string>
+    <string name="intensity_bar">Intensity Bar</string>
+    <string name="blur">Blur</string>
+    <string name="un_blur">Un Blur</string>
+    <string name="brush">Brush</string>
+    <string name="zoom">Zoom</string>
+    <string name="offset">Offset</string>
 </resources>
