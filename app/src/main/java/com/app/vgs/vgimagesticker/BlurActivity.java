@@ -2,8 +2,11 @@ package com.app.vgs.vgimagesticker;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import com.app.vgs.vgimagesticker.utils.LogUtils;
@@ -20,86 +23,110 @@ public class BlurActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blur);
 
         initView();
+        initData();
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        initData();
+
     }
 
     private void initData() {
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
 
+
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
         options.inMutable = true;
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3, options);
-
-        int widthPx = getWindowManager().getDefaultDisplay().getWidth();
-        int heightPx = getWindowManager().getDefaultDisplay().getHeight();
-        int drawingWidth = mDrawingView.getMeasuredWidth();
-        int drawingViewHeight = mDrawingView.getMeasuredHeight();
-//
-//
-//
-//        mDrawingView.setCanvasBitmap(bitmap, bitmap.getHeight(), bitmap.getWidth(), widthPx, heightPx);
-//        mDrawingView.firstsetupdrawing(bitmap);
+        mDrawingView.setBitmap(bitmap);
+        mDrawingView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
+            @Override
+            public void onGlobalLayout() {
+                mDrawingView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
 
-        //widthPx = mDrawingView.getLayoutParams().width;
-        //heightPx = mDrawingView.getLayoutParams().height;
-        // set new height and width to custom class drawing view
-        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mDrawingView
-                .getLayoutParams();
+                //fillBitmap();
+            }
+        });
 
-        if (bitmap.getHeight() < heightPx && bitmap.getWidth() < widthPx) {
-            params.height = bitmap.getHeight();
-            params.width = bitmap.getWidth();
-        } else {
 
-            if (bitmap.getHeight() > heightPx && bitmap.getWidth() > widthPx) {
+    }
 
-                params.height = heightPx;
-                params.width = widthPx;
-            } else if (bitmap.getWidth() > widthPx) {
-                params.width = widthPx;
+    private void fillBitmap(){
+        try {
+            int originalheight;
+            int originalwidth;
+            int widthPx = mDrawingView.getWidth();
+            int heightPx = mDrawingView.getHeight();
+
+            BitmapFactory.Options options = new BitmapFactory.Options();
+
+            options.inMutable = true;
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3, options);
+
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mDrawingView
+                    .getLayoutParams();
+
+            if (bitmap.getHeight() < heightPx && bitmap.getWidth() < widthPx) {
                 params.height = bitmap.getHeight();
-
-            } else {
                 params.width = bitmap.getWidth();
-                params.height = heightPx;
-
-            }
-        }
-
-        mDrawingView.setLayoutParams(params);
-        mDrawingView.setCanvasBitmap(bitmap, bitmap.getHeight(),bitmap.getWidth(), widthPx, heightPx);
-
-        if (bitmap.getHeight() < heightPx && bitmap.getWidth() < widthPx) {
-            this.originalheight = bitmap.getHeight();
-            this.originalwidth = bitmap.getWidth();
-        } else {
-
-            if (bitmap.getHeight() > heightPx && bitmap.getWidth() > widthPx) {
-
-                this.originalheight = heightPx;
-                this.originalwidth = widthPx;
-            } else if (bitmap.getWidth() > widthPx) {
-                this.originalwidth = widthPx;
-                this.originalheight = bitmap.getHeight();
-
             } else {
-                this.originalwidth = bitmap.getWidth();
-                this.originalheight = heightPx;
 
+                if (bitmap.getHeight() > heightPx && bitmap.getWidth() > widthPx) {
+
+                    params.height = heightPx;
+                    params.width = widthPx;
+                } else if (bitmap.getWidth() > widthPx) {
+                    params.width = widthPx;
+                    params.height = bitmap.getHeight();
+
+                } else {
+                    params.width = bitmap.getWidth();
+                    params.height = heightPx;
+
+                }
             }
+
+            mDrawingView.setLayoutParams(params);
+            mDrawingView.setCanvasBitmap(bitmap, bitmap.getHeight(),bitmap.getWidth(), widthPx, heightPx);
+
+            if (bitmap.getHeight() < heightPx && bitmap.getWidth() < widthPx) {
+                originalheight = bitmap.getHeight();
+                originalwidth = bitmap.getWidth();
+            } else {
+
+                if (bitmap.getHeight() > heightPx && bitmap.getWidth() > widthPx) {
+
+                    originalheight = heightPx;
+                    originalwidth = widthPx;
+                } else if (bitmap.getWidth() > widthPx) {
+                    originalwidth = widthPx;
+                    originalheight = bitmap.getHeight();
+
+                } else {
+                    originalwidth = bitmap.getWidth();
+                    originalheight = heightPx;
+
+                }
+            }
+            Bitmap bitmapGaiXinh = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3, options);
+            Bitmap tem = Bitmap.createScaledBitmap(bitmapGaiXinh, originalwidth,
+                    originalheight, true);
+
+
+            Bitmap image = Bitmap.createBitmap(originalwidth, originalheight, Bitmap.Config.ARGB_8888);
+            Canvas canvas=new Canvas (image);
+            int HEX=0xFF888888;
+            canvas.drawColor (Color.RED);
+
+            Bitmap bitmap2 = createBitmap_ScriptIntrinsicBlur(tem, 20);
+            mDrawingView.firstsetupdrawing(bitmap2);
+        }catch (Exception exp){
+            LogUtils.e(exp);
         }
-        Bitmap bitmapGaiXinh = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh2, options);
-        Bitmap tem = Bitmap.createScaledBitmap(bitmapGaiXinh, originalwidth,
-                originalheight, true);
-        Bitmap bitmap2 = createBitmap_ScriptIntrinsicBlur(tem, 20);
-        mDrawingView.firstsetupdrawing(bitmap2);
     }
 
     private void initView() {
