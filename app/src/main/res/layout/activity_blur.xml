@@ -54,7 +54,7 @@
             android:layout_toRightOf="@id/native_ad_new">
 
             <SeekBar
-                android:id="@+id/intensity_seekbar"
+                android:id="@+id/blurseekbar"
                 android:layout_width="fill_parent"
                 android:layout_height="30.0dip"
                 android:layout_centerInParent="true"
@@ -68,7 +68,7 @@
                 android:layout_alignParentBottom="true"
                 android:fontFamily="@font/my_font"
                 android:gravity="center"
-                android:text="@string/intensity_bar"
+                android:text="@string/blur_progress"
                 android:textAllCaps="false"
                 android:textColor="@color/colourBgAndSelected"
                 android:textSize="12.0sp" />
@@ -110,59 +110,9 @@
         android:layout_alignParentBottom="true"
         android:background="@color/bar_bg"
         android:orientation="horizontal"
-        android:weightSum="4.0">
+        android:weightSum="2.0">
 
-        <RelativeLayout
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
 
-            <ImageButton
-                android:id="@+id/blur"
-                android:layout_width="fill_parent"
-                android:layout_height="50.0dip"
-                android:background="#00ffffff"
-                android:scaleType="centerInside"
-                android:src="@drawable/blur" />
-
-            <TextView
-                android:id="@+id/blur_text"
-                android:layout_width="fill_parent"
-                android:layout_height="15.0dip"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/my_font"
-                android:gravity="center"
-                android:text="@string/blur"
-                android:textAllCaps="false"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="12.0sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
-
-            <ImageButton
-                android:id="@+id/un_blur"
-                android:layout_width="fill_parent"
-                android:layout_height="50.0dip"
-                android:background="#00ffffff"
-                android:scaleType="centerInside"
-                android:src="@drawable/un_blur" />
-
-            <TextView
-                android:id="@+id/un_blur_text"
-                android:layout_width="fill_parent"
-                android:layout_height="15.0dip"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/my_font"
-                android:gravity="center"
-                android:text="@string/un_blur"
-                android:textAllCaps="false"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="12.0sp" />
-        </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="0.0dip"

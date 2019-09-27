@@ -2,20 +2,15 @@ package com.app.vgs.vgimagesticker;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.ViewTreeObserver;
-import android.widget.RelativeLayout;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.SeekBar;
 
-import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.vo.DrawingView;
 
 public class BlurActivity extends AppCompatActivity {
     DrawingView mDrawingView;
-    int originalheight;
-    int originalwidth;
+    SeekBar mSeekBarBlur;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,152 +18,44 @@ public class BlurActivity extends AppCompatActivity {
         setContentView(R.layout.activity_blur);
 
         initView();
+        setListener();
         initData();
 
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
 
     private void initData() {
-
-
-
-
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inMutable = true;
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3, options);
         mDrawingView.setBitmap(bitmap);
-        mDrawingView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener(){
-            @Override
-            public void onGlobalLayout() {
-                mDrawingView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-
-
-                //fillBitmap();
-            }
-        });
-
-
     }
 
-    private void fillBitmap(){
-        try {
-            int originalheight;
-            int originalwidth;
-            int widthPx = mDrawingView.getWidth();
-            int heightPx = mDrawingView.getHeight();
 
-            BitmapFactory.Options options = new BitmapFactory.Options();
-
-            options.inMutable = true;
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3, options);
-
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mDrawingView
-                    .getLayoutParams();
-
-            if (bitmap.getHeight() < heightPx && bitmap.getWidth() < widthPx) {
-                params.height = bitmap.getHeight();
-                params.width = bitmap.getWidth();
-            } else {
-
-                if (bitmap.getHeight() > heightPx && bitmap.getWidth() > widthPx) {
-
-                    params.height = heightPx;
-                    params.width = widthPx;
-                } else if (bitmap.getWidth() > widthPx) {
-                    params.width = widthPx;
-                    params.height = bitmap.getHeight();
-
-                } else {
-                    params.width = bitmap.getWidth();
-                    params.height = heightPx;
-
-                }
-            }
-
-            mDrawingView.setLayoutParams(params);
-            mDrawingView.setCanvasBitmap(bitmap, bitmap.getHeight(),bitmap.getWidth(), widthPx, heightPx);
-
-            if (bitmap.getHeight() < heightPx && bitmap.getWidth() < widthPx) {
-                originalheight = bitmap.getHeight();
-                originalwidth = bitmap.getWidth();
-            } else {
-
-                if (bitmap.getHeight() > heightPx && bitmap.getWidth() > widthPx) {
-
-                    originalheight = heightPx;
-                    originalwidth = widthPx;
-                } else if (bitmap.getWidth() > widthPx) {
-                    originalwidth = widthPx;
-                    originalheight = bitmap.getHeight();
-
-                } else {
-                    originalwidth = bitmap.getWidth();
-                    originalheight = heightPx;
-
-                }
-            }
-            Bitmap bitmapGaiXinh = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3, options);
-            Bitmap tem = Bitmap.createScaledBitmap(bitmapGaiXinh, originalwidth,
-                    originalheight, true);
-
-
-            Bitmap image = Bitmap.createBitmap(originalwidth, originalheight, Bitmap.Config.ARGB_8888);
-            Canvas canvas=new Canvas (image);
-            int HEX=0xFF888888;
-            canvas.drawColor (Color.RED);
-
-            Bitmap bitmap2 = createBitmap_ScriptIntrinsicBlur(tem, 20);
-            mDrawingView.firstsetupdrawing(bitmap2);
-        }catch (Exception exp){
-            LogUtils.e(exp);
-        }
-    }
 
     private void initView() {
         mDrawingView = findViewById(R.id.drawing);
+        mSeekBarBlur = findViewById(R.id.blurseekbar);
     }
 
-    public Bitmap createBitmap_ScriptIntrinsicBlur(Bitmap src, int radius) {
-        // Radius range (0 < r <= 25)
-        //here i can make radius up to 40 use for it below code
-
-        int w = src.getWidth();
-        int h = src.getHeight();
-        int[] pix = new int[w * h];
-        src.getPixels(pix, 0, w, 0, 0, w, h);
-
-        for (int r = radius; r >= 1; r /= 2) {
-            for (int i = r; i < h - r; i++) {
-                for (int j = r; j < w - r; j++) {
-                    int tl = pix[(i - r) * w + j - r];
-                    int tr = pix[(i - r) * w + j + r];
-                    int tc = pix[(i - r) * w + j];
-                    int bl = pix[(i + r) * w + j - r];
-                    int br = pix[(i + r) * w + j + r];
-                    int bc = pix[(i + r) * w + j];
-                    int cl = pix[i * w + j - r];
-                    int cr = pix[i * w + j + r];
-
-                    pix[(i * w) + j] = 0xFF000000 |
-                            (((tl & 0xFF) + (tr & 0xFF) + (tc & 0xFF) + (bl & 0xFF) +
-                                    (br & 0xFF) + (bc & 0xFF) + (cl & 0xFF) + (cr & 0xFF)) >> 3) & 0xFF |
-                            (((tl & 0xFF00) + (tr & 0xFF00) + (tc & 0xFF00) + (bl & 0xFF00)
-                                    + (br & 0xFF00) + (bc & 0xFF00) + (cl & 0xFF00) + (cr & 0xFF00)) >> 3) & 0xFF00 |
-                            (((tl & 0xFF0000) + (tr & 0xFF0000) + (tc & 0xFF0000) +
-                                    (bl & 0xFF0000) + (br & 0xFF0000) + (bc & 0xFF0000) + (cl & 0xFF0000) +
-                                    (cr & 0xFF0000)) >> 3) & 0xFF0000;
-                }
+    private void setListener(){
+        mSeekBarBlur.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                mDrawingView.setBlurProgress(i);
             }
-        }
-        Bitmap blurred = Bitmap.createBitmap(w, h, src.getConfig());
-        blurred.setPixels(pix, 0, w, 0, 0, w, h);
-        return blurred;
 
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
 
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
+
+
 }
