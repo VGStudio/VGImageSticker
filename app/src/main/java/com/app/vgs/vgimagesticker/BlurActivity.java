@@ -114,7 +114,9 @@ public class BlurActivity extends BaseActivity {
             Bitmap bitmap = mDrawingView.getBitmap();
             File fTemp = FileUtils.saveBitmapToFile(bitmap, "temp", "temp3.png");
             mFileSavedpath = fTemp.getAbsolutePath();
-            Toast.makeText(this, "Save OKIE", Toast.LENGTH_SHORT).show();
+            if (!showInterstitial()) {
+                goBackMainActionCategory();
+            }
             LogUtils.d(mFileSavedpath);
         }catch (Exception exp){
             LogUtils.e(exp);
