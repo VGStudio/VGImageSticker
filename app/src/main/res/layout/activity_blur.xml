@@ -2,41 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/blur_layout"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/header_blur_layout"
-        android:layout_width="fill_parent"
+        android:id="@+id/rlTop"
+        android:layout_width="match_parent"
         android:layout_height="60.0dip">
 
-        <ImageButton
-            android:id="@+id/native_ad_new"
-            android:layout_width="50.0dip"
-            android:layout_height="60.0dip"
-            android:layout_marginLeft="60.0dip"
-            android:background="#00ffffff"
-            android:padding="10.0dip"
-            android:scaleType="centerInside"
-            android:src="@drawable/ad" />
+
 
         <RelativeLayout
             android:id="@+id/back_button_layout"
             android:layout_width="60.0dip"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1.0">
 
             <ImageButton
                 android:id="@+id/back"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="50.0dip"
                 android:background="#00ffffff"
                 android:scaleType="centerInside"
+                android:onClick="onBackClick"
                 android:src="@drawable/back" />
 
             <TextView
                 android:id="@+id/back_text"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="15.0dip"
                 android:layout_alignParentBottom="true"
                 android:fontFamily="@font/my_font"
@@ -47,51 +40,27 @@
                 android:textSize="12.0sp" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_toLeftOf="@id/done_button_layout"
-            android:layout_toRightOf="@id/native_ad_new">
 
-            <SeekBar
-                android:id="@+id/blurseekbar"
-                android:layout_width="fill_parent"
-                android:layout_height="30.0dip"
-                android:layout_centerInParent="true"
-                android:max="100"
-                android:progress="40" />
-
-            <TextView
-                android:id="@+id/intensity_seek_text"
-                android:layout_width="fill_parent"
-                android:layout_height="15.0dip"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/my_font"
-                android:gravity="center"
-                android:text="@string/blur_progress"
-                android:textAllCaps="false"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="12.0sp" />
-        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/done_button_layout"
             android:layout_width="60.0dip"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_weight="1.0">
 
             <ImageButton
                 android:id="@+id/done"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="50.0dip"
                 android:background="#00ffffff"
                 android:scaleType="centerInside"
+                android:onClick="onSaveClick"
                 android:src="@drawable/done" />
 
             <TextView
                 android:id="@+id/done_text"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="15.0dip"
                 android:layout_alignParentBottom="true"
                 android:fontFamily="@font/my_font"
@@ -103,154 +72,83 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/bottom_blur_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="60.0dip"
-        android:layout_alignParentBottom="true"
-        android:background="@color/bar_bg"
-        android:orientation="horizontal"
-        android:weightSum="2.0">
 
-
-
-        <RelativeLayout
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
-
-            <ImageButton
-                android:id="@+id/brush"
-                android:layout_width="fill_parent"
-                android:layout_height="50.0dip"
-                android:background="#00ffffff"
-                android:scaleType="centerInside"
-                android:src="@drawable/brush" />
-
-            <TextView
-                android:id="@+id/brush_text"
-                android:layout_width="fill_parent"
-                android:layout_height="15.0dip"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/my_font"
-                android:gravity="center"
-                android:text="@string/brush"
-                android:textAllCaps="false"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="12.0sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0">
-
-            <ImageButton
-                android:id="@+id/zoom_blur"
-                android:layout_width="fill_parent"
-                android:layout_height="50.0dip"
-                android:background="#00ffffff"
-                android:scaleType="centerInside"
-                android:src="@drawable/zoom" />
-
-            <TextView
-                android:id="@+id/zoom_text"
-                android:layout_width="fill_parent"
-                android:layout_height="15.0dip"
-                android:layout_alignParentBottom="true"
-                android:fontFamily="@font/my_font"
-                android:gravity="center"
-                android:text="@string/zoom"
-                android:textAllCaps="false"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="12.0sp" />
-        </RelativeLayout>
-    </LinearLayout>
-
-
-
-    <RelativeLayout
-        android:id="@+id/root_canvas_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/bottom_blur_layout"
-        android:layout_below="@id/header_blur_layout"
-        android:background="@color/bg_color">
-
-        <RelativeLayout
-            android:id="@+id/parenrlayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true">
-
-            <com.app.vgs.vgimagesticker.vo.DrawingView
-                android:id="@+id/drawing"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/seekbar_layout"
+    <com.app.vgs.vgimagesticker.vo.DrawingView
+        android:id="@+id/drawing"
+        android:background="@color/bg_color"
         android:layout_width="wrap_content"
-        android:layout_height="60.0dip"
-        android:layout_above="@id/bottom_blur_layout"
-        android:layout_marginBottom="3.0dip"
-        android:background="@color/transparent_white"
-        android:visibility="gone">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/llControl"
+        android:layout_below="@id/rlTop"/>
 
-        <RelativeLayout
-            android:id="@+id/top"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
 
-            <SeekBar
-                android:id="@+id/seek_brush"
-                android:layout_width="fill_parent"
+    <LinearLayout
+        android:id="@+id/llControl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:paddingTop="5.0dip"
+        android:paddingBottom="5.0dip"
+        android:weightSum="2.0">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:weightSum="10">
+            <TextView
+                android:id="@+id/intensity_seek_text"
+                android:layout_width="0.0dip"
                 android:layout_height="30.0dip"
-                android:layout_toRightOf="@id/brushsize"
+                android:layout_weight="2.0"
+                android:fontFamily="@font/my_font"
+                android:gravity="center|left"
+                android:text="@string/blur_progress"
+                android:textAllCaps="false"
+                android:layout_marginLeft="4dip"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+            <SeekBar
+                android:id="@+id/blurseekbar"
+                android:layout_width="0dp"
+                android:layout_weight="8.0"
+                android:layout_height="30.0dip"
+                android:layout_centerInParent="true"
                 android:max="100"
-                android:progress="30" />
+                android:progress="40" />
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/brushsize"
-                android:layout_width="45.0dip"
-                android:layout_height="30.0dip"
-                android:fontFamily="@font/my_font"
-                android:gravity="center|left"
-                android:padding="5.0dip"
-                android:text="@string/brush"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="12.0sp" />
-        </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:weightSum="10">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30.0dip"
+            android:layout_weight="2.0"
+            android:fontFamily="@font/my_font"
+            android:gravity="center|left"
+            android:layout_marginLeft="4dip"
+            android:text="@string/brush_size"
+            android:textColor="@color/colourBgAndSelected"
+            android:textSize="12.0sp" />
+        <SeekBar
+            android:id="@+id/seekBrushSize"
+            android:layout_width="0dp"
+            android:layout_height="30.0dip"
+            android:layout_weight="8.0"
+            android:max="100"
+            android:progress="40" />
+    </LinearLayout>
+</LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/bottom"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/top">
 
-            <SeekBar
-                android:id="@+id/seek_offset"
-                android:layout_width="fill_parent"
-                android:layout_height="30.0dip"
-                android:layout_toRightOf="@id/distance"
-                android:max="200"
-                android:progress="100" />
-
-            <TextView
-                android:id="@+id/distance"
-                android:layout_width="45.0dip"
-                android:layout_height="30.0dip"
-                android:fontFamily="@font/my_font"
-                android:gravity="center|left"
-                android:padding="5.0dip"
-                android:text="@string/offset"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="12.0sp" />
-        </RelativeLayout>
-    </RelativeLayout>
-
+<include layout="@layout/layout_confirm_exit"></include>
 
 
 

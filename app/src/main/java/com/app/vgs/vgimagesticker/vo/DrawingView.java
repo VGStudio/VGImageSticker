@@ -24,7 +24,7 @@ public class DrawingView extends View {
     // drawing path
     private Path mDrawPath;
     // drawing and canvas paint
-    private Paint mDrawPaint, mCanvasPaint, mBelowDrawPain;
+    private Paint mDrawPaint, mCanvasPaint, mBelowDrawPain, mCirclePaint;
     // canvas
     private Canvas mDrawCanvas;
     //private Canvas mDrawCanvas2;
@@ -36,6 +36,7 @@ public class DrawingView extends View {
     private int mBlurProgress = 30;
 
     int mStartX, mStartY;
+    float mTouchX, mTouchY;
     /**
      * @return the scree_w
      */
@@ -84,15 +85,29 @@ public class DrawingView extends View {
         mBelowDrawPain.setStrokeCap(Paint.Cap.ROUND);
         mBelowDrawPain.setColor(Color.parseColor("#8140FF4A"));
 
+        mCirclePaint = new Paint();
+        //mCirclePaint.setColor(-65536);
+        mCirclePaint.setColor(-16776961);
+        mCirclePaint.setAntiAlias(true);
+        mCirclePaint.setStyle(Paint.Style.STROKE);
+        mCirclePaint.setStrokeWidth(2.0F);
+        mCirclePaint.setStrokeJoin(Paint.Join.ROUND);
+        mCirclePaint.setStrokeCap(Paint.Cap.ROUND);
+
 
     }
 
-    public void setBlurProgress(int blurProgress){
+    public Bitmap getBitmap(){
+        Bitmap bitmap = Bitmap.createBitmap(mCanvasBitmap, mStartX, mStartY, mBitmapWithDrawedSize.getWidth(), mBitmapWithDrawedSize.getHeight());
+        return bitmap;
+    }
+
+    public void setBlurProgress(int blurProgress) {
         try {
-            if(mDrawPaint == null){
+            if (mDrawPaint == null) {
                 return;
             }
-            if(mBitmapWithDrawedSize == null){
+            if (mBitmapWithDrawedSize == null) {
                 return;
             }
             mBlurProgress = blurProgress;
@@ -105,10 +120,22 @@ public class DrawingView extends View {
             BitmapShader patternBMPshader = new BitmapShader(mBitmapBlur, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP);
             mDrawPaint.setShader(patternBMPshader);
             blurBitmap.recycle();
-        }catch (Exception exp){
+            invalidate();
+        } catch (Exception exp) {
             LogUtils.e(exp);
         }
 
+    }
+
+    public void setBrushSize(int brushSize) {
+        mPaintWidth = brushSize;
+        if (mBelowDrawPain != null) {
+            mBelowDrawPain.setStrokeWidth(brushSize);
+        }
+        if (mDrawPaint != null) {
+            mDrawPaint.setStrokeWidth(brushSize);
+        }
+        invalidate();
     }
 
     private float calScaleRationForDrawable(int imageViewWidth, int imageViewHeight, int drawableWidth, int drawableHeight) {
@@ -162,30 +189,31 @@ public class DrawingView extends View {
             canvas.drawBitmap(bitmapBlur, mStartX, mStartY, new Paint());
             firstsetupdrawing(mBitmapBlur);
 
+            mTouchX = w / 2;
+            mTouchY = h / 2;
+
             bitmapBlur.recycle();
-        }catch (Exception exp){
+        } catch (Exception exp) {
             LogUtils.e(exp);
         }
 
 
     }
 
-    private Bitmap getBitmapWithDrawedSizeInView(@NonNull Bitmap bitmap, int viewWidth, int viewHeight){
+    private Bitmap getBitmapWithDrawedSizeInView(@NonNull Bitmap bitmap, int viewWidth, int viewHeight) {
         try {
             float rattion = calScaleRationForDrawable(viewWidth, viewHeight, bitmap.getWidth(), bitmap.getHeight());
             Bitmap rtnBitmap = Bitmap.createScaledBitmap(mBitmap, (int) (bitmap.getWidth() * rattion), (int) (bitmap.getHeight() * rattion), true);
             return rtnBitmap;
-        }catch (Exception exp){
+        } catch (Exception exp) {
             LogUtils.e(exp);
             return null;
         }
     }
 
-    private Bitmap blurBitmap(Bitmap bitmap, int blurProgress){
+    private Bitmap blurBitmap(Bitmap bitmap, int blurProgress) {
         return NativeStackBlur.process(bitmap, blurProgress);
     }
-
-
 
 
     // draw view
@@ -194,7 +222,8 @@ public class DrawingView extends View {
         LogUtils.d("onDraw");
         canvas.drawBitmap(mCanvasBitmap, 0, 0, mCanvasPaint);
         canvas.drawPath(mDrawPath, mBelowDrawPain);
-
+        canvas.drawCircle(mTouchX, mTouchY, (mPaintWidth + 2) / 2, mCirclePaint);
+        canvas.drawCircle(mTouchX, mTouchY, 1, mDrawPaint);
     }
 
 
@@ -202,7 +231,8 @@ public class DrawingView extends View {
         float touchX = 0, touchY = 0;
         touchX = event.getX();
         touchY = event.getY();
-
+        mTouchX = touchX;
+        mTouchY = touchY;
         // respond to down, move and up events
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:

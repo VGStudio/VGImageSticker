@@ -50,6 +50,7 @@
     <string name="blur">Blur</string>
     <string name="un_blur">Un Blur</string>
     <string name="brush">Brush</string>
+    <string name="brush_size">Brush Size</string>
     <string name="zoom">Zoom</string>
     <string name="offset">Offset</string>
 </resources>
