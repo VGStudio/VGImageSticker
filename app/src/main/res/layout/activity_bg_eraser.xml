@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootRelative12"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/transparent_1">
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal"
+        android:weightSum="3.0">
+
+        <RelativeLayout
+            android:id="@+id/rlManuEraser"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/eraser"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:padding="3.0dip"
+                android:onClick="manuEraserClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/eraser_icon" />
+
+            <TextView
+                android:id="@+id/eraser_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Manual Eraser"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlAutoEraser"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/auto_eraser"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:padding="3.0dip"
+                android:onClick="autoEraserClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/auto_eraser" />
+
+            <TextView
+                android:id="@+id/auto_erase_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Auto Eraser"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/rlZoom"
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/zoom"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:padding="3.0dip"
+                android:scaleType="centerInside"
+                android:onClick="zoomClick"
+                android:src="@drawable/zoom" />
+
+            <TextView
+                android:id="@+id/zoom_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Zoom"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/header_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal"
+        android:weightSum="4.0">
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/bacnk"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:padding="3.0dip"
+                android:onClick="backClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/back" />
+
+            <TextView
+
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="@string/label_back"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/undo"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:padding="3.0dip"
+                android:onClick="undoClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/undo" />
+
+            <TextView
+                android:id="@+id/undo_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Undo"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/redo"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:padding="3.0dip"
+                android:onClick="redoClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/redo" />
+
+            <TextView
+                android:id="@+id/redo_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Redo"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/done_eraser"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:padding="3.0dip"
+                android:onClick="onSaveClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/done" />
+
+            <TextView
+                android:id="@+id/done_eraser_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Done"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llbrushSize"
+        android:layout_width="fill_parent"
+        android:layout_height="30.0dip"
+        android:layout_above="@id/bottom"
+        android:orientation="horizontal"
+        android:background="@color/bar_bg"
+        android:weightSum="10.0">
+
+
+        <TextView
+            android:id="@+id/seek_brush_text"
+            android:layout_width="0dp"
+            android:layout_height="30.0dip"
+            android:layout_weight="2.0"
+            android:fontFamily="@font/my_font"
+            android:gravity="center"
+            android:text="Brush Size"
+            android:textColor="@color/colourBgAndSelected"
+            android:textSize="11.0sp" />
+        <SeekBar
+            android:id="@+id/seekBrushSize"
+            android:layout_width="0dp"
+            android:layout_height="30.0dip"
+            android:layout_weight="8.0"
+            android:max="100"
+            android:progress="40"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+
+
+    <com.alexvasilkov.gestures.views.GestureFrameLayout
+        android:id="@+id/gestureView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/llbrushSize"
+        android:layout_below="@id/header_layout"
+        android:layout_weight="1">
+
+
+
+        <FrameLayout
+            android:id="@+id/drawViewLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.app.vgs.vgimagesticker.view.cutout.DrawView
+                android:id="@+id/drawView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+            <FrameLayout
+                android:id="@+id/loadingModal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ProgressBar
+                    android:id="@+id/loadingView"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+
+            </FrameLayout>
+
+
+        </FrameLayout>
+
+    </com.alexvasilkov.gestures.views.GestureFrameLayout>
+
+
+
+    <include layout="@layout/layout_confirm_exit"></include>
+
+
+
+
+</RelativeLayout>

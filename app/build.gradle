@@ -57,6 +57,8 @@ dependencies {
     implementation 'com.github.zomato:androidphotofilters:1.0.2'
     implementation 'com.github.zomato:androidphotofilters:1.0.1'
 
+    implementation 'com.alexvasilkov:gesture-views:2.5.2'
+
     //blur
     implementation 'com.github.Commit451:NativeStackBlur:1.0.5'
 
