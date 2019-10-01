@@ -41,6 +41,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import static com.app.vgs.vgimagesticker.ShareActivity.imPath;
+import static com.app.vgs.vgimagesticker.ShareActivity.imgReferences;
 
 public class FaceBookActivity extends AppCompatActivity {
 
@@ -73,6 +74,7 @@ public class FaceBookActivity extends AppCompatActivity {
         setLogout_Button();
         readDataImage();
         shareImage();
+        clickChucNang();
     }
 
     private void initView() {
@@ -193,10 +195,26 @@ public class FaceBookActivity extends AppCompatActivity {
 
     public void readDataImage(){
         try {
-            InputStream inputStream = getContentResolver().openInputStream(Uri.parse(imPath));
+            InputStream inputStream = getContentResolver().openInputStream(Uri.parse(imgReferences));
             bitmap = BitmapFactory.decodeStream(inputStream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    // click chức năng
+    private void clickChucNang(){
+        btnChucNang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharePhoto photo = new SharePhoto.Builder()
+                        .setBitmap(bitmap)
+                        .build();
+                SharePhotoContent content = new SharePhotoContent.Builder()
+                        .addPhoto(photo)
+                        .build();
+                shareDialog.show(content);
+            }
+        });
     }
 }

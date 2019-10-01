@@ -28,7 +28,6 @@ public class CropImageActivity extends BaseActivity {
     private Button mSquareBtn;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

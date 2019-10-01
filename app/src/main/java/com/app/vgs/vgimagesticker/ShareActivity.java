@@ -120,14 +120,12 @@ public class ShareActivity extends AppCompatActivity {
     private void readImage(){
         try {
             Intent intent = getIntent();
-            imPath = intent.getStringExtra("mImagePath");
-//            if(imPath == null){
-//                txtHienThi.setVisibility(View.VISIBLE);
-//            }
-//            else {
-                Bitmap bitmap = BitmapFactory.decodeFile(imPath);
-                imgEditShare.setImageBitmap(bitmap);
-//            }
+            imPath = intent.getStringExtra("picture");
+            try{
+                imgEditShare.setImageResource(Integer.parseInt(imPath));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }catch (Exception e){
             e.printStackTrace();
         }

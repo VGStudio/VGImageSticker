@@ -138,7 +138,7 @@
         android:layout_height="match_parent"/>
 
     <ImageView
-        android:src="@drawable/gai_xinh3"
+        android:src="@drawable/gai_xinh2"
         android:id="@+id/imgEditPath"
         android:layout_gravity="center"
         android:layout_margin="10dp"

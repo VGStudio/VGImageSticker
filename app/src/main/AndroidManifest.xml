@@ -10,32 +10,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/FullScreenTheme">
-        <activity android:name=".BgEraserActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".Popup.PopupReferences"
-            android:theme="@style/FullScreenTheme.CustomTheme" />
+        <activity android:name=".Popup.PopupReferences"
+            android:theme="@style/FullScreenTheme.CustomTheme"></activity>
         <activity android:name=".FaceBookActivity" />
         <activity android:name=".ReferencesActivity" />
-        <activity android:name=".ShareActivity" />
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".StickerActivity" />
-        <activity android:name=".MainActionActivity" />
-        <activity android:name=".CropImageActivity" />
-        <activity android:name=".EffectActivity" />
-        <activity android:name=".BlurActivity">
+        <activity android:name=".ShareActivity"></activity>
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".StickerActivity" />
+        <activity android:name=".MainActionActivity">
+
+        </activity>
+        <activity android:name=".CropImageActivity" />
+        <activity android:name=".EffectActivity"></activity>
+        <activity android:name=".BlurActivity">
+
+        </activity>
         <activity android:name=".FrameActivity" />
+
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -44,6 +40,7 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/admob_app_id" />
+
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
