@@ -198,16 +198,13 @@ public class MainActivity extends BaseActivity {
     }
 
     public void openCamera(View view){
-        pickCamera();
-    }
-
-    public void pickCamera(){
         try {
             ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.CAMERA},REQUEST_IMAGE_FROM_CAMERA);
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+
     //
 //////////////////////
     public void openGallery(View view) {
@@ -216,8 +213,8 @@ public class MainActivity extends BaseActivity {
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         try {
-            if (resultCode == RESULT_OK) {
-                if (requestCode == REQUEST_IMAGE_FROM_GALLERY) {
+            if (requestCode == REQUEST_IMAGE_FROM_GALLERY) {
+                if (resultCode == RESULT_OK) {
                     final Uri selectedUri = data.getData();
                     if (selectedUri != null) {
                         //startCrop(selectedUri);
@@ -228,6 +225,7 @@ public class MainActivity extends BaseActivity {
                 }
             } else if (requestCode == REQUEST_IMAGE_FROM_CAMERA) {
                 if (resultCode == RESULT_OK) {
+                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                     final Uri selectedUri = data.getData();
                     if (selectedUri != null) {
                         //startCrop(selectedUri);

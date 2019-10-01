@@ -4,9 +4,7 @@ import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
@@ -14,7 +12,6 @@ import com.app.vgs.vgimagesticker.ReferencesActivity;
 import com.app.vgs.vgimagesticker.ShareActivity;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 import static com.app.vgs.vgimagesticker.ShareActivity.imPath;
 import static com.app.vgs.vgimagesticker.ShareActivity.imgEditShare;
@@ -39,16 +36,12 @@ public class ShareUtils {
     }
     public void shareUtils(){
         try {
-            Intent share = new Intent(Intent.ACTION_SEND);
-
-            // If you want to share a png image only, you can do:
-            // setType("image/png"); OR for jpeg: setType("image/jpeg");
-            share.setType("image/*");
-
-            // Make sure you put example png image named myImage.png in your
-            // directory
-            share.putExtra(Intent.EXTRA_STREAM, imgReferences);
-            shareActivity.startActivity(Intent.createChooser(share, "Share Image!"));
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, imgReferences);
+            shareIntent.putExtra(Intent.EXTRA_STREAM, imPath);
+            shareIntent.setType("image/jpeg");
+            shareActivity.startActivity(Intent.createChooser(shareIntent, "Share Image!"));
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -93,6 +86,7 @@ public class ShareUtils {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
+
         BitmapDrawable bitmapDrawable = (BitmapDrawable) imgEditShare.getDrawable();
         Bitmap bitmapTest = bitmapDrawable.getBitmap();
         bitmap2 = Bitmap.createScaledBitmap(bitmapTest, width, height, false);
