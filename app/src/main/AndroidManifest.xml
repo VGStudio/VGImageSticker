@@ -12,26 +12,26 @@
         android:theme="@style/FullScreenTheme">
         <activity android:name=".Popup.PopupReferences"
             android:theme="@style/FullScreenTheme.CustomTheme"></activity>
-        <activity android:name=".FaceBookActivity" />
-        <activity android:name=".ReferencesActivity" />
-        <activity android:name=".ShareActivity"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.FaceBookActivity" />
+        <activity android:name=".activity.ReferencesActivity" />
+        <activity android:name=".activity.ShareActivity"></activity>
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StickerActivity" />
-        <activity android:name=".MainActionActivity">
+        <activity android:name=".activity.StickerActivity" />
+        <activity android:name=".activity.MainActionActivity">
 
         </activity>
-        <activity android:name=".CropImageActivity" />
-        <activity android:name=".EffectActivity"></activity>
-        <activity android:name=".BlurActivity">
+        <activity android:name=".activity.CropImageActivity" />
+        <activity android:name=".activity.EffectActivity"></activity>
+        <activity android:name=".activity.BlurActivity">
 
         </activity>
-        <activity android:name=".BgEraserActivity"/>
-        <activity android:name=".FrameActivity" />
+        <activity android:name=".activity.BgEraserActivity"/>
+        <activity android:name=".activity.FrameActivity" />
 
         <activity
             android:name="com.facebook.FacebookActivity"

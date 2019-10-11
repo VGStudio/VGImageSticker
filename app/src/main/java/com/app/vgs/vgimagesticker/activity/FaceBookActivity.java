@@ -1,4 +1,4 @@
-package com.app.vgs.vgimagesticker;
+package com.app.vgs.vgimagesticker.activity;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.app.vgs.vgimagesticker.R;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -40,8 +41,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import static com.app.vgs.vgimagesticker.ShareActivity.imPath;
-import static com.app.vgs.vgimagesticker.ShareActivity.imgReferences;
+import static com.app.vgs.vgimagesticker.activity.ShareActivity.imgReferences;
 
 public class FaceBookActivity extends AppCompatActivity {
 

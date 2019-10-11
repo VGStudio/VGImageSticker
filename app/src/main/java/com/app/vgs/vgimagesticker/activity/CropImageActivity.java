@@ -1,4 +1,4 @@
-package com.app.vgs.vgimagesticker;
+package com.app.vgs.vgimagesticker.activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -13,6 +13,7 @@ import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.Button;
 
+import com.app.vgs.vgimagesticker.R;
 import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;

@@ -1,42 +1,28 @@
-package com.app.vgs.vgimagesticker;
+package com.app.vgs.vgimagesticker.activity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.app.vgs.vgimagesticker.Classes.ConnectionDetector;
+import com.app.vgs.vgimagesticker.R;
 import com.app.vgs.vgimagesticker.ads.AdUtils;
 import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
-import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.utils.ShareUtils;
 import com.app.vgs.vgimagesticker.vo.MoreAppGroup;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookSdk;
 import com.google.android.ads.nativetemplates.TemplateView;
 import com.google.android.gms.ads.AdLoader;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.formats.UnifiedNativeAd;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
-
-import pl.droidsonroids.gif.GifImageView;
 
 public class ShareActivity extends AppCompatActivity {
 

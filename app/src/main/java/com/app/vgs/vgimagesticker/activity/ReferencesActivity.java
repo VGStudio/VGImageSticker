@@ -1,8 +1,5 @@
-package com.app.vgs.vgimagesticker;
+package com.app.vgs.vgimagesticker.activity;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,10 +8,9 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.app.vgs.vgimagesticker.Classes.EditImage;
-import com.app.vgs.vgimagesticker.Popup.PopupReferences;
+import com.app.vgs.vgimagesticker.R;
 import com.app.vgs.vgimagesticker.adapter.ListEditImageAdapter;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

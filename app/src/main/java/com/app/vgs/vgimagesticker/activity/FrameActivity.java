@@ -1,4 +1,4 @@
-package com.app.vgs.vgimagesticker;
+package com.app.vgs.vgimagesticker.activity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.app.vgs.vgimagesticker.R;
 import com.app.vgs.vgimagesticker.adapter.FrameAdapter;
 import com.app.vgs.vgimagesticker.events.TouchImageForDrapRotateZoomEvent;
 import com.app.vgs.vgimagesticker.utils.BitmapUtils;

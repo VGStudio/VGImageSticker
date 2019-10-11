@@ -5,7 +5,7 @@
     android:id="@+id/hair_styles_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FrameActivity">
+    tools:context=".activity.FrameActivity">
 
 
 

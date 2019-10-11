@@ -8,14 +8,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.DisplayMetrics;
 import android.widget.Toast;
 
-import com.app.vgs.vgimagesticker.ReferencesActivity;
-import com.app.vgs.vgimagesticker.ShareActivity;
+import com.app.vgs.vgimagesticker.activity.ReferencesActivity;
+import com.app.vgs.vgimagesticker.activity.ShareActivity;
 
 import java.io.IOException;
 
-import static com.app.vgs.vgimagesticker.ShareActivity.imPath;
-import static com.app.vgs.vgimagesticker.ShareActivity.imgEditShare;
-import static com.app.vgs.vgimagesticker.ShareActivity.imgReferences;
+import static com.app.vgs.vgimagesticker.activity.ShareActivity.imPath;
+import static com.app.vgs.vgimagesticker.activity.ShareActivity.imgEditShare;
+import static com.app.vgs.vgimagesticker.activity.ShareActivity.imgReferences;
 
 
 public class ShareUtils {

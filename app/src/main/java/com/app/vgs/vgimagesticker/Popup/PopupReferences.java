@@ -1,23 +1,18 @@
 package com.app.vgs.vgimagesticker.Popup;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.app.vgs.vgimagesticker.R;
-import com.app.vgs.vgimagesticker.ShareActivity;
-
-import java.io.InputStream;
+import com.app.vgs.vgimagesticker.activity.ShareActivity;
 
 public class PopupReferences extends AppCompatActivity {
 

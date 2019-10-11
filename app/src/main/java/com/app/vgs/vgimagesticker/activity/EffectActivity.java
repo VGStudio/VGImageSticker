@@ -1,4 +1,4 @@
-package com.app.vgs.vgimagesticker;
+package com.app.vgs.vgimagesticker.activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.app.vgs.vgimagesticker.R;
 import com.app.vgs.vgimagesticker.adapter.EffectAdapter;
 import com.app.vgs.vgimagesticker.utils.BitmapUtils;
 import com.app.vgs.vgimagesticker.utils.Const;
