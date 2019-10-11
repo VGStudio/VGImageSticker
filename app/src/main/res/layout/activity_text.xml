@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bgeraser_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <HorizontalScrollView
+        android:id="@+id/shadow_colors"
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_above="@id/textscrollview"
+        android:background="@color/bar_bg"
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40.0dip"
+            android:background="#00ffffff"
+            android:orientation="horizontal">
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/shadow_color1"
+                android:layout_width="40.0dip"
+                android:layout_height="fill_parent"
+                android:background="#00ffffff"
+                android:onClick="applyShadowColor"
+                android:scaleType="centerInside"
+                app:cb_color="#ff4caf50" />
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/shadow_color2"
+                android:layout_width="40.0dip"
+                android:layout_height="fill_parent"
+                android:background="#00ffffff"
+                android:onClick="applyShadowColor"
+                android:scaleType="centerInside"
+                app:cb_color="#ff2196f3" />
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:id="@+id/textcolorscrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_above="@id/textscrollview"
+        android:background="@color/bg_color"
+        android:scrollbars="none"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40.0dip"
+            android:orientation="horizontal">
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/black"
+                android:layout_width="40.0dip"
+                android:layout_height="fill_parent"
+                android:background="#00ffffff"
+                android:onClick="onClick"
+                android:scaleType="centerInside" />
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/white"
+                android:layout_width="40.0dip"
+                android:layout_height="fill_parent"
+                android:background="#00ffffff"
+                android:onClick="onClick"
+                android:scaleType="centerInside"
+                app:cb_color="#ffffffff" />
+
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:id="@+id/textfontscrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:layout_above="@id/textscrollview"
+        android:background="@color/bar_bg"
+        android:scrollbars="none"
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="40.0dip"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/font0"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:gravity="center"
+                android:onClick="settextfont"
+                android:text="Fonts"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="20.0sp" />
+
+            <TextView
+                android:id="@+id/font1"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10.0dip"
+                android:layout_marginRight="10.0dip"
+                android:gravity="center"
+                android:onClick="settextfont"
+                android:text="Fonts"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="20.0sp" />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
+
+
+    <LinearLayout
+        android:id="@+id/bottom_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal"
+        android:weightSum="2.0">
+
+
+
+
+
+
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/text"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/text" />
+
+            <TextView
+                android:id="@+id/text_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Text"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/sticker_category"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:onClick="OnClickButtons"
+                android:scaleType="centerInside"
+                android:src="@drawable/sticker" />
+
+            <TextView
+                android:id="@+id/sticker_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Stickers"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/textscrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="50.0dip"
+        android:layout_above="@id/bottom_buttons"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal"
+        android:visibility="invisible"
+        android:weightSum="5.0">
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ImageButton
+                    android:id="@+id/text_color"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40.0dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:background="#00ffffff"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/bg_colour" />
+
+                <TextView
+                    android:id="@+id/text_color_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:text="Color"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="10.0sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ImageButton
+                    android:id="@+id/text_format"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40.0dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:background="#00ffffff"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/format" />
+
+                <TextView
+                    android:id="@+id/text_format_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:text="Format"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="10.0sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ImageButton
+                    android:id="@+id/text_font"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40.0dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:background="#00ffffff"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/font" />
+
+                <TextView
+                    android:id="@+id/text_font_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:text="Font"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="10.0sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ImageButton
+                    android:id="@+id/text_size"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40.0dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:background="#00ffffff"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/text_size" />
+
+                <TextView
+                    android:id="@+id/text_size_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:text="Text Size"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="10.0sp" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <ImageButton
+                    android:id="@+id/text_shadow"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40.0dip"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerInParent="true"
+                    android:background="#00ffffff"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/shadow" />
+
+                <TextView
+                    android:id="@+id/text_shadow_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="20.0dip"
+                    android:layout_alignParentBottom="true"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center"
+                    android:text="Shadow"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="10.0sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/textformatscrollview"
+        android:layout_width="fill_parent"
+        android:layout_height="40.0dip"
+        android:layout_above="@id/textscrollview"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal"
+        android:visibility="invisible">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40.0dip"
+            android:weightSum="5.0">
+
+            <ImageButton
+                android:id="@+id/left_Align"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="#00ffffff"
+                android:onClick="onClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/left_align" />
+
+            <ImageButton
+                android:id="@+id/center_align"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="#00ffffff"
+                android:onClick="onClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/center_align" />
+
+            <ImageButton
+                android:id="@+id/right_align"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="#00ffffff"
+                android:onClick="onClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/right_align" />
+
+            <ImageButton
+                android:id="@+id/bold"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="#00ffffff"
+                android:onClick="onClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/bold" />
+
+            <ImageButton
+                android:id="@+id/underline"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_weight="1.0"
+                android:background="#00ffffff"
+                android:onClick="onClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/underline" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/bottom_buttons"
+        android:layout_below="@id/header_layout">
+
+        <RelativeLayout
+            android:id="@+id/rootRelative"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/bg_imageView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="centerInside" />
+
+            <ImageView
+                android:id="@+id/erase_imageView"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="matrix" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/header_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:background="@color/bar_bg">
+
+
+        <RelativeLayout
+            android:id="@+id/back_layout"
+            android:layout_width="60.0dip"
+            android:layout_height="60.0dip">
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:id="@+id/back_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Back"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <TextView
+            style="@style/text_header"
+            android:layout_centerInParent="true"
+            android:text="Add Text" />
+
+        <RelativeLayout
+            android:id="@+id/flip_layout"
+            android:layout_width="60.0dip"
+            android:layout_height="60.0dip"
+            android:layout_alignParentRight="true">
+
+            <ImageButton
+                android:id="@+id/flip"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:padding="5.0dip"
+                android:scaleType="centerInside"
+                android:src="@drawable/done" />
+
+            <TextView
+                android:id="@+id/flip_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Done"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Category_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/bottom_buttons"
+        android:layout_below="@id/header_layout"
+        android:background="@color/bg_color">
+
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:numColumns="4" />
+
+        <LinearLayout
+            android:id="@+id/inbuilt_images"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#00ffffff"
+            android:orientation="horizontal"
+            android:weightSum="4.0">
+
+            <ImageButton
+                android:id="@+id/first"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_margin="2.0dip"
+                android:layout_weight="1.0"
+                android:background="#00ffffff"
+                android:onClick="SelectImageFromDrawable"
+                android:scaleType="centerInside"
+                android:tag="1" />
+
+            <ImageButton
+                android:id="@+id/second"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_margin="2.0dip"
+                android:layout_weight="1.0"
+                android:background="#00ffffff"
+                android:onClick="SelectImageFromDrawable"
+                android:scaleType="centerInside"
+                android:tag="2" />
+
+            <ImageButton
+                android:id="@+id/third"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_margin="2.0dip"
+                android:layout_weight="1.0"
+                android:background="#00ffffff"
+                android:onClick="SelectImageFromDrawable"
+                android:scaleType="centerInside"
+                android:tag="3" />
+
+            <ImageButton
+                android:id="@+id/fourth"
+                android:layout_width="0.0dip"
+                android:layout_height="fill_parent"
+                android:layout_margin="2.0dip"
+                android:layout_weight="1.0"
+                android:background="#00ffffff"
+                android:onClick="SelectImageFromDrawable"
+                android:scaleType="centerInside"
+                android:tag="4" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+
+    <SeekBar
+        android:id="@+id/textsizeseekbar"
+        android:layout_width="fill_parent"
+        android:layout_height="30.0dip"
+        android:layout_above="@id/textscrollview"
+        android:layout_marginBottom="4.0dip"
+        android:background="@color/bar_bg"
+        android:max="200"
+        android:progress="10"
+        android:visibility="invisible" />
+
+    <SeekBar
+        android:id="@+id/textshadowseekbar"
+        android:layout_width="fill_parent"
+        android:layout_height="30.0dip"
+        android:layout_above="@+id/textcolorscrollview"
+        android:layout_marginBottom="4.0dip"
+        android:background="@color/bar_bg"
+        android:max="20"
+        android:progress="5"
+        android:visibility="invisible" />
+</RelativeLayout>

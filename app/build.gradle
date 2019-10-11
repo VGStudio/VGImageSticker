@@ -62,4 +62,6 @@ dependencies {
     //blur
     implementation 'com.github.Commit451:NativeStackBlur:1.0.5'
 
+    implementation 'com.github.markushi:circlebutton:1.1'
+
 }
