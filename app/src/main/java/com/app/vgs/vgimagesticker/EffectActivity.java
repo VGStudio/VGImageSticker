@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.app.vgs.vgimagesticker.adapter.EffectAdapter;
 import com.app.vgs.vgimagesticker.utils.BitmapUtils;
+import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.utils.NetworkUtils;
@@ -104,7 +105,8 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
 
     private void fillData() {
         try {
-            mBitmapInput = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3);
+            String fInputPath = getIntent().getStringExtra(MainActionActivity.KEY_IMAGE_PATH_UPDATE);
+            mBitmapInput = BitmapFactory.decodeFile(fInputPath);
 
             if (mBitmapInput != null) {
                 mIvPreview.setImageBitmap(mBitmapInput);
@@ -142,7 +144,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
 
     @Override
     public void setShowInterstitial() {
-        mShowInterstitial = true;
+        mShowInterstitial = false;
     }
 
     @Override
@@ -335,7 +337,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
                 return;
             }
             Bitmap bitmap = BitmapUtils.convertDrawable2Bitmap(drawable);
-            File fTemp = FileUtils.saveBitmapToFile(bitmap, "temp", "temp.png");
+            File fTemp = FileUtils.saveBitmapToFile(bitmap, Const.TEMP_FOLDER, Const.TEMP_IMAGE_FILE);
             mFileSavedpath = fTemp.getAbsolutePath();
             LogUtils.d("path:" + mFileSavedpath);
         } catch (Exception exp) {
@@ -415,9 +417,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
     }
 
     public void yesExitClick(View view) {
-        if (!showInterstitial()) {
-            goBackMainActionCategory();
-        }
+        goBackMainActionCategory();
     }
 
     @Override
@@ -516,7 +516,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
 
         @Override
         protected void onPreExecute() {
-            pd = ProgressDialog.show(context, "Please wait", "Image is saving");
+            pd = ProgressDialog.show(context, getResources().getString(R.string.please_wait), getResources().getString(R.string.image_saving));
             super.onPreExecute();
         }
 
@@ -524,9 +524,7 @@ public class EffectActivity extends BaseActivity implements EffectAdapter.Effect
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             pd.dismiss();
-            if (!showInterstitial()) {
-                goBackMainActionCategory();
-            }
+            goBackMainActionCategory();
         }
     }
 

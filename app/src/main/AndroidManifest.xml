@@ -30,6 +30,7 @@
         <activity android:name=".BlurActivity">
 
         </activity>
+        <activity android:name=".BgEraserActivity"/>
         <activity android:name=".FrameActivity" />
 
         <activity

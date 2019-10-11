@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.utils.NetworkUtils;
@@ -42,14 +43,15 @@ public class BlurActivity extends BaseActivity {
 
     @Override
     public void setShowInterstitial() {
-        mShowInterstitial = true;
+        mShowInterstitial = false;
     }
 
 
     private void initData() {
+        mFileSavedpath = getIntent().getStringExtra(MainActionActivity.KEY_IMAGE_PATH_UPDATE);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inMutable = true;
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3, options);
+        Bitmap bitmap = BitmapFactory.decodeFile(mFileSavedpath, options);
         mDrawingView.setBitmap(bitmap);
     }
 
@@ -112,12 +114,9 @@ public class BlurActivity extends BaseActivity {
     public void onSaveClick(View view){
         try {
             Bitmap bitmap = mDrawingView.getBitmap();
-            File fTemp = FileUtils.saveBitmapToFile(bitmap, "temp", "temp3.png");
+            File fTemp = FileUtils.saveBitmapToFile(bitmap, Const.TEMP_FOLDER, Const.TEMP_IMAGE_FILE);
             mFileSavedpath = fTemp.getAbsolutePath();
-            if (!showInterstitial()) {
-                goBackMainActionCategory();
-            }
-            LogUtils.d(mFileSavedpath);
+            goBackMainActionCategory();
         }catch (Exception exp){
             LogUtils.e(exp);
         }
@@ -139,9 +138,7 @@ public class BlurActivity extends BaseActivity {
     }
 
     public void yesExitClick(View view) {
-        if (!showInterstitial()) {
-            goBackMainActionCategory();
-        }
+        goBackMainActionCategory();
     }
 
 

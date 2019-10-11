@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,11 +9,12 @@
 
 
     <LinearLayout
-        android:id="@+id/Header_Layout"
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="50.0dip"
         android:background="@color/bar_bg"
         android:orientation="horizontal"
+        android:layout_alignParentTop="true"
         android:weightSum="4.0">
 
         <Button
@@ -59,9 +60,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
+        android:layout_below="@id/header"
         android:adjustViewBounds="true"
         android:background="#00ffffff"
         android:scaleType="centerInside" />
 
+    <include layout="@layout/layout_confirm_exit" android:layout_centerInParent="true" />
 
-</LinearLayout>
+
+</RelativeLayout>

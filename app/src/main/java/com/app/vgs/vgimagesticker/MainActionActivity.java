@@ -4,11 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageButton;
@@ -23,7 +19,6 @@ import com.app.vgs.vgimagesticker.vo.StickerGroup;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
-import java.net.URI;
 import java.util.List;
 
 public class MainActionActivity extends BaseActivity {
@@ -64,6 +59,13 @@ public class MainActionActivity extends BaseActivity {
 
     private String mImagePath = "";
 
+    private enum GoTo{
+        None,
+        MainActivity;
+    }
+
+    private GoTo mGoto = GoTo.None;
+
 
 
     @Override
@@ -79,18 +81,19 @@ public class MainActionActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         try {
-            if(requestCode == EDIT_IMAGE_CODE && resultCode == Activity.RESULT_OK){
-                if(data.getExtras().containsKey(KEY_IMAGE_PATH_UPDATE)){
-                    mImagePath = data.getStringExtra(KEY_IMAGE_PATH_UPDATE);
-                    Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
-
-                    mIvPreview.setImageBitmap(bitmap);
+            if(requestCode == EDIT_IMAGE_CODE){
+                if(resultCode == Activity.RESULT_OK && data.getExtras().containsKey(KEY_IMAGE_PATH_UPDATE)){
+                    fillImageForPreview(data);
+//                    mImagePath = data.getStringExtra(KEY_IMAGE_PATH_UPDATE);
+//                    Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
+//                    mIvPreview.setImageBitmap(bitmap);
                 }
+
             }
+            showInterstitial();
         }catch (Exception exp){
             LogUtils.e(exp);
         }
-
     }
 
     private void initView() {
@@ -118,6 +121,7 @@ public class MainActionActivity extends BaseActivity {
     private void initData() {
         try {
             initAds();
+            fillImageForPreview(getIntent());
             fillDataForStickerGroup();
             fillDataForFrameGroup();
 
@@ -125,7 +129,19 @@ public class MainActionActivity extends BaseActivity {
             LogUtils.e(exp);
         }
 
-        clickSave();
+        setEventListener();
+    }
+
+    private void fillImageForPreview(Intent intent){
+        try {
+            mImagePath = intent.getStringExtra(KEY_IMAGE_PATH_UPDATE);
+            if(mImagePath != null && mImagePath.trim().length() > 0){
+                Bitmap bitmap = BitmapFactory.decodeFile(mImagePath);
+                mIvPreview.setImageBitmap(bitmap);
+            }
+        }catch (Exception exp){
+            LogUtils.e(exp);
+        }
     }
 
     private void fillDataForStickerGroup(){
@@ -173,8 +189,8 @@ public class MainActionActivity extends BaseActivity {
     }
 
 
-    public void openStickerActivityClick(View view){
-        openStickerActivity();
+    public void openEffectActivityClick(View view){
+        openEffectActivity();
     }
     public void stickerGroup1Click(View view){
         openStickerActivity(mStickerGroup1.getId());
@@ -193,28 +209,60 @@ public class MainActionActivity extends BaseActivity {
         openFrameActivity(mFrameGroup2.getId());
     }
 
+    public void blurClick(View view){
+        openBlurActivity();
+    }
+
+    public void bgEraserClick(View view){
+        openBgEraserActivity();
+    }
+
     private void openStickerActivity(String groupId){
         Intent intent = new Intent(this, StickerActivity.class);
+        intent.putExtra(KEY_IMAGE_PATH_UPDATE, mImagePath);
         intent.putExtra(StickerActivity.KEY_GROUP_STICKER_ID, groupId);
         startActivityForResult(intent, EDIT_IMAGE_CODE);
     }
 
     private void openFrameActivity(String groupId){
         Intent intent = new Intent(this, FrameActivity.class);
+        intent.putExtra(KEY_IMAGE_PATH_UPDATE, mImagePath);
         intent.putExtra(FrameActivity.KEY_FRAME_GROUP_ID, groupId);
         startActivityForResult(intent, EDIT_IMAGE_CODE);
     }
 
-    private void openStickerActivity(){
+    private void openEffectActivity(){
         Intent intent = new Intent(this, EffectActivity.class);
-        //intent.putExtra(FrameActivity.KEY_FRAME_GROUP_ID, groupId);
+        intent.putExtra(KEY_IMAGE_PATH_UPDATE, mImagePath);
         startActivityForResult(intent, EDIT_IMAGE_CODE);
     }
+
+    private void openBlurActivity(){
+        Intent intent = new Intent(this, BlurActivity.class);
+        intent.putExtra(KEY_IMAGE_PATH_UPDATE, mImagePath);
+        startActivityForResult(intent, EDIT_IMAGE_CODE);
+    }
+
+    private void openBgEraserActivity(){
+        Intent intent = new Intent(this, BgEraserActivity.class);
+        intent.putExtra(KEY_IMAGE_PATH_UPDATE, mImagePath);
+        startActivityForResult(intent, EDIT_IMAGE_CODE);
+    }
+
+
+
 
 
     @Override
     public void setShowInterstitial() {
         mShowInterstitial = true;
+    }
+
+    @Override
+    public void closeInterstitial() {
+        if(mGoto ==  GoTo.MainActivity){
+            finish();
+        }
     }
 
     private void initAds(){
@@ -227,6 +275,7 @@ public class MainActionActivity extends BaseActivity {
         hideExitPop();
     }
     public void yesExitClick(View view){
+        mGoto = GoTo.MainActivity;
         if(!showInterstitial()){
             finish();
         }
@@ -251,7 +300,7 @@ public class MainActionActivity extends BaseActivity {
     }
 
     //click Save
-    private void clickSave(){
+    private void setEventListener(){
         imgSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -262,9 +311,8 @@ public class MainActionActivity extends BaseActivity {
         });
     }
 
-    public void closeInterstitial() {
-        finish();
-    }
+
+
 
     @Override
     public void onBackPressed() {

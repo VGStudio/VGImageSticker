@@ -17,8 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="0.0dip"
             android:layout_weight="8.1"
-            android:adjustViewBounds="true"
-            android:src="@drawable/gai_xinh3" />
+            android:adjustViewBounds="true" />
 
 
         <LinearLayout
@@ -127,7 +126,7 @@
                 <ImageButton
                     android:id="@+id/background_changer"
                     style="@style/button_edit_action"
-                    android:onClick="onClickCategories"
+                    android:onClick="bgEraserClick"
                     android:src="@drawable/bg_eraser" />
 
                 <TextView
@@ -149,7 +148,7 @@
                 <ImageButton
                     android:id="@+id/effects"
                     style="@style/button_edit_action"
-                    android:onClick="openStickerActivityClick"
+                    android:onClick="openEffectActivityClick"
                     android:src="@drawable/effect" />
 
                 <TextView
@@ -178,7 +177,7 @@
                 <ImageButton
                     android:id="@+id/blur_activity"
                     style="@style/button_edit_action"
-                    android:onClick="onClickCategories"
+                    android:onClick="blurClick"
                     android:src="@drawable/blur" />
 
                 <TextView

@@ -118,13 +118,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public abstract void setShowInterstitial();
     public void closeInterstitial(){
-        startActivity(new Intent(this,ShareActivity.class));
-        startActivity(new Intent(this,CropImageActivity.class));
-        startActivity(new Intent(this,EffectActivity.class));
-        startActivity(new Intent(this,FrameActivity.class));
-        startActivity(new Intent(this,MainActionActivity.class));
-        startActivity(new Intent(this,ReferencesActivity.class));
-        startActivity(new Intent(this,StickerActivity.class));
+//        startActivity(new Intent(this,ShareActivity.class));
+//        startActivity(new Intent(this,CropImageActivity.class));
+//        startActivity(new Intent(this,EffectActivity.class));
+//        startActivity(new Intent(this,FrameActivity.class));
+//        startActivity(new Intent(this,MainActionActivity.class));
+//        startActivity(new Intent(this,ReferencesActivity.class));
+//        startActivity(new Intent(this,StickerActivity.class));
     }
 
 }

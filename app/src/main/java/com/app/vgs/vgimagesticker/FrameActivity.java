@@ -7,11 +7,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Matrix;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +23,7 @@ import android.widget.TextView;
 
 import com.app.vgs.vgimagesticker.adapter.FrameAdapter;
 import com.app.vgs.vgimagesticker.events.TouchImageForDrapRotateZoomEvent;
+import com.app.vgs.vgimagesticker.utils.BitmapUtils;
 import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
@@ -37,7 +33,6 @@ import com.app.vgs.vgimagesticker.vo.FrameGroup;
 import com.app.vgs.vgimagesticker.vo.FrameSubGroup;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.xiaopo.flying.sticker.DrawableSticker;
 
 import java.io.File;
 import java.util.List;
@@ -72,7 +67,7 @@ public class FrameActivity extends BaseActivity {
 
     @Override
     public void setShowInterstitial() {
-        mShowInterstitial = true;
+        mShowInterstitial = false;
     }
 
     @Override
@@ -84,6 +79,28 @@ public class FrameActivity extends BaseActivity {
         initAds();
         mFrameGroupId = getIntent().getStringExtra(KEY_FRAME_GROUP_ID);
         mLstFrameGroup = JsonUtils.getFrameGroupFromJsonData(this, Const.FRAME_DATA_FILE_PATH);
+
+        mFileSavedpath = getIntent().getStringExtra(MainActionActivity.KEY_IMAGE_PATH_UPDATE);
+        if(mFileSavedpath != null){
+            mIvPreview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if (Build.VERSION.SDK_INT >= 16) {
+                        mIvPreview.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    } else {
+                        mIvPreview.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    }
+
+                    int width = mRlPreview.getWidth();
+                    int height = mRlPreview.getHeight();
+                    Bitmap bitmap = BitmapFactory.decodeFile(mFileSavedpath);
+                    bitmap = BitmapUtils.resizeBitmap(bitmap, width, height);
+                    mIvPreview.setImageBitmap(bitmap);
+                    mIvPreview.invalidate();
+                }
+            });
+
+        }
     }
 
     private void initAds() {
@@ -103,50 +120,6 @@ public class FrameActivity extends BaseActivity {
         mIvFrame = findViewById(R.id.ivFrame);
         mRlPreview = findViewById(R.id.rlPreview);
 
-
-
-        mIvPreview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                try {
-                    if (Build.VERSION.SDK_INT >= 16) {
-                        mIvPreview.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    } else {
-                        mIvPreview.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                    }
-
-                    Drawable drawable = mIvPreview.getDrawable();
-                    Rect rectDrawable = drawable.getBounds();
-
-                    int drawableWidth = rectDrawable.width();
-                    int drawableHeight = rectDrawable.height();
-                    int imageViewWidth = mIvPreview.getMeasuredWidth();
-                    int imageViewHeight = mIvPreview.getMeasuredHeight();
-
-                    float scaleRatio = calScaleRationForImage(imageViewWidth, imageViewHeight, drawableWidth, drawableHeight);
-
-
-                    float centerX = drawableWidth / 2F;
-                    float centerY = drawableHeight / 2F;
-
-                    float leftOffset = (mIvPreview.getMeasuredWidth() - rectDrawable.width()) / 2f;
-                    float topOffset = (mIvPreview.getMeasuredHeight() - rectDrawable.height()) / 2f;
-
-                    Matrix matrix = mIvPreview.getImageMatrix();
-                    matrix.postScale(scaleRatio, scaleRatio, centerX, centerY);
-                    matrix.postTranslate(leftOffset, topOffset);
-                    mIvPreview.setImageMatrix(matrix);
-                    mIvPreview.invalidate();
-                } catch (Exception exp) {
-                    LogUtils.e(exp);
-                }
-
-            }
-        });
-
-        //calImagePreviewSize();
-
-
         mIvPreview.setOnTouchListener(new TouchImageForDrapRotateZoomEvent());
 
 
@@ -154,33 +127,7 @@ public class FrameActivity extends BaseActivity {
 
 
 
-    private float calScaleRationForImage(int imageViewWidth, int imageViewHeight, int drawableWidth, int drawableHeight) {
-        float scaleRatio = 1;
-        try {
-            if (drawableWidth > drawableHeight) {
-                scaleRatio = ((float) imageViewWidth) / ((float) drawableWidth);
-                // neu drawableHeight * scale > imageViewHeight, tinh lai scale theo height
-                if (drawableHeight * scaleRatio > imageViewHeight) {
-                    float scaleRation2 = ((float) imageViewHeight) / ((float) (drawableHeight * scaleRatio));
-                    scaleRatio = scaleRation2 * scaleRatio;
 
-                }
-
-            } else {
-                scaleRatio = ((float) imageViewHeight) / ((float) drawableHeight);
-                // neu drawableWidth * scale > imageViewWidth, tinh lai scale theo width
-                if (drawableWidth * scaleRatio > imageViewWidth) {
-                    float scaleRation2 = ((float) imageViewWidth) / ((float) (drawableWidth * scaleRatio));
-                    scaleRatio = scaleRation2 * scaleRatio;
-
-                }
-            }
-        } catch (Exception exp) {
-            LogUtils.e(exp);
-        }
-        return scaleRatio;
-
-    }
 
 
     private void goBackMainActionCategory() {
@@ -325,9 +272,7 @@ public class FrameActivity extends BaseActivity {
     }
 
     public void yesExitClick(View view) {
-        if (!showInterstitial()) {
-            goBackMainActionCategory();
-        }
+        goBackMainActionCategory();
     }
 
     @Override
@@ -371,9 +316,7 @@ public class FrameActivity extends BaseActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             pd.dismiss();
-            if (!showInterstitial()) {
-                goBackMainActionCategory();
-            }
+            goBackMainActionCategory();
         }
     }
 

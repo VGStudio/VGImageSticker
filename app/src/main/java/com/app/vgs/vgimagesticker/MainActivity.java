@@ -61,8 +61,20 @@ public class MainActivity extends BaseActivity {
 
     public static final int REQUEST_IMAGE_FROM_GALLERY = 10001;
     public static final int REQUEST_IMAGE_FROM_CAMERA = 10002;
+    public static final int REQUEST_CROP_IMAGE = 10003;
 
     List<MoreAppGroup> mLstMoreAppGroup;
+
+    public static final String KEY_IMAGE_PATH_UPDATE = "KEY_IMAGE_PATH_UPDATE";
+
+    private enum GoTo{
+        None,
+        MainActionActivity
+    }
+
+    private GoTo mGoTo = GoTo.None;
+    private String mFileSavedPath = "";
+
 
 
 
@@ -191,7 +203,6 @@ public class MainActivity extends BaseActivity {
                     mViewFlipper.showNext();
             }
         });
-        Log.d("","");
 
         AdLoader adLoader = builder.build();
         adLoader.loadAd(new AdRequest.Builder().build());
@@ -225,7 +236,6 @@ public class MainActivity extends BaseActivity {
                 }
             } else if (requestCode == REQUEST_IMAGE_FROM_CAMERA) {
                 if (resultCode == RESULT_OK) {
-                    Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                     final Uri selectedUri = data.getData();
                     if (selectedUri != null) {
                         //startCrop(selectedUri);
@@ -234,16 +244,32 @@ public class MainActivity extends BaseActivity {
                         Toast.makeText(this, R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
                     }
                 }
+            }else if(requestCode == REQUEST_CROP_IMAGE){
+                if(resultCode == RESULT_OK){
+                    mFileSavedPath = data.getStringExtra(KEY_IMAGE_PATH_UPDATE);
+                    mGoTo = GoTo.MainActionActivity;
+                    if (!showInterstitial()) {
+                        openMainActionActivity(mFileSavedPath);
+                    }
+                }
             }
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
+    private void openMainActionActivity(String fPath){
+        Intent intent = new Intent(this, MainActionActivity.class);
+        intent.putExtra(MainActionActivity.KEY_IMAGE_PATH_UPDATE, fPath);
+        startActivity(intent);
+    }
+
+
     private void openCropImageActivity(@NonNull  Uri imageSelectedUri){
         Intent intent = new Intent(this, CropImageActivity.class);
         intent.putExtra(CropImageActivity.IMAGE_SELECTED_URI, imageSelectedUri.toString());
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CROP_IMAGE);
+
     }
 
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -292,11 +318,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setShowInterstitial() {
-        mShowInterstitial = false;
+        mShowInterstitial = true;
     }
 
     @Override
     public void closeInterstitial() {
+        if(mGoTo == GoTo.MainActionActivity){
+            openMainActionActivity(mFileSavedPath);
+        }
     }
 
     //Chuyển tới list ảnh

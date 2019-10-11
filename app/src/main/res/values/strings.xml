@@ -53,4 +53,6 @@
     <string name="brush_size">Brush Size</string>
     <string name="zoom">Zoom</string>
     <string name="offset">Offset</string>
+    <string name="please_wait">Please wait</string>
+    <string name="image_saving">Image is saving</string>
 </resources>

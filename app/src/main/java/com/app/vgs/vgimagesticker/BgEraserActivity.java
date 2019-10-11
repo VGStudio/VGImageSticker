@@ -15,6 +15,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.alexvasilkov.gestures.views.GestureFrameLayout;
+import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.utils.NetworkUtils;
@@ -51,7 +52,7 @@ public class BgEraserActivity extends BaseActivity {
 
     @Override
     public void setShowInterstitial() {
-        mShowInterstitial = true;
+        mShowInterstitial = false;
     }
 
     private void setListener() {
@@ -75,10 +76,12 @@ public class BgEraserActivity extends BaseActivity {
     }
 
     private void initData() {
+        mFileSavedpath = getIntent().getStringExtra(MainActionActivity.KEY_IMAGE_PATH_UPDATE);
+
         mDrawView.setButtons(mUndo, mRedo);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inMutable = true;
-        mBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.gai_xinh3, options);
+        mBitmap = BitmapFactory.decodeFile(mFileSavedpath, options);
         mDrawView.setBitmap(mBitmap);
     }
 
@@ -177,20 +180,16 @@ public class BgEraserActivity extends BaseActivity {
     }
 
     public void yesExitClick(View view) {
-        if (!showInterstitial()) {
-            goBackMainActionCategory();
-        }
+        goBackMainActionCategory();
     }
 
     public void onSaveClick(View view){
         try {
 
             Bitmap bitmap = mDrawView.getDrawingCache();
-            File fTemp = FileUtils.saveBitmapToFile(bitmap, "temp", "temp3.png");
+            File fTemp = FileUtils.saveBitmapToFile(bitmap, Const.TEMP_FOLDER, Const.TEMP_IMAGE_FILE);
             mFileSavedpath = fTemp.getAbsolutePath();
-            if (!showInterstitial()) {
-                goBackMainActionCategory();
-            }
+            goBackMainActionCategory();
             LogUtils.d(mFileSavedpath);
         }catch (Exception exp){
             LogUtils.e(exp);

@@ -11,11 +11,12 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
@@ -27,6 +28,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.app.vgs.vgimagesticker.adapter.StickerAdapter;
+import com.app.vgs.vgimagesticker.utils.BitmapUtils;
 import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
@@ -67,6 +69,7 @@ public class StickerActivity extends BaseActivity {
     View mExitPopUp;
     AdView mBannerAdView;
     View mRlColorFilter;
+    RelativeLayout mRlStickerLayout;
 
     View.OnClickListener onColorFilterClick = new View.OnClickListener() {
         @Override
@@ -107,6 +110,29 @@ public class StickerActivity extends BaseActivity {
     private void initData() {
         initAds();
         mStickerId = getIntent().getStringExtra(KEY_GROUP_STICKER_ID);
+        mFileSavedpath = getIntent().getStringExtra(MainActionActivity.KEY_IMAGE_PATH_UPDATE);
+        if(mFileSavedpath != null){
+            mIvPreview.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                @Override
+                public void onGlobalLayout() {
+                    if (Build.VERSION.SDK_INT >= 16) {
+                        mIvPreview.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    } else {
+                        mIvPreview.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                    }
+
+                    int width = mRlStickerLayout.getWidth();
+                    int height = mRlStickerLayout.getHeight();
+                    Bitmap bitmap = BitmapFactory.decodeFile(mFileSavedpath);
+                    bitmap = BitmapUtils.resizeBitmap(bitmap, width, height);
+                    mIvPreview.setImageBitmap(bitmap);
+                    mIvPreview.invalidate();
+                }
+            });
+
+        }
+
+
         mLstStickerGroup = JsonUtils.getStickerGroupFromJsonData(this, Const.STICKER_DATA_FILE_PATH);
         mColorListForFilter = JsonUtils.getColorListFromJson(this);
         initColorFilterView();
@@ -131,13 +157,13 @@ public class StickerActivity extends BaseActivity {
         mBannerAdView = findViewById(R.id.bannerAdView);
         mIvPreview = findViewById(R.id.ivPreview);
         mRlColorFilter = findViewById(R.id.rlColorFilter);
+        mRlStickerLayout = findViewById(R.id.rlStickerLayout);
 
 
 
         mIvPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LogUtils.d("Image click");
                 hideEditSticker();
 
             }
@@ -209,6 +235,8 @@ public class StickerActivity extends BaseActivity {
         }
         finish();
     }
+
+
 
 
     private void initStickerView() {
@@ -434,9 +462,16 @@ public class StickerActivity extends BaseActivity {
 
     private void saveFile(){
         try {
+
+
+
+
             File fTemp = FileUtils.createEmptyFile(this);
+            //Bitmap bitmap = mStickerView.getDrawingCache();
+            //File fTemp = FileUtils.saveBitmapToFile(bitmap, Const.TEMP_FOLDER, Const.TEMP_IMAGE_FILE);
             mStickerView.save(fTemp);
             mFileSavedpath = fTemp.getAbsolutePath();
+
         }catch (Exception exp){
             LogUtils.e(exp);
         }
@@ -448,9 +483,7 @@ public class StickerActivity extends BaseActivity {
     }
 
     public void yesExitClick(View view){
-        if(!showInterstitial()){
-            goBackMainActionCategory();
-        }
+        goBackMainActionCategory();
     }
 
     @Override
@@ -498,7 +531,7 @@ public class StickerActivity extends BaseActivity {
 
         @Override
         protected void onPreExecute() {
-            pd = ProgressDialog.show(context, "Please wait", "Image is processing");
+            pd = ProgressDialog.show(context, getResources().getString(R.string.please_wait), getResources().getString(R.string.image_saving));
             super.onPreExecute();
         }
 
@@ -506,9 +539,7 @@ public class StickerActivity extends BaseActivity {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             pd.dismiss();
-            if(!showInterstitial()){
-                goBackMainActionCategory();
-            }
+            goBackMainActionCategory();
         }
     }
 }

@@ -7,9 +7,9 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 
-class BitmapUtility {
+public class BitmapUtility {
 
-    static Bitmap getResizedBitmap(Bitmap bitmap, int width, int height) {
+    public static Bitmap getResizedBitmap(Bitmap bitmap, int width, int height) {
         Bitmap background = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
         float originalWidth = bitmap.getWidth();
@@ -33,6 +33,17 @@ class BitmapUtility {
 
         return background;
     }
+
+    public static Bitmap resizeBitmap(Bitmap imageBitmap, int width, int height) {
+        if (width > 0 && height > 0 && imageBitmap != null) {
+            imageBitmap = BitmapUtility.getResizedBitmap(imageBitmap, width, height);
+            imageBitmap.setHasAlpha(true);
+            return imageBitmap;
+        }
+        return  null;
+    }
+
+
 
     static Bitmap getBorderedBitmap(Bitmap image, int borderColor, int borderSize) {
 

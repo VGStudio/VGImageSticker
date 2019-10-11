@@ -310,4 +310,43 @@ public class BitmapUtils {
         }
         return null;
     }
+
+    public static Bitmap resizeBitmap(@NonNull Bitmap bitmap, int viewWidth, int viewHeight) {
+        try {
+            float rattion = calScaleRationForDrawable(viewWidth, viewHeight, bitmap.getWidth(), bitmap.getHeight());
+            Bitmap rtnBitmap = Bitmap.createScaledBitmap(bitmap, (int) (bitmap.getWidth() * rattion), (int) (bitmap.getHeight() * rattion), true);
+            return rtnBitmap;
+        } catch (Exception exp) {
+            LogUtils.e(exp);
+            return null;
+        }
+    }
+
+    public  static float calScaleRationForDrawable(int imageViewWidth, int imageViewHeight, int drawableWidth, int drawableHeight) {
+        float scaleRatio = 1;
+        try {
+            if (drawableWidth > drawableHeight) {
+                scaleRatio = ((float) imageViewWidth) / ((float) drawableWidth);
+                // neu drawableHeight * scale > imageViewHeight, tinh lai scale theo height
+                if (drawableHeight * scaleRatio > imageViewHeight) {
+                    float scaleRation2 = ((float) imageViewHeight) / ((float) (drawableHeight * scaleRatio));
+                    scaleRatio = scaleRation2 * scaleRatio;
+
+                }
+
+            } else {
+                scaleRatio = ((float) imageViewHeight) / ((float) drawableHeight);
+                // neu drawableWidth * scale > imageViewWidth, tinh lai scale theo width
+                if (drawableWidth * scaleRatio > imageViewWidth) {
+                    float scaleRation2 = ((float) imageViewWidth) / ((float) (drawableWidth * scaleRatio));
+                    scaleRatio = scaleRation2 * scaleRatio;
+
+                }
+            }
+        } catch (Exception exp) {
+            LogUtils.e(exp);
+        }
+        return scaleRatio;
+
+    }
 }
