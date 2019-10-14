@@ -226,9 +226,25 @@ public class JsonUtils {
     }
 
     public static List<String> getColorListFromJson(Context context){
+//        List<String> lstRtn = new ArrayList<>();
+//        try {
+//            String jsonData = loadJsonFromAsset(context, "color/data.json");
+//            JSONArray jsonArray = new JSONArray(jsonData);
+//            for(int i=0; i< jsonArray.length(); i++){
+//                lstRtn.add(jsonArray.get(i).toString());
+//            }
+//        }catch (Exception exp){
+//            LogUtils.e(exp);
+//        }
+//        return lstRtn;
+
+        return getColorListFromJson(context, "color/data.json");
+    }
+
+    public static List<String> getColorListFromJson(Context context, String path){
         List<String> lstRtn = new ArrayList<>();
         try {
-            String jsonData = loadJsonFromAsset(context, "color/data.json");
+            String jsonData = loadJsonFromAsset(context, path);
             JSONArray jsonArray = new JSONArray(jsonData);
             for(int i=0; i< jsonArray.length(); i++){
                 lstRtn.add(jsonArray.get(i).toString());

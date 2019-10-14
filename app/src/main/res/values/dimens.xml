@@ -6,5 +6,6 @@
 <dimen name="bottom_height">60.0dip</dimen>
 <dimen name="bottom_image_height">50.0dip</dimen>
 <dimen name="size_50dip">50.0dip</dimen>
+    <dimen name="size_40dip">40.0dip</dimen>
 <dimen name="size_4dip">1.0dip</dimen>
 </resources>
