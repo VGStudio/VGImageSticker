@@ -12,4 +12,6 @@ public class Const {
     public static String TEMP_IMAGE_FILE = "temp3.png";
 
     public static final String TEXT_COLOR_LIST_DATA_PATH  = "color/text_color.json";
+
+    public static final String FONTS_FOLDER_PATH = "fonts";
 }

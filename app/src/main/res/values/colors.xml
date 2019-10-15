@@ -14,5 +14,6 @@
     <color name="white_color">#ffffffff</color>
     <color name="transparent_white">#b5ffffff</color>
     <color name="effect_selected">#ff212121</color>
+    <color name="unselected">#ff999999</color>
 
 </resources>

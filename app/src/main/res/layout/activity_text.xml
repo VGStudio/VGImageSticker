@@ -151,79 +151,17 @@
         android:layout_above="@id/llEditText"
         android:background="@color/bg_color"
         android:scrollbars="none"
-        android:visibility="visible">
-
-        <!--
-
-        <LinearLayout
-            android:id="@+id/llTextColor"
-            android:layout_width="wrap_content"
-            android:layout_height="40.0dip"
-            android:orientation="horizontal">
-
-            <at.markushi.ui.CircleButton
-                android:id="@+id/black"
-                android:layout_width="40.0dip"
-                android:layout_height="fill_parent"
-                android:background="#00ffffff"
-                android:onClick="onClick"
-                android:scaleType="centerInside" />
-
-            <at.markushi.ui.CircleButton
-                android:id="@+id/white"
-                android:layout_width="40.0dip"
-                android:layout_height="fill_parent"
-                android:background="#00ffffff"
-                android:onClick="onClick"
-                android:scaleType="centerInside"
-                app:cb_color="#ffffffff" />
-
-
-        </LinearLayout>
-        -->
-    </HorizontalScrollView>
+        android:visibility="gone" />
 
     <!-- text font -->
     <HorizontalScrollView
-        android:id="@+id/textfontscrollview"
+        android:id="@+id/hrTextFont"
         android:layout_width="fill_parent"
-        android:layout_height="50.0dip"
+        android:layout_height="40.0dip"
         android:layout_above="@id/llEditText"
-        android:background="@color/bar_bg"
+        android:background="@color/bg_color"
         android:scrollbars="none"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="40.0dip"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/font0"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="10.0dip"
-                android:layout_marginRight="10.0dip"
-                android:gravity="center"
-                android:onClick="settextfont"
-                android:text="Fonts"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="20.0sp" />
-
-            <TextView
-                android:id="@+id/font1"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginLeft="10.0dip"
-                android:layout_marginRight="10.0dip"
-                android:gravity="center"
-                android:onClick="settextfont"
-                android:text="Fonts"
-                android:textColor="@color/colourBgAndSelected"
-                android:textSize="20.0sp" />
-
-        </LinearLayout>
-    </HorizontalScrollView>
+        android:visibility="gone" />
 
 
 
@@ -236,72 +174,42 @@
         android:layout_width="fill_parent"
         android:layout_height="40.0dip"
         android:layout_above="@id/llEditText"
-        android:background="@color/bar_bg"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:background="@color/bg_color"
+        android:visibility="gone"
+        android:weightSum="5.0">
 
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="40.0dip"
-            android:weightSum="5.0">
+        <ImageButton
+            android:id="@+id/left_Align"
+            style="@style/text_format_control"
+            android:src="@drawable/left_align" />
 
-            <ImageButton
-                android:id="@+id/left_Align"
-                android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.0"
-                android:background="#00ffffff"
-                android:onClick="onClick"
-                android:scaleType="centerInside"
-                android:src="@drawable/left_align" />
+        <ImageButton
+            android:id="@+id/center_align"
+            style="@style/text_format_control"
+            android:src="@drawable/center_align" />
 
-            <ImageButton
-                android:id="@+id/center_align"
-                android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.0"
-                android:background="#00ffffff"
-                android:onClick="onClick"
-                android:scaleType="centerInside"
-                android:src="@drawable/center_align" />
+        <ImageButton
+            android:id="@+id/right_align"
+            style="@style/text_format_control"
+            android:src="@drawable/right_align" />
 
-            <ImageButton
-                android:id="@+id/right_align"
-                android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.0"
-                android:background="#00ffffff"
-                android:onClick="onClick"
-                android:scaleType="centerInside"
-                android:src="@drawable/right_align" />
+        <ImageButton
+            android:id="@+id/bold"
+            style="@style/text_format_control"
+            android:src="@drawable/bold" />
 
-            <ImageButton
-                android:id="@+id/bold"
-                android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.0"
-                android:background="#00ffffff"
-                android:onClick="onClick"
-                android:scaleType="centerInside"
-                android:src="@drawable/bold" />
-
-            <ImageButton
-                android:id="@+id/underline"
-                android:layout_width="0.0dip"
-                android:layout_height="fill_parent"
-                android:layout_weight="1.0"
-                android:background="#00ffffff"
-                android:onClick="onClick"
-                android:scaleType="centerInside"
-                android:src="@drawable/underline" />
-        </LinearLayout>
+        <ImageButton
+            android:id="@+id/underline"
+            style="@style/text_format_control"
+            android:src="@drawable/underline" />
     </LinearLayout>
 
 
 
 
+    <!--text size-->
     <SeekBar
-        android:id="@+id/textsizeseekbar"
+        android:id="@+id/skTextSize"
         android:layout_width="fill_parent"
         android:layout_height="30.0dip"
         android:layout_above="@id/llEditText"
@@ -329,178 +237,164 @@
         android:layout_width="match_parent"
         android:layout_height="50.0dip"
         android:layout_above="@id/bottom"
-        android:background="@color/bar_bg"
+        android:background="@color/button_default"
         android:orientation="horizontal"
-        android:visibility="visible"
+        android:visibility="gone"
         android:weightSum="5.0">
 
-        <LinearLayout
+
+        <!--text color-->
+        <RelativeLayout
+            android:id="@+id/rlTextColor"
             android:layout_width="0.0dip"
             android:layout_height="match_parent"
-            android:layout_weight="1.0"
-            android:orientation="vertical">
+            android:layout_weight="1.0">
 
-            <RelativeLayout
+            <ImageButton
+                android:id="@+id/ibTextColor"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="40.0dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:background="#00ffffff"
+                android:onClick="textColorListClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/bg_colour" />
 
-                <ImageButton
-                    android:id="@+id/text_color"
-                    android:layout_width="match_parent"
-                    android:layout_height="40.0dip"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"
-                    android:background="#00ffffff"
-                    android:onClick="textColorListClick"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/bg_colour" />
+            <TextView
+                android:id="@+id/tvTextColor"
+                android:layout_width="match_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Color"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/text_color_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="20.0dip"
-                    android:layout_alignParentBottom="true"
-                    android:fontFamily="@font/my_font"
-                    android:gravity="center"
-                    android:text="Color"
-                    android:textColor="@color/colourBgAndSelected"
-                    android:textSize="10.0sp" />
-            </RelativeLayout>
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/llTextEdit"
+
+        <!--text format -->
+        <RelativeLayout
             android:layout_width="0.0dip"
             android:layout_height="match_parent"
-            android:layout_weight="1.0"
-            android:visibility="visible"
-            android:orientation="vertical">
+            android:layout_weight="1.0">
 
-            <RelativeLayout
+            <ImageButton
+                android:id="@+id/ibTextFormat"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="40.0dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:background="#00ffffff"
+                android:onClick="textFormatListClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/format" />
 
-                <ImageButton
-                    android:id="@+id/text_format"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40.0dip"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"
-                    android:background="#00ffffff"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/format" />
+            <TextView
+                android:id="@+id/tvTextFormat"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:text="Format"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/text_format_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="20.0dip"
-                    android:layout_alignParentBottom="true"
-                    android:gravity="center"
-                    android:text="Format"
-                    android:textColor="@color/colourBgAndSelected"
-                    android:textSize="10.0sp" />
-            </RelativeLayout>
-        </LinearLayout>
 
-        <LinearLayout
+        <!--text font-->
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/ibTextFont"
+                android:layout_width="match_parent"
+                android:layout_height="40.0dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:background="#00ffffff"
+                android:onClick="textFontListClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/font" />
+
+            <TextView
+                android:id="@+id/tvTextFont"
+                android:layout_width="match_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Font"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
+
+
+
+        <!--text size-->
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/ibTextSize"
+                android:onClick="textSizeClick"
+                android:layout_width="fill_parent"
+                android:layout_height="40.0dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:background="#00ffffff"
+
+                android:scaleType="centerInside"
+                android:src="@drawable/text_size" />
+
+            <TextView
+                android:id="@+id/tvTextSize"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Text Size"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
+
+
+        <!--text shadow -->
+        <RelativeLayout
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:orientation="vertical">
+            android:layout_weight="1.0">
 
-            <RelativeLayout
+            <ImageButton
+                android:id="@+id/ibTextShadow"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+                android:layout_height="40.0dip"
+                android:layout_alignParentTop="true"
+                android:layout_centerInParent="true"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/shadow" />
 
-                <ImageButton
-                    android:id="@+id/text_font"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40.0dip"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"
-                    android:background="#00ffffff"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/font" />
-
-                <TextView
-                    android:id="@+id/text_font_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="20.0dip"
-                    android:layout_alignParentBottom="true"
-                    android:fontFamily="@font/my_font"
-                    android:gravity="center"
-                    android:text="Font"
-                    android:textColor="@color/colourBgAndSelected"
-                    android:textSize="10.0sp" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:orientation="vertical">
-
-            <RelativeLayout
+            <TextView
+                android:id="@+id/tvTextShadow"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <ImageButton
-                    android:id="@+id/text_size"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40.0dip"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"
-                    android:background="#00ffffff"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/text_size" />
-
-                <TextView
-                    android:id="@+id/text_size_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="20.0dip"
-                    android:layout_alignParentBottom="true"
-                    android:fontFamily="@font/my_font"
-                    android:gravity="center"
-                    android:text="Text Size"
-                    android:textColor="@color/colourBgAndSelected"
-                    android:textSize="10.0sp" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="1.0"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-                <ImageButton
-                    android:id="@+id/text_shadow"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40.0dip"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerInParent="true"
-                    android:background="#00ffffff"
-                    android:scaleType="centerInside"
-                    android:src="@drawable/shadow" />
-
-                <TextView
-                    android:id="@+id/text_shadow_text"
-                    android:layout_width="fill_parent"
-                    android:layout_height="20.0dip"
-                    android:layout_alignParentBottom="true"
-                    android:fontFamily="@font/my_font"
-                    android:gravity="center"
-                    android:text="Shadow"
-                    android:textColor="@color/colourBgAndSelected"
-                    android:textSize="10.0sp" />
-            </RelativeLayout>
-        </LinearLayout>
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Shadow"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
     </LinearLayout>
+
 
     <!--bottom-->
     <LinearLayout
