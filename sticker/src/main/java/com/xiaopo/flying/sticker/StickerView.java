@@ -56,7 +56,7 @@ public class StickerView extends FrameLayout {
 
   private static final String TAG = "StickerView";
 
-  private static final int DEFAULT_MIN_CLICK_DELAY_TIME = 200;
+  private static final int DEFAULT_MIN_CLICK_DELAY_TIME = 400;
 
   public static final int FLIP_HORIZONTALLY = 1;
   public static final int FLIP_VERTICALLY = 1 << 1;
@@ -382,6 +382,7 @@ public class StickerView extends FrameLayout {
       if (onStickerOperationListener != null) {
         onStickerOperationListener.onStickerClicked(handlingSticker);
       }
+
       if (currentTime - lastClickTime < minClickDelayTime) {
         if (onStickerOperationListener != null) {
           onStickerOperationListener.onStickerDoubleTapped(handlingSticker);

@@ -1,26 +1,23 @@
 package com.app.vgs.vgimagesticker.activity;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.HorizontalScrollView;
@@ -34,15 +31,12 @@ import android.widget.Toast;
 
 import com.app.vgs.vgimagesticker.R;
 import com.app.vgs.vgimagesticker.adapter.StickerAdapter;
-import com.app.vgs.vgimagesticker.utils.BitmapUtils;
 import com.app.vgs.vgimagesticker.utils.Const;
 import com.app.vgs.vgimagesticker.utils.FileUtils;
 import com.app.vgs.vgimagesticker.utils.JsonUtils;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.app.vgs.vgimagesticker.utils.NetworkUtils;
 import com.app.vgs.vgimagesticker.utils.ScreenDimension;
-import com.app.vgs.vgimagesticker.vo.StickerGroup;
-import com.app.vgs.vgimagesticker.vo.StickerSubGroup;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.xiaopo.flying.sticker.BitmapStickerIcon;
@@ -51,12 +45,10 @@ import com.xiaopo.flying.sticker.DrawableSticker;
 import com.xiaopo.flying.sticker.FlipHorizontallyEvent;
 import com.xiaopo.flying.sticker.Sticker;
 import com.xiaopo.flying.sticker.StickerView;
+import com.xiaopo.flying.sticker.TextSticker;
 import com.xiaopo.flying.sticker.ZoomIconEvent;
 
-import org.w3c.dom.Text;
-
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -72,14 +64,12 @@ public class TextActivity extends AppCompatActivity {
     private String mFileSavedpath = null;
 
     GridView mGvTextSticker;
-    RelativeLayout mRlHeader;
+
     StickerView mStickerView;
     ImageView mIvPreview;
-    HorizontalScrollView mColorListFilterView;
     View mExitPopUp;
     AdView mBannerAdView;
-    View mRlColorFilter;
-    RelativeLayout mRlStickerLayout;
+
 
     RelativeLayout mRlTextSticker;
     RelativeLayout mRlText;
@@ -91,6 +81,8 @@ public class TextActivity extends AppCompatActivity {
     HorizontalScrollView mHrTextFont;
     LinearLayout mLlTextFormat;
     SeekBar mSkTextSize;
+    LinearLayout mLlTextShadowControl;
+    HorizontalScrollView mHrTextShadowColor;
 
 
     //======text format control=======//
@@ -110,6 +102,8 @@ public class TextActivity extends AppCompatActivity {
     TextView mTvTextShadow;
 
     //================================//
+
+    List<String> mLstColorList;
 
 
     View.OnClickListener onColorFilterClick = new View.OnClickListener() {
@@ -147,14 +141,59 @@ public class TextActivity extends AppCompatActivity {
 
             }
         });
+        mStickerView.setOnStickerOperationListener(new StickerView.OnStickerOperationListener() {
+            @Override
+            public void onStickerAdded(@NonNull Sticker sticker) {
+
+            }
+
+            @Override
+            public void onStickerClicked(@NonNull Sticker sticker) {
+
+            }
+
+            @Override
+            public void onStickerDeleted(@NonNull Sticker sticker) {
+
+            }
+
+            @Override
+            public void onStickerDragFinished(@NonNull Sticker sticker) {
+
+            }
+
+            @Override
+            public void onStickerTouchedDown(@NonNull Sticker sticker) {
+
+            }
+
+            @Override
+            public void onStickerZoomFinished(@NonNull Sticker sticker) {
+
+            }
+
+            @Override
+            public void onStickerFlipped(@NonNull Sticker sticker) {
+
+            }
+
+            @Override
+            public void onStickerDoubleTapped(@NonNull Sticker sticker) {
+                Toast.makeText(TextActivity.this, "Touch click", Toast.LENGTH_SHORT).show();
+                showUpdateTextDialog("Double click to eidt");
+                //LogUtils.d("Double click");
+            }
+        });
     }
 
 
     private void initData() {
         initAds();
+        mLstColorList = JsonUtils.getColorListFromJson(this, Const.TEXT_COLOR_LIST_DATA_PATH);
         initTextSticker();
         initTextColorListView();
         initTextFontsListView();
+        initTextShadowColorListView();
 
         //mFileSavedpath = getIntent().getStringExtra(MainActionActivity.KEY_IMAGE_PATH_UPDATE);
 //        if(mFileSavedpath != null){
@@ -208,6 +247,8 @@ public class TextActivity extends AppCompatActivity {
         mHrTextFont = findViewById(R.id.hrTextFont);
         mLlTextFormat = findViewById(R.id.llTextFormat);
         mSkTextSize = findViewById(R.id.skTextSize);
+        mLlTextShadowControl = findViewById(R.id.llTextShadowControl);
+        mHrTextShadowColor = findViewById(R.id.hrTextShadowColor);
 
 
         mTvTextFormat = findViewById(R.id.tvTextFormat);
@@ -244,12 +285,11 @@ public class TextActivity extends AppCompatActivity {
     private void initTextColorListView() {
         try {
 
-            ImageButton ibTextColor = findViewById(R.id.ibTextColor);
-            ibTextColor.setColorFilter(getResources().getColor(R.color.unselected));
+            //ImageButton ibTextColor = findViewById(R.id.ibTextColor);
+            //ibTextColor.setColorFilter(getResources().getColor(R.color.unselected));
 
 
             //TEXT_COLOR_LIST_DATA_PATH
-            List<String> lstTextColorList = JsonUtils.getColorListFromJson(this, Const.TEXT_COLOR_LIST_DATA_PATH);
 
             int size40dip = getResources().getDimensionPixelSize(R.dimen.size_40dip);
             LinearLayout linearLayout = new LinearLayout(this);
@@ -259,7 +299,7 @@ public class TextActivity extends AppCompatActivity {
 
 
             LinearLayout.LayoutParams childLayoutParam = new LinearLayout.LayoutParams(size40dip, size40dip);
-            for (final String str : lstTextColorList) {
+            for (final String str : mLstColorList) {
                 CircleButton circleButton = new CircleButton(this);
                 circleButton.setLayoutParams(childLayoutParam);
                 circleButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
@@ -275,6 +315,39 @@ public class TextActivity extends AppCompatActivity {
                 linearLayout.addView(circleButton);
             }
             mHrTextColor.addView(linearLayout);
+
+
+        } catch (Exception exp) {
+            LogUtils.e(exp);
+        }
+    }
+
+    private void initTextShadowColorListView() {
+        try {
+            int size40dip = getResources().getDimensionPixelSize(R.dimen.size_40dip);
+            LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            linearLayout.setLayoutParams(layoutParams);
+
+
+            LinearLayout.LayoutParams childLayoutParam = new LinearLayout.LayoutParams(size40dip, size40dip);
+            for (final String str : mLstColorList) {
+                CircleButton circleButton = new CircleButton(this);
+                circleButton.setLayoutParams(childLayoutParam);
+                circleButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                int color = Color.parseColor(str);
+                circleButton.setColor(color);
+
+                circleButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Toast.makeText(TextActivity.this, str, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                linearLayout.addView(circleButton);
+            }
+            mHrTextShadowColor.addView(linearLayout);
 
 
         } catch (Exception exp) {
@@ -400,6 +473,9 @@ public class TextActivity extends AppCompatActivity {
             mHrTextColor.setVisibility(View.GONE);
             mHrTextFont.setVisibility(View.GONE);
             mLlTextFormat.setVisibility(View.GONE);
+            mSkTextSize.setVisibility(View.GONE);
+            mLlTextShadowControl.setVisibility(View.GONE);
+
         }catch (Exception exp){
             LogUtils.e(exp);
         }
@@ -440,6 +516,17 @@ public class TextActivity extends AppCompatActivity {
         mRlText.setBackgroundColor(getResources().getColor(R.color.button_pressed));
         mLlEditText.setVisibility(View.VISIBLE);
         modeAddSticker(false);
+
+        TextSticker textSticker = new TextSticker(this);
+        textSticker.setText(getResources().getString(R.string.double_tap_to_edit));
+        //textSticker.setDrawable(ContextCompat.getDrawable(getApplicationContext(),
+        //        R.drawable.sticker_transparent_background));
+        //textSticker.setText("Hello, world!");
+        textSticker.setTextColor(Color.BLACK);
+        //textSticker.setTextAlign(Layout.Alignment.ALIGN_CENTER);
+        textSticker.resizeText();
+
+        mStickerView.addSticker(textSticker);
     }
 
     private void modeAddSticker(boolean isShow) {
@@ -503,6 +590,24 @@ public class TextActivity extends AppCompatActivity {
 
     }
 
+    private void showUpdateTextDialog(String str){
+        try {
+            Dialog editTextDialog = new Dialog(this);
+            editTextDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            LayoutInflater inflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.edit_text_dialog, null, false);
+            //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+            editTextDialog.setContentView(view);
+            final Window window = editTextDialog.getWindow();
+            //window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+            //window.setBackgroundDrawableResource(Color.TRANSPARENT);
+            //window.setGravity(Gravity.CENTER);
+            editTextDialog.show();
+        }catch (Exception exp){
+            LogUtils.e(exp);
+        }
+    }
+
     public void textColorListClick(View view) {
         selectedEditTextView(mIbTextColor, mTvTextColor);
         mHrTextColor.setVisibility(View.VISIBLE);
@@ -521,6 +626,11 @@ public class TextActivity extends AppCompatActivity {
     public void textSizeClick(View view){
         selectedEditTextView(mIbTextSize, mTvTextSize);
         mSkTextSize.setVisibility(View.VISIBLE);
+    }
+
+    public void textShadowClick(View view){
+        selectedEditTextView(mIbTextShadow, mTvTextShadow);
+        mLlTextShadowControl.setVisibility(View.VISIBLE);
     }
 
     public void noExitClick(View view) {

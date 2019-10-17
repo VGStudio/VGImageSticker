@@ -105,43 +105,7 @@
 
     </RelativeLayout>
 
-    <!--text shadow -->
-    <HorizontalScrollView
-        android:id="@+id/shadow_colors"
-        android:layout_width="fill_parent"
-        android:layout_height="40.0dip"
-        android:layout_above="@id/llEditText"
-        android:background="@color/bar_bg"
-        android:visibility="gone">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="40.0dip"
-            android:background="#00ffffff"
-
-            android:orientation="horizontal">
-
-            <at.markushi.ui.CircleButton
-                android:id="@+id/shadow_color1"
-                android:layout_width="40.0dip"
-                android:layout_height="fill_parent"
-                android:background="#00ffffff"
-                android:onClick="applyShadowColor"
-                android:scaleType="centerInside"
-                app:cb_color="#ff4caf50" />
-
-            <at.markushi.ui.CircleButton
-                android:id="@+id/shadow_color2"
-                android:layout_width="40.0dip"
-                android:layout_height="fill_parent"
-                android:background="#00ffffff"
-                android:onClick="applyShadowColor"
-                android:scaleType="centerInside"
-                app:cb_color="#ff2196f3" />
-
-
-        </LinearLayout>
-    </HorizontalScrollView>
 
     <!--text color-->
     <HorizontalScrollView
@@ -211,13 +175,40 @@
     <SeekBar
         android:id="@+id/skTextSize"
         android:layout_width="fill_parent"
-        android:layout_height="30.0dip"
+        android:layout_height="40.0dip"
         android:layout_above="@id/llEditText"
         android:layout_marginBottom="4.0dip"
-        android:background="@color/bar_bg"
+        android:background="@color/bg_color"
         android:max="200"
         android:progress="10"
         android:visibility="gone" />
+
+    <!--text shadow-->
+
+    <LinearLayout
+        android:id="@+id/llTextShadowControl"
+        android:layout_width="match_parent"
+        android:layout_height="80dip"
+        android:layout_above="@id/llEditText"
+        android:background="@color/bg_color"
+        android:orientation="vertical">
+
+
+        <SeekBar
+            android:id="@+id/skTextSadowSize"
+            android:layout_width="match_parent"
+            android:layout_height="30.0dip"
+            android:layout_above="@id/hrTextShadowColor"
+            android:max="200"
+            android:progress="10" />
+
+        <!--text shadow -->
+        <HorizontalScrollView
+            android:id="@+id/hrTextShadowColor"
+            android:layout_width="match_parent"
+            android:scrollbars="none"
+            android:layout_height="40.0dip" />
+    </LinearLayout>
 
     <!-- list sticker-->
     <GridView
@@ -374,6 +365,7 @@
 
             <ImageButton
                 android:id="@+id/ibTextShadow"
+                android:onClick="textShadowClick"
                 android:layout_width="fill_parent"
                 android:layout_height="40.0dip"
                 android:layout_alignParentTop="true"
@@ -465,9 +457,6 @@
 
 
     </LinearLayout>
-
-
-
 
 
 

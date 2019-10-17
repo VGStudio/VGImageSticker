@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#90000000">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffeeeeee"
+        android:minHeight="50.0dip">
+
+        <EditText
+            android:id="@+id/textEdit_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/setText_inStickerView"
+            android:layout_toRightOf="@id/cancel_dialog"
+            android:background="@drawable/bg_edittext_focused"
+            android:gravity="center"
+            android:hint="Comment..."
+            android:textColor="#ff424242"
+            android:textSize="16.0sp" />
+
+        <ImageButton
+            android:id="@+id/cancel_dialog"
+            android:layout_width="40.0dip"
+            android:layout_height="40.0dip"
+            android:background="#00ffffff"
+            android:padding="3.0dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/cancel" />
+
+        <ImageButton
+            android:id="@+id/setText_inStickerView"
+            android:layout_width="40.0dip"
+            android:layout_height="40.0dip"
+            android:layout_alignParentRight="true"
+            android:background="#00ffffff"
+            android:padding="3.0dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/done" />
+    </RelativeLayout>
+</RelativeLayout>

@@ -51,7 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Hide alert dialog if any.
+     * Hide alert edit_text_dialog if any.
      */
     @Override
     protected void onStop() {
@@ -93,11 +93,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * This method shows dialog with given title & message.
+     * This method shows edit_text_dialog with given title & message.
      * Also there is an option to pass onClickListener for positive & negative button.
      *
-     * @param title                         - dialog title
-     * @param message                       - dialog message
+     * @param title                         - edit_text_dialog title
+     * @param message                       - edit_text_dialog message
      * @param onPositiveButtonClickListener - listener for positive button
      * @param positiveText                  - positive button text
      * @param onNegativeButtonClickListener - listener for negative button
