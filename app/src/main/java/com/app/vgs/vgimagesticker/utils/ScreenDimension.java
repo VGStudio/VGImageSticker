@@ -1,7 +1,9 @@
 package com.app.vgs.vgimagesticker.utils;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Point;
+import android.util.TypedValue;
 import android.view.Display;
 
 public class ScreenDimension {
@@ -17,6 +19,8 @@ public class ScreenDimension {
         mHeight = size.y;
     }
 
-
+    public static int spToPx(float sp, Context context) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, sp, context.getResources().getDisplayMetrics());
+    }
 
 }

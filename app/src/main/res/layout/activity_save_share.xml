@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/buttonlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal"
+        android:weightSum="100.0"
+        tools:ignore="MissingConstraints">
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="25.0">
+
+            <ImageButton
+                android:onClick="facebook"
+                android:id="@+id/facebook"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#03ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/facebook" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:text="Facebook"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="25.0">
+
+            <ImageButton
+                android:onClick="instagram"
+                android:id="@+id/instagram"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#03ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/instagram" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:text="Instagram"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="25.0">
+
+            <ImageButton
+                android:onClick="wallpaper"
+                android:id="@+id/wallpaper"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#03ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/set_wallpaper" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:text="Wallpaper"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="25.0">
+
+            <ImageButton
+                android:onClick="share"
+                android:id="@+id/multiple"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#03ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/share" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:text="Share"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="10.0sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cardViewAd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="7.0dip"
+        card_view:cardElevation="7.0dip"
+        card_view:cardUseCompatPadding="true">
+
+        <com.google.android.ads.nativetemplates.TemplateView
+            android:id="@+id/my_templateSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            app:gnt_template_type="@layout/gnt_medium_template_view" />
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/txtHienThi"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="@string/warning"
+        android:textSize="30sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ImageView
+        android:src="@drawable/gai_xinh2"
+        android:id="@+id/imgEditPath"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="0.0dip"
+    android:layout_height="match_parent"
+    android:id="@+id/rlSubFilter"
+    android:layout_weight="1.0">
+
+    <ImageButton
+        android:id="@+id/ibIcon"
+        android:layout_width="@dimen/bottom_image_height"
+        android:layout_height="@dimen/bottom_image_height"
+        android:background="#00ffffff"
+        android:padding="2.0dip"
+        android:layout_margin="1.0dip"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside" />
+
+
+    <TextView
+        android:id="@+id/tvName"
+        style="@style/text"
+        android:layout_width="match_parent"
+        android:layout_height="15.0dip"
+        android:layout_alignParentBottom="true"
+        android:padding="1.5dip"
+        android:textSize="8.0sp" />
+</RelativeLayout>

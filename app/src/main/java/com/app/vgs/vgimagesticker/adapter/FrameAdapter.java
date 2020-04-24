@@ -1,7 +1,8 @@
 package com.app.vgs.vgimagesticker.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +53,11 @@ public class FrameAdapter extends BaseAdapter {
                 convertView = layoutInflater.inflate(R.layout.frame_item, null);
             }
 
-            final ImageView imageView = (ImageView)convertView.findViewById(R.id.ivFrame);
-            Drawable d = Drawable.createFromStream(mContext.getAssets().open(framePath), null);
+            final ImageView imageView = convertView.findViewById(R.id.ivFrame);
+            Bitmap bitmap = BitmapFactory.decodeStream(mContext.getAssets().open(framePath));
             imageView.setTag(framePath);
-            imageView.setImageDrawable(d);
-        }catch (Exception exp){
+            imageView.setImageBitmap(bitmap);
+        } catch (Exception exp) {
             LogUtils.e(exp);
         }
         return convertView;

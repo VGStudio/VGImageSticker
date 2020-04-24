@@ -12,8 +12,8 @@
     <string name="label_ok">OK</string>
     <string name="label_cancel">Cancel</string>
     <string name="permission_title_rationale">Permission needed</string>
+    <string name="permission_not_granted">Permission not granted!</string>
     <string name="permission_read_storage_rationale">Storage read permission is needed to pick files.</string>
-    <string name="permission_capture_image">Camera permission is needed to take your image.</string>
     <string name="permission_write_storage_rationale" translatable="false">Storage write permission is needed to save the image.</string>
     <string name="toast_cannot_retrieve_selected_image">Cannot retrieve selected image</string>
     <string name="confirm_exit">Do you want to exit ?</string>
@@ -24,7 +24,6 @@
     <string name="accessories">Accessories</string>
     <string name="makeover">Makeover</string>
     <string name="bg_eraser">Bg Eraser</string>
-    <string name="label_effects">Effects</string>
     <string name="label_blur">Blur</string>
     <string name="label_frames">Frames</string>
     <string name="label_new_frames">New Frames</string>
@@ -37,6 +36,24 @@
     <string name="label_colour">Colour</string>
     <string name="label_close">Close</string>
     <string name="label_back">Back</string>
-    <string name="my_images">My Images</string>
-    <string name="select_picture">Select picture</string>
+    <string name="label_saturation">Saturation</string>
+    <string name="label_contrast">Contrast</string>
+    <string name="label_brightness">Brightness</string>
+    <string name="label_adjust">Adjust</string>
+    <string name="label_effects">Effects</string>
+    <string name="label_filters">Filters</string>
+    <string name="label_please_wait">Please Wait</string>
+    <string name="image_processing">Image Processing</string>
+    <string name="facebook_app_id">987992938215938</string>
+    <string name="warning">No photos displayed</string>
+    <string name="blur_progress">Blur Progress</string>
+    <string name="blur">Blur</string>
+    <string name="un_blur">Un Blur</string>
+    <string name="brush">Brush</string>
+    <string name="brush_size">Brush Size</string>
+    <string name="zoom">Zoom</string>
+    <string name="offset">Offset</string>
+    <string name="please_wait">Please wait</string>
+    <string name="image_saving">Image is saving</string>
+    <string name="double_tap_to_edit">Double tap to Edit</string>
 </resources>

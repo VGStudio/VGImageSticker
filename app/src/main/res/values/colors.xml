@@ -12,5 +12,8 @@
     <color name="button_focused">#49606060</color>
     <color name="bg_color">#ffeeeeee</color>
     <color name="white_color">#ffffffff</color>
+    <color name="transparent_white">#b5ffffff</color>
+    <color name="effect_selected">#ff212121</color>
+    <color name="unselected">#ff999999</color>
 
 </resources>

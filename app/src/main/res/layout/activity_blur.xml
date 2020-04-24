@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/blur_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rlTop"
+        android:layout_width="match_parent"
+        android:layout_height="60.0dip">
+
+
+
+        <RelativeLayout
+            android:id="@+id/back_button_layout"
+            android:layout_width="60.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/back"
+                android:layout_width="match_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:onClick="onBackClick"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:id="@+id/back_text"
+                android:layout_width="match_parent"
+                android:layout_height="15.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="@string/label_back"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/done_button_layout"
+            android:layout_width="60.0dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/done"
+                android:layout_width="match_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:onClick="onSaveClick"
+                android:src="@drawable/done" />
+
+            <TextView
+                android:id="@+id/done_text"
+                android:layout_width="match_parent"
+                android:layout_height="15.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="@string/label_done"
+                android:textAllCaps="false"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <com.app.vgs.vgimagesticker.vo.DrawingView
+        android:id="@+id/drawing"
+        android:background="@color/bg_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/llControl"
+        android:layout_below="@id/rlTop"/>
+
+
+    <LinearLayout
+        android:id="@+id/llControl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:paddingTop="5.0dip"
+        android:paddingBottom="5.0dip"
+        android:weightSum="2.0">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.0"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:weightSum="10">
+            <TextView
+                android:id="@+id/intensity_seek_text"
+                android:layout_width="0.0dip"
+                android:layout_height="30.0dip"
+                android:layout_weight="2.0"
+                android:fontFamily="@font/my_font"
+                android:gravity="center|left"
+                android:text="@string/blur_progress"
+                android:textAllCaps="false"
+                android:layout_marginLeft="4dip"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+            <SeekBar
+                android:id="@+id/blurseekbar"
+                android:layout_width="0dp"
+                android:layout_weight="8.0"
+                android:layout_height="30.0dip"
+                android:layout_centerInParent="true"
+                android:max="100"
+                android:progress="40" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.0"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:weightSum="10">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="30.0dip"
+            android:layout_weight="2.0"
+            android:fontFamily="@font/my_font"
+            android:gravity="center|left"
+            android:layout_marginLeft="4dip"
+            android:text="@string/brush_size"
+            android:textColor="@color/colourBgAndSelected"
+            android:textSize="12.0sp" />
+        <SeekBar
+            android:id="@+id/seekBrushSize"
+            android:layout_width="0dp"
+            android:layout_height="30.0dip"
+            android:layout_weight="8.0"
+            android:max="100"
+            android:progress="40" />
+    </LinearLayout>
+</LinearLayout>
+
+
+<include layout="@layout/layout_confirm_exit"></include>
+
+
+
+</RelativeLayout>

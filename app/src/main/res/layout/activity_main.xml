@@ -12,13 +12,16 @@
         android:fadeScrollbars="false"
         android:scrollbarSize="3.0dip"
         android:scrollbarThumbVertical="@color/colourBgAndSelected">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40.0dip">
+
                 <TextView
                     android:id="@+id/appname"
                     android:layout_width="match_parent"
@@ -97,13 +100,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="80.0dip"
                 android:orientation="horizontal"
-                android:weightSum="3.0">
+                android:weightSum="4.0">
 
                 <RelativeLayout
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:onClick="openCameraClick"
-                    android:background="@drawable/button_background"
                     android:layout_weight="1.0">
 
                     <ImageButton
@@ -111,9 +112,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="65.0dip"
                         android:background="#00ffffff"
-                        android:onClick="openCameraClick"
+                        android:onClick="openCamera"
                         android:scaleType="centerInside"
-                        android:src="@drawable/button_camera" />
+                        android:src="@drawable/camera" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -131,17 +132,17 @@
                 <RelativeLayout
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="1.0"
                     android:background="@drawable/button_background"
-                    android:onClick="openGallery">
+                    android:onClick="openGallery"
+                    android:layout_weight="1.0">
 
                     <ImageButton
                         android:id="@+id/imgGallery"
                         android:layout_width="match_parent"
                         android:layout_height="65.0dip"
                         android:background="#00ffffff"
-                        android:onClick="openGallery"
                         android:scaleType="centerInside"
+                        android:onClick="openGallery"
                         android:src="@drawable/button_gallery" />
 
                     <TextView
@@ -157,6 +158,32 @@
                         android:textSize="13.0sp" />
                 </RelativeLayout>
 
+                <RelativeLayout
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.0">
+
+                    <ImageButton
+                        android:id="@+id/cricket_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="65.0dip"
+                        android:background="#00ffffff"
+                        android:onClick="openApps"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/cricket" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="30.0dip"
+                        android:layout_alignParentBottom="true"
+                        android:fontFamily="@font/my_font"
+                        android:gravity="center"
+                        android:shadowColor="@color/text_shadow"
+                        android:text="Cricket Editor"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colourBgAndSelected"
+                        android:textSize="13.0sp" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0.0dip"
@@ -168,9 +195,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="65.0dip"
                         android:background="#00ffffff"
-                        android:onClick="openMyImagesClick"
+                        android:onClick="openApps"
                         android:scaleType="centerInside"
-                        android:src="@drawable/gallery" />
+                        android:src="@drawable/tips" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -179,12 +206,46 @@
                         android:fontFamily="@font/my_font"
                         android:gravity="center"
                         android:shadowColor="@color/text_shadow"
-                        android:text="@string/my_images"
+                        android:text="Tips"
                         android:textAllCaps="false"
                         android:textColor="@color/colourBgAndSelected"
                         android:textSize="13.0sp" />
                 </RelativeLayout>
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40.0dip">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center|left"
+                    android:paddingLeft="10.0dip"
+                    android:shadowColor="@color/text_shadow"
+                    android:text="More apps "
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="18.0sp" />
+
+                <Button
+                    android:id="@+id/free_apps"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30.0dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_marginRight="10.0dip"
+                    android:background="@drawable/seleted_shape"
+                    android:fontFamily="@font/my_font"
+                    android:gravity="center|right"
+                    android:paddingLeft="10.0dip"
+                    android:paddingRight="10.0dip"
+                    android:shadowColor="@color/text_shadow"
+                    android:text="Free Apps"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colourBgAndSelected"
+                    android:textSize="18.0sp" />
+            </RelativeLayout>
             <pl.droidsonroids.gif.GifImageView
                 android:id="@+id/gifMoreApp"
                 android:layout_width="match_parent"
@@ -192,7 +253,18 @@
                 android:background="#beede9ea"
                 android:visibility="gone" />
 
-
+            <GridLayout
+                android:id="@+id/gridMain"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="8"
+                android:alignmentMode="alignMargins"
+                android:columnCount="3"
+                android:columnOrderPreserved="false"
+                android:padding="14dp" />
         </LinearLayout>
+
     </ScrollView>
+
+
 </RelativeLayout>

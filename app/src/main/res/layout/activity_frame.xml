@@ -5,23 +5,7 @@
     android:id="@+id/hair_styles_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FrameActivity">
-
-
-
-
-    <HorizontalScrollView
-        android:id="@+id/colorListFilterView"
-        android:layout_width="match_parent"
-        android:layout_height="55.0dip"
-        android:layout_above="@id/llEditSticker"
-        android:background="@color/bar_bg"
-        android:visibility="gone">
-
-
-    </HorizontalScrollView>
-
-
+    tools:context=".activity.FrameActivity">
 
 
 
@@ -81,44 +65,35 @@
     </RelativeLayout>
 
     <RelativeLayout
+
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_centerInParent="true"
         android:layout_above="@id/llFrameGroup"
-        android:layout_below="@id/rlHeader">
+        android:layout_below="@id/rlHeader"
+        android:layout_centerInParent="true">
 
-
-
-        <ImageView
-            android:id="@+id/ivPreview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:scaleType="matrix"
-            android:src="@drawable/gai_xinh3" />
-
-
-        <!--
-        <com.github.chrisbanes.photoview.PhotoView
-            android:id="@+id/ivPreview"
+        <RelativeLayout
+            android:id="@+id/rlPreview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            android:scaleType="matrix"
-            android:src="@drawable/gai_xinh3"/>
-            -->
+            android:background="@android:color/transparent"
+            android:layout_centerInParent="true">
 
-        <ImageView
-            android:id="@+id/ivFrame"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@drawable/suits_default"
-            android:visibility="visible"
-            android:scaleType="centerInside" />
+            <ImageView
+                android:id="@+id/ivPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:scaleType="matrix"
+                android:src="@drawable/gai_xinh3" />
 
 
+            <ImageView
+                android:id="@+id/ivFrame"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/suits_1" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <GridView
@@ -129,8 +104,10 @@
         android:layout_below="@id/rlHeader"
         android:layout_gravity="center"
         android:background="@color/bg_color"
-        android:numColumns="4"
+        android:numColumns="3"
         android:visibility="gone" />
+
+
 
     <LinearLayout
         android:id="@+id/llFrameGroup"

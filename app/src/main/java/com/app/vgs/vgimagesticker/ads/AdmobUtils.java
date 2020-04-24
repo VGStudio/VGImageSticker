@@ -1,8 +1,6 @@
 package com.app.vgs.vgimagesticker.ads;
 
-import android.app.Activity;
-
-import com.app.vgs.vgimagesticker.BaseActivity;
+import com.app.vgs.vgimagesticker.activity.BaseActivity;
 import com.app.vgs.vgimagesticker.utils.LogUtils;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;

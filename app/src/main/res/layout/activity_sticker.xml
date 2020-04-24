@@ -5,6 +5,103 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:id="@+id/rlHeader"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/header_height"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="@dimen/header_image_width"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/header_image_height"
+                android:background="#00ffffff"
+                android:onClick="resetClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/reset" />
+
+            <TextView
+                android:id="@+id/back_text"
+                style="@style/text_header_sticker"
+                android:text="@string/label_reset" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="@dimen/header_image_width"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageButton
+                android:id="@id/done"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/header_image_height"
+                android:background="#00ffffff"
+                android:onClick="saveImageClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/done" />
+
+            <TextView
+                android:id="@+id/done_text"
+                style="@style/text_header_sticker"
+                android:layout_alignParentBottom="true"
+                android:text="@string/label_done" />
+        </RelativeLayout>
+
+        <TextView
+            style="@style/text_header"
+            android:layout_centerInParent="true"
+            android:text="@string/label_add_sticker" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlStickerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/llStickerGroup"
+        android:layout_below="@id/rlHeader">
+
+
+        <com.xiaopo.flying.sticker.StickerView
+            android:id="@+id/sticker_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+
+            android:layout_gravity="center"
+            android:background="@color/gnt_red"
+            app:showBorder="true"
+            app:showIcons="true">
+            <!-- custom, maybe you will like to put an ImageView-->
+            <ImageView
+                android:id="@+id/ivPreview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true" />
+        </com.xiaopo.flying.sticker.StickerView>
+
+
+    </RelativeLayout>
+
+
+
+    <GridView
+        android:id="@+id/gridViewSticker"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/llStickerGroup"
+        android:layout_below="@id/rlHeader"
+        android:layout_gravity="center"
+        android:background="@color/bg_color"
+        android:numColumns="4"
+        android:visibility="gone" />
+
 
 
     <HorizontalScrollView
@@ -18,6 +115,17 @@
 
     </HorizontalScrollView>
 
+
+
+
+    <LinearLayout
+        android:id="@+id/llStickerGroup"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_height"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal"
+        android:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/llEditSticker"
@@ -90,108 +198,9 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llStickerGroup"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_height"
-        android:layout_alignParentBottom="true"
-        android:background="@color/bar_bg"
-        android:orientation="horizontal"
-        android:visibility="visible">
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlHeader"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/header_height"
-        android:background="@color/bar_bg"
-        android:orientation="horizontal">
-
-        <RelativeLayout
-            android:layout_width="@dimen/header_image_width"
-            android:layout_height="match_parent">
-
-            <ImageButton
-                android:id="@id/back"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/header_image_height"
-                android:background="#00ffffff"
-                android:onClick="resetClick"
-                android:scaleType="centerInside"
-                android:src="@drawable/reset" />
-
-            <TextView
-                android:id="@+id/back_text"
-                style="@style/text_header_sticker"
-                android:text="@string/label_reset" />
-        </RelativeLayout>
 
 
-        <RelativeLayout
-            android:layout_width="@dimen/header_image_width"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true">
 
-            <ImageButton
-                android:id="@id/done"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/header_image_height"
-                android:background="#00ffffff"
-                android:onClick="saveImageClick"
-                android:scaleType="centerInside"
-                android:src="@drawable/done" />
-
-            <TextView
-                android:id="@+id/done_text"
-                style="@style/text_header_sticker"
-                android:layout_alignParentBottom="true"
-                android:text="@string/label_done" />
-        </RelativeLayout>
-
-        <TextView
-            style="@style/text_header"
-            android:layout_centerInParent="true"
-            android:text="@string/label_add_sticker" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/llStickerGroup"
-        android:layout_below="@id/rlHeader">
-
-
-        <com.xiaopo.flying.sticker.StickerView
-            android:id="@+id/sticker_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            app:showBorder="true"
-            app:showIcons="true">
-            <!-- custom, maybe you will like to put an ImageView-->
-            <ImageView
-                android:id="@+id/ivPreview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/gai_xinh3" />
-        </com.xiaopo.flying.sticker.StickerView>
-
-
-    </RelativeLayout>
-
-    <GridView
-        android:id="@+id/gridViewSticker"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/llStickerGroup"
-        android:layout_below="@id/rlHeader"
-        android:layout_gravity="center"
-        android:background="@color/bg_color"
-        android:numColumns="4"
-        android:visibility="gone" />
 
     <include
         layout="@layout/layout_confirm_exit"

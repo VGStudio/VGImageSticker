@@ -19,7 +19,10 @@ android {
         }
     }
 }
+repositories {
+    mavenCentral()
 
+}
 dependencies {
     implementation project(':NativeTemplatesAndroid-1.0.0')
     implementation project(':sticker')
@@ -44,6 +47,21 @@ dependencies {
 
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.+'
 
+    //photoview
     implementation 'com.github.chrisbanes:PhotoView:2.0.0'
+
+    implementation 'com.airbnb.android:lottie:2.7.0'
+    //facebook
+    implementation 'com.facebook.android:facebook-android-sdk:[4,5)'
+    //image filter
+    implementation 'com.github.zomato:androidphotofilters:1.0.2'
+    implementation 'com.github.zomato:androidphotofilters:1.0.1'
+
+    implementation 'com.alexvasilkov:gesture-views:2.5.2'
+
+    //blur
+    implementation 'com.github.Commit451:NativeStackBlur:1.0.5'
+
+    implementation 'com.github.markushi:circlebutton:1.1'
 
 }

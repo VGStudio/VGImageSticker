@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/effect_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/header_effect_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60.0dip"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal">
+
+
+        <RelativeLayout
+            android:layout_width="60.0dip"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@id/back"
+                android:layout_width="match_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:onClick="backClick"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:id="@id/back_text"
+                android:layout_width="match_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Back"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60.0dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageButton
+                android:id="@id/done"
+                android:layout_width="match_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:onClick="saveImageClick"
+                android:scaleType="centerInside"
+                android:src="@drawable/done" />
+
+            <TextView
+                android:id="@id/done_text"
+                android:layout_width="match_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Done"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/my_font"
+            android:gravity="center"
+            android:text="Image Edit"
+            android:textColor="@color/colourBgAndSelected"
+            android:textSize="20.0sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/llButtonControl"
+        android:layout_below="@id/header_effect_layout">
+
+        <RelativeLayout
+            android:id="@+id/root_effect_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/ivPreview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvEffect"
+        android:layout_above="@id/llButtonControl"
+        android:layout_width="match_parent"
+        android:background="@color/bar_bg"
+        android:visibility="gone"
+        android:scrollbars="horizontal"
+        android:layout_height="65dip"/>
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvFilter"
+        android:layout_above="@id/llButtonControl"
+        android:layout_width="match_parent"
+        android:background="@color/bar_bg"
+        android:visibility="gone"
+        android:scrollbars="horizontal"
+        android:layout_height="65dip"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvColorEffect"
+        android:layout_above="@id/llButtonControl"
+        android:layout_width="match_parent"
+        android:background="@color/bar_bg"
+        android:visibility="gone"
+        android:scrollbars="horizontal"
+        android:layout_height="65dip"/>
+
+    <LinearLayout
+        android:id="@+id/llAdjust"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="3.0"
+        android:layout_above="@id/llButtonControl"
+        android:visibility="gone">
+
+        <LinearLayout
+            style="@style/linnear_adjust">
+            <TextView
+                style="@style/text_adjust"
+                android:text="@string/label_saturation"/>
+            <SeekBar
+                android:id="@+id/seekSaturation"
+                android:max="256"
+                android:progress="256"
+                style="@style/seekbar_adjust" />/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/linnear_adjust">
+
+            <TextView
+                style="@style/text_adjust"
+                android:text="@string/label_contrast" />
+
+            <SeekBar
+                android:id="@+id/seekContrast"
+                android:max="200"
+                android:progress="100"
+                style="@style/seekbar_adjust" />
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/linnear_adjust">
+            <TextView
+                style="@style/text_adjust"
+                android:text="@string/label_brightness" />
+
+            <SeekBar
+                android:id="@+id/seekBrightness"
+                android:max="200"
+                android:progress="100"
+                style="@style/seekbar_adjust" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llButtonControl"
+        android:layout_width="match_parent"
+        android:layout_height="60.0dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal"
+        android:weightSum="4.0">
+
+        <RelativeLayout
+            android:id="@+id/rlAdjust"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/ibAdjust"
+                style="@style/effect_bottom_button"
+                android:onClick="adJustClick"
+
+                android:src="@drawable/adjust" />
+
+            <TextView
+                android:text="@string/label_adjust"
+                style="@style/effect_button_text" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlEffect"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/ibEffect"
+                style="@style/effect_bottom_button"
+                android:onClick="effectClick"
+
+                android:src="@drawable/effect" />
+
+            <TextView
+                style="@style/effect_button_text"
+                android:text="@string/label_effects" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlFilter"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/ibFilter"
+                android:onClick="filterClick"
+                style="@style/effect_bottom_button"
+                android:src="@drawable/filter" />
+
+            <TextView
+                style="@style/effect_button_text"
+                android:text="@string/label_filters" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlColorFilter"
+            android:layout_width="0.0dip"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/ibColorEffect"
+                style="@style/effect_bottom_button"
+                android:onClick="colorFilterClick"
+                android:src="@drawable/colour_effect" />
+
+            <TextView
+                style="@style/effect_button_text"
+                android:text="Color Effects" />
+        </RelativeLayout>
+    </LinearLayout>
+    <include layout="@layout/layout_confirm_exit" android:layout_centerInParent="true" />
+
+
+
+
+</RelativeLayout>

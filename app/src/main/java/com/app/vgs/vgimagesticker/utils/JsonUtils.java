@@ -1,16 +1,22 @@
 package com.app.vgs.vgimagesticker.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 
 import com.app.vgs.vgimagesticker.vo.FrameGroup;
 import com.app.vgs.vgimagesticker.vo.FrameSubGroup;
+import com.app.vgs.vgimagesticker.vo.MoreAppGroup;
 import com.app.vgs.vgimagesticker.vo.StickerGroup;
 import com.app.vgs.vgimagesticker.vo.StickerSubGroup;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,6 +122,92 @@ public class JsonUtils {
     }
 
 
+    //MoreApp
+    public static List<MoreAppGroup> getMoreAppJsonData(Context context,String path){
+        List<MoreAppGroup> lstMoreApp = new ArrayList<>();
+        String json = "moreappdatamain.json";
+        StringBuilder stringBuilder = new StringBuilder("");
+        BufferedReader reader = null;
+        String rtn = "";
+        int index =0;
+        String hinhanh = "";
+        String tittle = "";
+        String   link = "";
+        Bitmap bitmap =null;
+        try {
+                reader = new BufferedReader(new InputStreamReader(context.getAssets().open(json)));
+                while ((path = reader.readLine()) != null) {
+                    stringBuilder.append(path);
+                }
+                rtn = stringBuilder.toString();
+            try {
+                JSONObject jsonObject = new JSONObject(rtn);
+                JSONArray jsonArray = jsonObject.getJSONArray("apps");
+                for(int i=0;i<jsonArray.length();i++){
+                    jsonObject = jsonArray.getJSONObject(i);
+                    hinhanh = jsonObject.getString("icon");
+                    tittle  = jsonObject.getString("app_name");
+                    link   = jsonObject.getString("link");
+                    index   = jsonObject.getInt("index");
+
+                    MoreAppGroup subGroup = new MoreAppGroup(tittle, hinhanh, link);
+                    lstMoreApp.add(subGroup);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return lstMoreApp;
+    }
+    //
+
+    // more app save
+    public static List<MoreAppGroup> getMoreAppSaveJsonData(Context context,String path){
+        List<MoreAppGroup> lstMoreApp = new ArrayList<>();
+        String json = "moreappdatasave.json";
+        StringBuilder stringBuilder = new StringBuilder("");
+        BufferedReader reader = null;
+        String rtn = "";
+        int index =0;
+        String hinhanh = "";
+        String tittle = "";
+        String   link = "";
+        Bitmap bitmap =null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(context.getAssets().open(json)));
+            while ((path = reader.readLine()) != null) {
+                stringBuilder.append(path);
+            }
+            rtn = stringBuilder.toString();
+            try {
+                JSONObject jsonObject = new JSONObject(rtn);
+                JSONArray jsonArray = jsonObject.getJSONArray("apps");
+                for(int i=0;i<jsonArray.length();i++){
+                    jsonObject = jsonArray.getJSONObject(i);
+                    hinhanh = jsonObject.getString("icon");
+                    tittle  = jsonObject.getString("app_name");
+                    link   = jsonObject.getString("link");
+
+                    MoreAppGroup subGroup = new MoreAppGroup(tittle, hinhanh, link);
+                    lstMoreApp.add(subGroup);
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return lstMoreApp;
+    }
+    //
 
 
     public static List<String> getImagesPathFromJson(Context context, String path){
@@ -134,9 +226,25 @@ public class JsonUtils {
     }
 
     public static List<String> getColorListFromJson(Context context){
+//        List<String> lstRtn = new ArrayList<>();
+//        try {
+//            String jsonData = loadJsonFromAsset(context, "color/data.json");
+//            JSONArray jsonArray = new JSONArray(jsonData);
+//            for(int i=0; i< jsonArray.length(); i++){
+//                lstRtn.add(jsonArray.get(i).toString());
+//            }
+//        }catch (Exception exp){
+//            LogUtils.e(exp);
+//        }
+//        return lstRtn;
+
+        return getColorListFromJson(context, "color/data.json");
+    }
+
+    public static List<String> getColorListFromJson(Context context, String path){
         List<String> lstRtn = new ArrayList<>();
         try {
-            String jsonData = loadJsonFromAsset(context, "color/data.json");
+            String jsonData = loadJsonFromAsset(context, path);
             JSONArray jsonArray = new JSONArray(jsonData);
             for(int i=0; i< jsonArray.length(); i++){
                 lstRtn.add(jsonArray.get(i).toString());
@@ -146,4 +254,5 @@ public class JsonUtils {
         }
         return lstRtn;
     }
+
 }
