@@ -13,6 +13,7 @@
     <string name="label_cancel">Cancel</string>
     <string name="permission_title_rationale">Permission needed</string>
     <string name="permission_read_storage_rationale">Storage read permission is needed to pick files.</string>
+    <string name="permission_capture_image">Camera permission is needed to take your image.</string>
     <string name="permission_write_storage_rationale" translatable="false">Storage write permission is needed to save the image.</string>
     <string name="toast_cannot_retrieve_selected_image">Cannot retrieve selected image</string>
     <string name="confirm_exit">Do you want to exit ?</string>
@@ -36,4 +37,6 @@
     <string name="label_colour">Colour</string>
     <string name="label_close">Close</string>
     <string name="label_back">Back</string>
+    <string name="my_images">My Images</string>
+    <string name="select_picture">Select picture</string>
 </resources>

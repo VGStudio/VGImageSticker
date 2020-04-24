@@ -88,13 +88,35 @@
         android:layout_below="@id/rlHeader">
 
 
+
         <ImageView
             android:id="@+id/ivPreview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
+            android:scaleType="matrix"
             android:src="@drawable/gai_xinh3" />
+
+
+        <!--
+        <com.github.chrisbanes.photoview.PhotoView
+            android:id="@+id/ivPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="matrix"
+            android:src="@drawable/gai_xinh3"/>
+            -->
+
+        <ImageView
+            android:id="@+id/ivFrame"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/suits_default"
+            android:visibility="visible"
+            android:scaleType="centerInside" />
 
 
     </RelativeLayout>

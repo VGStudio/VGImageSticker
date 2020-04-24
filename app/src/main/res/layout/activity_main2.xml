@@ -1,15 +1,285 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:id="@+id/suits_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
 
-    <com.google.android.ads.nativetemplates.TemplateView
-        android:id="@+id/my_template"
-        app:gnt_template_type="@layout/gnt_small_template_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/bottom_buttons"
+        android:layout_below="@id/Header_buttons_layout">
 
-</LinearLayout>
+        <RelativeLayout
+            android:id="@+id/root_relaytive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/imageview_zoom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="matrix" />
+
+            <ImageView
+                android:id="@+id/imageview_suit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:scaleType="centerInside" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Header_buttons_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="60.0dip"
+            android:layout_height="fill_parent">
+
+            <ImageButton
+                android:id="@id/back"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/back" />
+
+            <TextView
+                android:id="@id/back_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Back"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/native_ad_new"
+            android:layout_width="50.0dip"
+            android:layout_height="60.0dip"
+            android:layout_marginLeft="60.0dip"
+            android:background="#00ffffff"
+            android:padding="10.0dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/ad" />
+
+        <RelativeLayout
+            android:layout_width="60.0dip"
+            android:layout_height="fill_parent"
+            android:layout_centerInParent="true">
+
+            <ImageButton
+                android:id="@+id/flip"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/flip" />
+
+            <TextView
+                android:id="@+id/flip_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Flip"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="60.0dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true">
+
+            <ImageButton
+                android:id="@id/done"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/done" />
+
+            <TextView
+                android:id="@id/done_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Done"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/bottom_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="60.0dip"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bar_bg"
+        android:orientation="horizontal"
+        android:weightSum="5.0">
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/suits"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/suits" />
+
+            <TextView
+                android:id="@+id/suits_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Suits"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/blazer"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/blazer" />
+
+            <TextView
+                android:id="@+id/blazer_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Blazer"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/traditional"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/traditional" />
+
+            <TextView
+                android:id="@+id/traditional_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Traditional"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/formal"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/formal" />
+
+            <TextView
+                android:id="@+id/formal_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Formal"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_weight="1.0">
+
+            <ImageButton
+                android:id="@+id/jacket"
+                android:layout_width="fill_parent"
+                android:layout_height="50.0dip"
+                android:background="#00ffffff"
+                android:scaleType="centerInside"
+                android:src="@drawable/jacket" />
+
+            <TextView
+                android:id="@+id/jacket_text"
+                android:layout_width="fill_parent"
+                android:layout_height="20.0dip"
+                android:layout_alignParentBottom="true"
+                android:fontFamily="@font/my_font"
+                android:gravity="center"
+                android:text="Jacket"
+                android:textColor="@color/colourBgAndSelected"
+                android:textSize="12.0sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+
+
+    <ImageButton
+        android:id="@+id/hide_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#20000000" />
+
+    <ImageButton
+        android:id="@+id/dont_click_buttons"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#00ffffff" />
+</RelativeLayout>
